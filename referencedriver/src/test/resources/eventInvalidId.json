@@ -1,0 +1,15 @@
+{
+  "dst": "*",
+  "src": "browser",
+  "type": "event",
+  "id": "one",
+  "message": {
+    "service": "org.ocast.webapp",
+    "data": {
+      "name": "connectionStatus",
+      "params": {
+        "status": "connected"
+      }
+    }
+  }
+}

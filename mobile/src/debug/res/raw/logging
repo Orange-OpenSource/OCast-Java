@@ -1,0 +1,3 @@
+.level=FINEST
+handlers=com.android.internal.logging.AndroidHandler
+com.android.internal.logging.AndroidHandler.formatter=java.util.logging.SimpleFormatter

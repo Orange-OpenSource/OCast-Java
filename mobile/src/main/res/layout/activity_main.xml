@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Software Name : OCast SDK
+  ~
+  ~  Copyright (C) 2017 Orange
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~         http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="org.ocast.sample.mobile.ViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="org.ocast.sample.mobile.MainActivity"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/webappview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/webapp_desc" />
+
+                <EditText
+                    android:id="@+id/webappName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView4"
+                    android:addTextChangedListener="@{viewmodel.watcher}"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="@{viewmodel.webappname}" />
+
+                <TextView
+                    android:id="@+id/webappStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/webappName"
+                    android:layout_toLeftOf="@+id/webappReason"
+                    android:layout_toStartOf="@+id/webappReason"
+                    android:text="@{viewmodel.webAppStatus}" />
+
+                <TextView
+                    android:id="@+id/webappReason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/webappStatus"
+                    android:layout_alignBottom="@+id/webappStatus"
+                    android:layout_centerHorizontal="true"
+                    android:text="@{viewmodel.webAppReason}" />
+
+                <Button
+                    android:id="@+id/buttonStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/webappStatus"
+                    android:enabled="@{viewmodel.isConnected}"
+                    android:text="@string/btn_start" />
+
+                <Button
+                    android:id="@+id/buttonJoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/buttonStart"
+                    android:layout_alignBottom="@+id/buttonStart"
+                    android:layout_centerHorizontal="true"
+                    android:enabled="@{viewmodel.isConnected}"
+                    android:text="@string/btn_join" />
+
+                <Button
+                    android:id="@+id/buttonStop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/buttonJoin"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:enabled="@{viewmodel.isConnected}"
+                    android:text="@string/btn_stop" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/playerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="20dp"
+                    android:text="Player" />
+
+                <Button
+                    android:id="@+id/buttonPlayMedia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/buttonPauseMedia"
+                    android:layout_alignBottom="@+id/buttonPauseMedia"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:text="Play" />
+
+                <Button
+                    android:id="@+id/buttonPauseMedia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView"
+                    android:layout_centerHorizontal="true"
+                    android:text="@{viewmodel.isPaused ? @string/resume: @string/pause}" />
+
+                <Button
+                    android:id="@+id/buttonStopMedia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/linearLayout"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="Stop" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/buttonPauseMedia"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/position"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text='@{String.format("%.2f",safeUnbox(viewmodel.position))}' />
+
+                    <SeekBar
+                        android:id="@+id/progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:max="@{(int)viewmodel.duration}"
+                        android:onProgressChanged="@{viewmodel.onValueChanged}"
+                        android:progress="@{(int)safeUnbox(viewmodel.position)}" />
+
+                    <TextView
+                        android:id="@+id/duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text='@{String.format("%.2f",safeUnbox(viewmodel.duration))}' />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/stateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_marginTop="23dp"
+                    android:text="State" />
+
+                <TextView
+                    android:id="@+id/state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/stateLabel"
+                    android:layout_alignBottom="@+id/stateLabel"
+                    android:layout_toRightOf="@+id/stateLabel"
+                    android:text="@{viewmodel.playerState}" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/metadataview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:text="Metadata" />
+                <TextView
+                    android:id="@+id/mediaType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView6"
+                    android:text="@{viewmodel.mediaType}"/>
+
+                <TextView
+                    android:id="@+id/mediaTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewmodel.mediaTitle}"
+                    android:layout_alignBaseline="@+id/mediaType"
+                    android:layout_alignBottom="@+id/mediaType"
+                    android:layout_alignLeft="@+id/subtitleTrackSelector"
+                    android:layout_alignStart="@+id/subtitleTrackSelector" />
+
+                <TextView
+                    android:id="@+id/audioLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/mediaType"
+                    android:text="Audio" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/audioTrackSelector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/audioLabel"
+                    android:layout_toRightOf="@+id/audioLabel"
+                    android:entries="@{viewmodel.audioTracks}"
+                    android:selectedItemPosition="@={viewmodel.selectedAudioTrackPosition}" />
+
+
+                <TextView
+                    android:id="@+id/subtitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/audioTrackSelector"
+                    android:text="Subtitle" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/subtitleTrackSelector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/subtitleLabel"
+                    android:layout_toRightOf="@+id/subtitleLabel"
+                    android:entries="@{viewmodel.subtitleTracks}"
+                    android:selectedItemPosition="@={viewmodel.selectedSubtitleTrackPosition}"/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/customdataview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Custom data" />
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView3"
+                android:onClick="@{viewmodel.onCustomDataClicked}"
+                android:text="send" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    </LinearLayout>
+</layout>
