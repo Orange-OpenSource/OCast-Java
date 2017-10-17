@@ -22,12 +22,23 @@ Here are the main features of the Sample project:
 • Custom messages handling
 ```
 
-## Example
+## Sample
 
-To run the example mobile project, clone the repo, and run :
+To run the sample projects, you will need the [Dongle TV Simulator](https://github.com/Orange-OpenSource/OCast-DongleTV-JS) :
+```
+$git clone https://github.com/Orange-OpenSource/OCast-DongleTV-JS.git
+$cd OCast-DongleTV-JS
+$npm install
+$npm start
+```
+Once the simulator is running, you can run the sample mobile application:
 ```
 ./gradlew mobile:installDebug
 adb shell am start -n org.ocast.sample.mobile/org.ocast.sample.mobile.MainActivity
+```
+or the sample plain Java application:
+```
+./gradlew desktop:run
 ```
 
 ## Author
