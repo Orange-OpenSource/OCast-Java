@@ -19,11 +19,34 @@
 
 apply plugin: 'java'
 
+configurations {
+    doclava
+    doclavacp
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    compileOnly group: 'org.json', name: 'json', version: '20170516'
+    compileOnly 'net.sf.kxml:kxml2:2.2.2'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    doclava 'com.google.doclava:doclava:1.0.6'
+    doclavacp 'com.google.code.findbugs:jsr305:3.0.1'
+}
+
 javadoc {
-    failOnError false
-    options.windowTitle('OCast SDK')
-    options.links("http://docs.oracle.com/javase/8/docs/api/")
-    options.noQualifier(['all'])
+    failOnError true
+    title null
+    options.doclet = "com.google.doclava.Doclava"
+    options.docletpath = configurations.doclava.files.asType(List)
+    options.classpath += configurations.doclavacp.files.asType(List)
+    doLast {
+        copy {
+            from "$project.buildDir/docs/javadoc/"
+            into "$project.rootDir/docs"
+        }
+    }
 }
 
 // build a jar with javadoc
@@ -39,13 +62,4 @@ task sourcesJar(type: Jar) {
 
 artifacts {
     archives javadocJar, sourcesJar
-}
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    compileOnly group: 'org.json', name: 'json', version: '20170516'
-    compileOnly 'net.sf.kxml:kxml2:2.2.2'
-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 }
