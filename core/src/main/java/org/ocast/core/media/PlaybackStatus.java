@@ -22,6 +22,9 @@ package org.ocast.core.media;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Describes the status of the current media
+ */
 public class PlaybackStatus {
     private static final String KEY_POSITION = "position";
     private static final String KEY_DURATION = "duration";
@@ -33,7 +36,7 @@ public class PlaybackStatus {
     private final double position;
     private final double duration;
 
-    public static class Builder {
+    static class Builder {
         private float volume;
         private boolean mute;
         private PlaybackState state;
@@ -98,7 +101,7 @@ public class PlaybackStatus {
         return duration;
     }
 
-    public static PlaybackStatus decode(JSONObject json) throws JSONException {
+    static PlaybackStatus decode(JSONObject json) throws JSONException {
         PlaybackStatus.Builder builder = new PlaybackStatus.Builder();
         double position = json.getDouble(KEY_POSITION);
         builder.setPosition(position);

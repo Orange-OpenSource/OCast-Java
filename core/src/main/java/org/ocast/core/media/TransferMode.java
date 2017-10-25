@@ -19,7 +19,9 @@
 
 package org.ocast.core.media;
 
-
+/**
+ * Defines the transfer mode
+ */
 public enum TransferMode {
     BUFFERED,
     STREAMED

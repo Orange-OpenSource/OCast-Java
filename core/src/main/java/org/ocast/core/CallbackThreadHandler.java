@@ -22,6 +22,10 @@ package org.ocast.core;
 import org.ocast.core.function.CallbackWrapper;
 import org.ocast.core.function.Consumer;
 
+/**
+ * A class handling callback invocations according to a CallbackWrapper that will dispatch the task
+ * on a specific thread.
+ */
 public class CallbackThreadHandler {
     private CallbackWrapper wrapper;
     static CallbackThreadHandler sHandler;

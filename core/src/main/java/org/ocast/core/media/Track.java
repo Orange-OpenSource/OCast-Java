@@ -19,8 +19,14 @@
 
 package org.ocast.core.media;
 
+/**
+ * Describes a media track
+ */
 public class Track {
 
+    /**
+     * Defines the track types
+     */
     public enum Type {
         TEXT,
         AUDIO,
@@ -33,7 +39,7 @@ public class Track {
     private final boolean enable;
     private final String trackId;
 
-    public static class Builder {
+    static class Builder {
         private Type type;
         private String language;
         private String label;

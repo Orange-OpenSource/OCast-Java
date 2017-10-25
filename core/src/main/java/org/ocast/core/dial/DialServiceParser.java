@@ -31,6 +31,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @hide
+ */
 public class DialServiceParser {
 
     private static final String OCAST_NAMESPACE = "urn:cast-ocast-org:service:cast:1";

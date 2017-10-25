@@ -23,6 +23,9 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
+/**
+ * Define specific rules regarding SSL configuration for your device connections
+ */
 public class SSLConfig {
 
     private final X509TrustManager trustManager;

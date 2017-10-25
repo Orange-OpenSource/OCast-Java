@@ -24,7 +24,9 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
-
+/**
+ * Describes the media to be casted.
+ */
 public class PrepareCommand extends MediaCommand {
     private static final String KEY_URL = "url";
     private static final String KEY_FREQUENCY = "frequency";
@@ -43,6 +45,9 @@ public class PrepareCommand extends MediaCommand {
     private final TransferMode transferMode;
     private final boolean autoplay;
 
+    /**
+     * Builder to initialize and instanciate a PrepareCommand
+     */
     public static class Builder {
         private URL url;
         private int updateFreq;

@@ -28,6 +28,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Describes the metadata of a media
+ */
 public class Metadata {
     private static final String KEY_TITLE = "title";
     private static final String KEY_SUBTITLE = "subtitle";
@@ -51,7 +54,7 @@ public class Metadata {
     private final List<Track> audioTracks;
     private final List<Track> videoTracks;
 
-    public static class Builder {
+    static class Builder {
         private String title;
         private String subtitle;
         private URI logo;
@@ -100,7 +103,7 @@ public class Metadata {
         }
     }
 
-    public Metadata(String title, String subtitle, URI logo, MediaType mediaType, List<Track> subtitleTracks, List<Track> audioTracks, List<Track> videoTracks) {
+    private Metadata(String title, String subtitle, URI logo, MediaType mediaType, List<Track> subtitleTracks, List<Track> audioTracks, List<Track> videoTracks) {
         this.title = title;
         this.subtitle = subtitle;
         this.logo = logo;
@@ -138,7 +141,7 @@ public class Metadata {
         return videoTracks;
     }
 
-    public static Metadata decode(JSONObject json) throws JSONException {
+    static Metadata decode(JSONObject json) throws JSONException {
         Metadata.Builder builder = new Metadata.Builder();
         builder.setTitle(json.getString(KEY_TITLE));
         builder.setSubtitle(json.getString(KEY_SUBTITLE));

@@ -19,6 +19,9 @@
 
 package org.ocast.core.media;
 
+/**
+ * Defines the media type
+ */
 public enum MediaType {
     AUDIO,
     IMAGE,

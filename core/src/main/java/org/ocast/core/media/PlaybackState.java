@@ -19,6 +19,9 @@
 
 package org.ocast.core.media;
 
+/**
+ * Defines the different Playback states
+ */
 public enum PlaybackState {
     IDLE,
     BUFFERING,
