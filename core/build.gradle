@@ -28,7 +28,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
     compileOnly group: 'org.json', name: 'json', version: '20170516'
-    compileOnly 'net.sf.kxml:kxml2:2.2.2'
+    compileOnly 'net.sf.kxml:kxml2:2.3.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
     doclava 'com.google.doclava:doclava:1.0.6'
