@@ -23,6 +23,10 @@ package org.ocast.core.media;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Represents a media related event notified by the remote application. Can be an update of the
+ * playback status or a change of the metadata.
+ */
 public class MediaEvent {
 
     private static final String KEY_NAME = "name";
@@ -35,20 +39,32 @@ public class MediaEvent {
         this.params = params;
     }
 
+    /**
+     * Gets the event name
+     * @return the event name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Retrieves the data associated with the event
+     * @return a JSONObject holding the event specific data
+     */
     public JSONObject getParams() {
         return params;
     }
 
+    /**
+     * Decodes the input json as a MediaEvent
+     * @param input
+     * @return a MediaEvent
+     * @throws JSONException if the json is not correctly formatted
+     */
     public static MediaEvent decode(JSONObject input) throws JSONException {
         String name = input.getString(KEY_NAME);
         JSONObject params = input.getJSONObject(KEY_PARAMS);
 
         return new MediaEvent(name, params);
-
-
     }
 }

@@ -23,6 +23,9 @@ package org.ocast.core;
 import org.ocast.core.function.CallbackWrapper;
 import org.ocast.core.function.Consumer;
 
+/**
+ * A simple CallbackWrapper that is simply a passthrough wrapper
+ */
 public class SimpleWrapper implements CallbackWrapper {
     public SimpleWrapper() {
     }

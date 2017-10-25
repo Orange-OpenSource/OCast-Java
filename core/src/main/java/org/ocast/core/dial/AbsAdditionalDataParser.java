@@ -24,6 +24,9 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 
+/**
+ * @hide
+ */
 public abstract class AbsAdditionalDataParser {
 
     protected abstract AdditionalData parseAdditionalData(XmlPullParser parser) throws DialException, IOException, XmlPullParserException;

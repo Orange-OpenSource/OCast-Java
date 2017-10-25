@@ -93,7 +93,7 @@ public interface Driver {
     PublicSettings getPublicSettings();
 
     /**
-     *
+     * Callback invoked when a failure occured in the Driver
      */
     interface DriverListener {
         void onFailure(Failure failure);

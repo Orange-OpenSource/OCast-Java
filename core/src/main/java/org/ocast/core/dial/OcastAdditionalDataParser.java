@@ -24,7 +24,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 
-public class OcastAdditionalDataParser extends AbsAdditionalDataParser {
+class OcastAdditionalDataParser extends AbsAdditionalDataParser {
 
     public static final String OCAST_NAMESPACE = "urn:cast-ocast-org:service:cast:1";
     private static final String X_OCAST_APP_2_APP_URL = "X_OCAST_App2AppURL";

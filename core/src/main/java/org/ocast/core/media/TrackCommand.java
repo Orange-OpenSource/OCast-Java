@@ -22,7 +22,7 @@ package org.ocast.core.media;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class TrackCommand extends MediaCommand {
+class TrackCommand extends MediaCommand {
     private static final String KEY_TYPE = "type";
     private static final String KEY_TRACK_ID = "trackId";
     private static final String KEY_ENABLED = "enabled";

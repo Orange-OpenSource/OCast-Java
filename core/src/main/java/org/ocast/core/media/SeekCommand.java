@@ -22,7 +22,10 @@ package org.ocast.core.media;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SeekCommand extends MediaCommand {
+/**
+ * Describes a seek command
+ */
+class SeekCommand extends MediaCommand {
     private static final String KEY_SEEK = "seek";
     private static final String KEY_POSITION = "position";
 

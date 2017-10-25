@@ -21,7 +21,19 @@ package org.ocast.core;
 
 import org.json.JSONObject;
 
+/**
+ * Interface representing a Reply from the remote devices
+ */
 public interface Reply {
+    /**
+     * Retrieves the status of the response
+     * @return a String indicating the status
+     */
     String getStatus();
+
+    /**
+     * Get the content of the reply
+     * @return a JSONObject
+     */
     JSONObject getReply();
 }

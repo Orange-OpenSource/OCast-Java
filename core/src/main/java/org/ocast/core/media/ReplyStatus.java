@@ -24,6 +24,9 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Status provided in the reply of a media command
+ */
 public enum ReplyStatus {
     SUCCESS(0),
     CANNOT_PROCEED(2404),

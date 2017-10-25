@@ -23,6 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Base class for the media commands, eg: prepare, seek, track, ...
+ */
 class MediaCommand {
     private static final String KEY_PARAMS = "params";
     private static final String KEY_NAME = "name";

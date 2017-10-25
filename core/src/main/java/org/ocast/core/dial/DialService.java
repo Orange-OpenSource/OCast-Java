@@ -21,6 +21,10 @@ package org.ocast.core.dial;
 
 import java.net.URL;
 
+/**
+ * @param <T>
+ * @hide
+ */
 public class DialService<T> {
 
     private final URL baseURL;
