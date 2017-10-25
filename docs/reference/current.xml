@@ -1,0 +1,2815 @@
+<api>
+<package name="org.ocast.core"
+>
+<class name="ApplicationController"
+ extends="org.ocast.core.DataStream"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="ApplicationController"
+ type="org.ocast.core.ApplicationController"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dialService" type="org.ocast.core.dial.DialService">
+</parameter>
+<parameter name="driver" type="org.ocast.core.Driver">
+</parameter>
+</constructor>
+<method name="join"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="manageStream"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="stream" type="org.ocast.core.DataStream">
+</parameter>
+</method>
+<method name="onMessage"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="message" type="org.json.JSONObject">
+</parameter>
+</method>
+<method name="start"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="stop"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+</class>
+<class name="ApplicationException"
+ extends="java.lang.Exception"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="ApplicationException"
+ type="org.ocast.core.ApplicationException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="errorCode" type="org.ocast.core.DialError">
+</parameter>
+</constructor>
+<constructor name="ApplicationException"
+ type="org.ocast.core.ApplicationException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="msg" type="java.lang.String">
+</parameter>
+</constructor>
+<constructor name="ApplicationException"
+ type="org.ocast.core.ApplicationException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="msg" type="java.lang.String">
+</parameter>
+<parameter name="errorCode" type="org.ocast.core.DialError">
+</parameter>
+</constructor>
+<constructor name="ApplicationException"
+ type="org.ocast.core.ApplicationException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cause" type="java.lang.Throwable">
+</parameter>
+</constructor>
+<constructor name="ApplicationException"
+ type="org.ocast.core.ApplicationException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="errorCode" type="org.ocast.core.DialError">
+</parameter>
+<parameter name="cause" type="java.lang.Throwable">
+</parameter>
+</constructor>
+<constructor name="ApplicationException"
+ type="org.ocast.core.ApplicationException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="msg" type="java.lang.String">
+</parameter>
+<parameter name="throwable" type="java.lang.Throwable">
+</parameter>
+</constructor>
+<constructor name="ApplicationException"
+ type="org.ocast.core.ApplicationException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="msg" type="java.lang.String">
+</parameter>
+<parameter name="throwable" type="java.lang.Throwable">
+</parameter>
+<parameter name="errorCode" type="org.ocast.core.DialError">
+</parameter>
+</constructor>
+</class>
+<class name="Browser"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="org.ocast.core.Driver.BrowserListener">
+</implements>
+<constructor name="Browser"
+ type="org.ocast.core.Browser"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="driver" type="org.ocast.core.Driver">
+</parameter>
+</constructor>
+<method name="onData"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="browserData" type="org.json.JSONObject">
+</parameter>
+</method>
+<method name="registerStream"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dataStream" type="org.ocast.core.DataStream">
+</parameter>
+</method>
+<method name="sendData"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="service" type="java.lang.String">
+</parameter>
+<parameter name="data" type="org.json.JSONObject">
+</parameter>
+<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.json.JSONObject&gt;">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+</class>
+<class name="CallbackThreadHandler"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="callback"
+ return="org.ocast.core.function.Consumer&lt;T&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="consumer" type="org.ocast.core.function.Consumer&lt;T&gt;">
+</parameter>
+</method>
+<method name="callback"
+ return="java.lang.Runnable"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="runnable" type="java.lang.Runnable">
+</parameter>
+</method>
+<method name="init"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="callbackWrapper" type="org.ocast.core.function.CallbackWrapper">
+</parameter>
+</method>
+</class>
+<class name="DataStream"
+ extends="java.lang.Object"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="DataStream"
+ type="org.ocast.core.DataStream"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="serviceName" type="java.lang.String">
+</parameter>
+</constructor>
+<method name="getServiceName"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="onMessage"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="message" type="org.json.JSONObject">
+</parameter>
+</method>
+<method name="sendMessage"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="message" type="org.json.JSONObject">
+</parameter>
+<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.json.JSONObject&gt;">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="setBrowser"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="browser" type="org.ocast.core.Browser">
+</parameter>
+</method>
+</class>
+<class name="Device"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="Device"
+ type="org.ocast.core.Device"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="uuid" type="java.lang.String">
+</parameter>
+<parameter name="friendlyName" type="java.lang.String">
+</parameter>
+<parameter name="manufacturer" type="java.lang.String">
+</parameter>
+<parameter name="modelName" type="java.lang.String">
+</parameter>
+<parameter name="urlBase" type="java.net.URL">
+</parameter>
+</constructor>
+<method name="getDialApplURL"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getDialURL"
+ return="java.net.URL"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getFriendlyName"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getManufacturer"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getModelName"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getUuid"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="DeviceManager"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="org.ocast.core.Driver.DriverListener">
+</implements>
+<constructor name="DeviceManager"
+ type="org.ocast.core.DeviceManager"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="device" type="org.ocast.core.Device">
+</parameter>
+<parameter name="listener" type="org.ocast.core.function.Consumer&lt;org.ocast.core.DeviceManager.Failure&gt;">
+</parameter>
+</constructor>
+<constructor name="DeviceManager"
+ type="org.ocast.core.DeviceManager"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="device" type="org.ocast.core.Device">
+</parameter>
+<parameter name="sslConfig" type="org.ocast.core.SSLConfig">
+</parameter>
+<parameter name="listener" type="org.ocast.core.function.Consumer&lt;org.ocast.core.DeviceManager.Failure&gt;">
+</parameter>
+</constructor>
+<method name="getApplicationController"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="appId" type="java.lang.String">
+</parameter>
+<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.ocast.core.ApplicationController&gt;">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="getPrivateSettings"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.ocast.core.PublicSettings&gt;">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="getPublicSettings"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.ocast.core.PublicSettings&gt;">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="onFailure"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="failure" type="org.ocast.core.Driver.Failure">
+</parameter>
+</method>
+<method name="registerDriver"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="id" type="java.lang.String">
+</parameter>
+<parameter name="factory" type="org.ocast.core.Driver.Factory">
+</parameter>
+</method>
+<method name="releasePrivateSettings"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="callback" type="java.lang.Runnable">
+</parameter>
+</method>
+<method name="releasePublicSettings"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="callback" type="java.lang.Runnable">
+</parameter>
+</method>
+</class>
+<class name="DeviceManager.Failure"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="org.ocast.core.DeviceManager.Failure"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="org.ocast.core.DeviceManager.Failure[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="DialError"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="org.ocast.core.DialError"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="org.ocast.core.DialError[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<interface name="Driver"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="connect"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="module" type="org.ocast.core.Driver.Module">
+</parameter>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+<exception name="DriverException" type="org.ocast.core.DriverException">
+</exception>
+</method>
+<method name="connect"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="module" type="org.ocast.core.Driver.Module">
+</parameter>
+<parameter name="additionalData" type="org.ocast.core.dial.AdditionalData">
+</parameter>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+<exception name="DriverException" type="org.ocast.core.DriverException">
+</exception>
+</method>
+<method name="disconnect"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="module" type="org.ocast.core.Driver.Module">
+</parameter>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+</method>
+<method name="getPublicSettings"
+ return="org.ocast.core.PublicSettings"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="registerBrowser"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="browser" type="org.ocast.core.Driver.BrowserListener">
+</parameter>
+</method>
+<method name="sendBrowserData"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="data" type="org.json.JSONObject">
+</parameter>
+<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.json.JSONObject&gt;">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+</interface>
+<interface name="Driver.BrowserListener"
+ abstract="true"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="onData"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="data" type="org.json.JSONObject">
+</parameter>
+</method>
+</interface>
+<interface name="Driver.DriverListener"
+ abstract="true"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="onFailure"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="failure" type="org.ocast.core.Driver.Failure">
+</parameter>
+</method>
+</interface>
+<interface name="Driver.Factory"
+ abstract="true"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="createDriver"
+ return="org.ocast.core.Driver"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="device" type="org.ocast.core.Device">
+</parameter>
+<parameter name="listener" type="org.ocast.core.Driver.DriverListener">
+</parameter>
+</method>
+<method name="createDriver"
+ return="org.ocast.core.Driver"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="device" type="org.ocast.core.Device">
+</parameter>
+<parameter name="listener" type="org.ocast.core.Driver.DriverListener">
+</parameter>
+<parameter name="sslConfig" type="org.ocast.core.SSLConfig">
+</parameter>
+</method>
+</interface>
+<class name="Driver.Failure"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="org.ocast.core.Driver.Failure"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="org.ocast.core.Driver.Failure[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="Driver.Module"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="org.ocast.core.Driver.Module"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="org.ocast.core.Driver.Module[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<interface name="DriverEvent"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getData"
+ return="org.json.JSONObject"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getDomain"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</interface>
+<class name="DriverException"
+ extends="java.lang.Exception"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="DriverException"
+ type="org.ocast.core.DriverException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="msg" type="java.lang.String">
+</parameter>
+</constructor>
+<constructor name="DriverException"
+ type="org.ocast.core.DriverException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cause" type="java.lang.Throwable">
+</parameter>
+</constructor>
+<constructor name="DriverException"
+ type="org.ocast.core.DriverException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="msg" type="java.lang.String">
+</parameter>
+<parameter name="throwable" type="java.lang.Throwable">
+</parameter>
+</constructor>
+</class>
+<interface name="Link"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="connect"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="disconnect"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+</method>
+<method name="getUrl"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="sendPayload"
+ return="boolean"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="domain" type="java.lang.String">
+</parameter>
+<parameter name="payload" type="org.json.JSONObject">
+</parameter>
+<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.ocast.core.Reply&gt;">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+</interface>
+<interface name="Link.LinkListener"
+ abstract="true"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="onEvent"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="driverEvent" type="org.ocast.core.DriverEvent">
+</parameter>
+</method>
+<method name="onFailure"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="t" type="java.lang.Throwable">
+</parameter>
+</method>
+</interface>
+<class name="LinkProfile"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getApp2AppUrl"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getHostname"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getSSLConfig"
+ return="org.ocast.core.SSLConfig"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="LinkProfile.Builder"
+ extends="java.lang.Object"
+ abstract="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="Builder"
+ type="org.ocast.core.LinkProfile.Builder"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="build"
+ return="org.ocast.core.LinkProfile"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="setApp2AppUrl"
+ return="org.ocast.core.LinkProfile.Builder"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="app2AppUrl" type="java.lang.String">
+</parameter>
+</method>
+<method name="setHostname"
+ return="org.ocast.core.LinkProfile.Builder"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="hostname" type="java.lang.String">
+</parameter>
+</method>
+<method name="setSslConfig"
+ return="org.ocast.core.LinkProfile.Builder"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="sslConfig" type="org.ocast.core.SSLConfig">
+</parameter>
+</method>
+</class>
+<class name="LogTag"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<field name="APPLICATION"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="BROWSER"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="DEVICE"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="LINK"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="MEDIA"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+<interface name="PrivateSettings"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</interface>
+<interface name="PublicSettings"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getVersion"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.ocast.core.VersionInfo&gt;">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+</interface>
+<interface name="Reply"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getReply"
+ return="org.json.JSONObject"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getStatus"
+ return="java.lang.String"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</interface>
+<class name="SSLConfig"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="SSLConfig"
+ type="org.ocast.core.SSLConfig"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="trustManager" type="javax.net.ssl.X509TrustManager">
+</parameter>
+<parameter name="socketFactory" type="javax.net.ssl.SSLSocketFactory">
+</parameter>
+<parameter name="hostnameVerifier" type="javax.net.ssl.HostnameVerifier">
+</parameter>
+</constructor>
+<method name="getHostnameVerifier"
+ return="javax.net.ssl.HostnameVerifier"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getSocketFactory"
+ return="javax.net.ssl.SSLSocketFactory"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getTrustManager"
+ return="javax.net.ssl.X509TrustManager"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="SimpleWrapper"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="org.ocast.core.function.CallbackWrapper">
+</implements>
+<constructor name="SimpleWrapper"
+ type="org.ocast.core.SimpleWrapper"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="wrap"
+ return="org.ocast.core.function.Consumer&lt;T&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="consumer" type="org.ocast.core.function.Consumer&lt;T&gt;">
+</parameter>
+</method>
+<method name="wrap"
+ return="java.lang.Runnable"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="runnable" type="java.lang.Runnable">
+</parameter>
+</method>
+</class>
+<class name="VersionInfo"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="VersionInfo"
+ type="org.ocast.core.VersionInfo"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="softwareVersion" type="java.lang.String">
+</parameter>
+<parameter name="hardwareVersion" type="java.lang.String">
+</parameter>
+</constructor>
+<method name="getHardwareVersion"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getSoftwareVersion"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+</package>
+<package name="org.ocast.core.dial"
+>
+<class name="AdditionalData"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="AdditionalData"
+ type="org.ocast.core.dial.AdditionalData"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="app2appUrl" type="java.lang.String">
+</parameter>
+<parameter name="version" type="java.lang.String">
+</parameter>
+</constructor>
+<constructor name="AdditionalData"
+ type="org.ocast.core.dial.AdditionalData"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="app2appUrl" type="java.lang.String">
+</parameter>
+</constructor>
+<method name="getApp2AppUrl"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getVersion"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="DialException"
+ extends="java.lang.Exception"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="DialException"
+ type="org.ocast.core.dial.DialException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="msg" type="java.lang.String">
+</parameter>
+</constructor>
+<constructor name="DialException"
+ type="org.ocast.core.dial.DialException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="cause" type="java.lang.Throwable">
+</parameter>
+</constructor>
+<constructor name="DialException"
+ type="org.ocast.core.dial.DialException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="msg" type="java.lang.String">
+</parameter>
+<parameter name="throwable" type="java.lang.Throwable">
+</parameter>
+</constructor>
+</class>
+<class name="DialService"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="DialService"
+ type="org.ocast.core.dial.DialService"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="baseURL" type="java.net.URL">
+</parameter>
+<parameter name="name" type="java.lang.String">
+</parameter>
+<parameter name="state" type="org.ocast.core.dial.DialService.State">
+</parameter>
+<parameter name="link" type="java.net.URL">
+</parameter>
+<parameter name="additionanData" type="T">
+</parameter>
+</constructor>
+<method name="getAdditionalData"
+ return="T"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getBaseURL"
+ return="java.net.URL"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getName"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getRunLink"
+ return="java.net.URL"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getState"
+ return="org.ocast.core.dial.DialService.State"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="DialService.State"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="org.ocast.core.dial.DialService.State"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="org.ocast.core.dial.DialService.State[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+</package>
+<package name="org.ocast.core.function"
+>
+<interface name="BiConsumer"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="accept"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="t" type="T">
+</parameter>
+<parameter name="u" type="U">
+</parameter>
+</method>
+</interface>
+<interface name="BiFunction"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="apply"
+ return="R"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="t" type="T">
+</parameter>
+<parameter name="u" type="U">
+</parameter>
+</method>
+</interface>
+<interface name="CallbackWrapper"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="wrap"
+ return="org.ocast.core.function.Consumer&lt;T&gt;"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="consumer" type="org.ocast.core.function.Consumer&lt;T&gt;">
+</parameter>
+</method>
+<method name="wrap"
+ return="java.lang.Runnable"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="runnable" type="java.lang.Runnable">
+</parameter>
+</method>
+</interface>
+<interface name="Consumer"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="accept"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="t" type="T">
+</parameter>
+</method>
+</interface>
+<interface name="ThrowingBiConsumer"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="accept"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="t" type="T">
+</parameter>
+<parameter name="u" type="U">
+</parameter>
+<exception name="Throwable" type="java.lang.Throwable">
+</exception>
+</method>
+<method name="checked"
+ return="org.ocast.core.function.BiConsumer&lt;T, U&gt;"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="throwingConsumer" type="org.ocast.core.function.ThrowingBiConsumer&lt;T, U, java.lang.Exception&gt;">
+</parameter>
+<parameter name="thrown" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+</interface>
+<interface name="ThrowingBiFunction"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="apply"
+ return="R"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="t" type="T">
+</parameter>
+<parameter name="u" type="U">
+</parameter>
+<exception name="Throwable" type="java.lang.Throwable">
+</exception>
+</method>
+<method name="checked"
+ return="org.ocast.core.function.BiFunction&lt;T, U, R&gt;"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="throwingConsumer" type="org.ocast.core.function.ThrowingBiFunction&lt;T, U, R, java.lang.Exception&gt;">
+</parameter>
+<parameter name="thrown" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+</interface>
+<interface name="ThrowingConsumer"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="accept"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="t" type="T">
+</parameter>
+<exception name="Throwable" type="java.lang.Throwable">
+</exception>
+</method>
+<method name="checked"
+ return="org.ocast.core.function.Consumer&lt;T&gt;"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="throwingConsumer" type="org.ocast.core.function.ThrowingConsumer&lt;T, java.lang.Exception&gt;">
+</parameter>
+<parameter name="thrown" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+</interface>
+<interface name="ThrowingRunnable"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="checked"
+ return="java.lang.Runnable"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="runnable" type="org.ocast.core.function.ThrowingRunnable&lt;java.lang.Exception&gt;">
+</parameter>
+<parameter name="thrown" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="run"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="Throwable" type="java.lang.Throwable">
+</exception>
+</method>
+</interface>
+</package>
+<package name="org.ocast.core.media"
+>
+<class name="MediaController"
+ extends="org.ocast.core.DataStream"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="MediaController"
+ type="org.ocast.core.media.MediaController"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="listener" type="org.ocast.core.media.MediaController.MediaControllerListener">
+</parameter>
+</constructor>
+<method name="getMetadata"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.ocast.core.media.Metadata&gt;">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="getPlaybackStatus"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.ocast.core.media.PlaybackStatus&gt;">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="mute"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="enable" type="boolean">
+</parameter>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="onMessage"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="message" type="org.json.JSONObject">
+</parameter>
+</method>
+<method name="pause"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="play"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="position" type="double">
+</parameter>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="prepare"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="command" type="org.ocast.core.media.PrepareCommand">
+</parameter>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="resume"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="seek"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="position" type="double">
+</parameter>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="stop"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="track"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="track" type="org.ocast.core.media.Track">
+</parameter>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+<method name="volume"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="level" type="float">
+</parameter>
+<parameter name="onSuccess" type="java.lang.Runnable">
+</parameter>
+<parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
+</parameter>
+</method>
+</class>
+<interface name="MediaController.MediaControllerListener"
+ abstract="true"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="onMetadataChanged"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="metadata" type="org.ocast.core.media.Metadata">
+</parameter>
+</method>
+<method name="onPlaybackStatus"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="status" type="org.ocast.core.media.PlaybackStatus">
+</parameter>
+</method>
+</interface>
+<class name="MediaEvent"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="MediaEvent"
+ type="org.ocast.core.media.MediaEvent"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+<parameter name="params" type="org.json.JSONObject">
+</parameter>
+</constructor>
+<method name="decode"
+ return="org.ocast.core.media.MediaEvent"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="input" type="org.json.JSONObject">
+</parameter>
+<exception name="JSONException" type="org.json.JSONException">
+</exception>
+</method>
+<method name="getName"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getParams"
+ return="org.json.JSONObject"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="MediaType"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="org.ocast.core.media.MediaType"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="org.ocast.core.media.MediaType[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="Metadata"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getAudioTracks"
+ return="java.util.List&lt;org.ocast.core.media.Track&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getLogo"
+ return="java.net.URI"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getMediaType"
+ return="org.ocast.core.media.MediaType"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getSubtitle"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getSubtitleTracks"
+ return="java.util.List&lt;org.ocast.core.media.Track&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getTitle"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getVideoTracks"
+ return="java.util.List&lt;org.ocast.core.media.Track&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="PlaybackState"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="org.ocast.core.media.PlaybackState"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="org.ocast.core.media.PlaybackState[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="PlaybackStatus"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getDuration"
+ return="double"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPosition"
+ return="double"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getState"
+ return="org.ocast.core.media.PlaybackState"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getVolume"
+ return="float"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="isMute"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="PrepareCommand"
+ extends="org.ocast.core.media.MediaCommand"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getParams"
+ return="org.json.JSONObject"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="JSONException" type="org.json.JSONException">
+</exception>
+</method>
+</class>
+<class name="PrepareCommand.Builder"
+ extends="java.lang.Object"
+ abstract="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="Builder"
+ type="org.ocast.core.media.PrepareCommand.Builder"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="build"
+ return="org.ocast.core.media.PrepareCommand"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="setAutoplay"
+ return="org.ocast.core.media.PrepareCommand.Builder"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="autoplay" type="boolean">
+</parameter>
+</method>
+<method name="setLogo"
+ return="org.ocast.core.media.PrepareCommand.Builder"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="logo" type="java.net.URL">
+</parameter>
+</method>
+<method name="setMediaType"
+ return="org.ocast.core.media.PrepareCommand.Builder"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mediaType" type="org.ocast.core.media.MediaType">
+</parameter>
+</method>
+<method name="setSubtitle"
+ return="org.ocast.core.media.PrepareCommand.Builder"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="subtitle" type="java.lang.String">
+</parameter>
+</method>
+<method name="setTitle"
+ return="org.ocast.core.media.PrepareCommand.Builder"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="title" type="java.lang.String">
+</parameter>
+</method>
+<method name="setTransferMode"
+ return="org.ocast.core.media.PrepareCommand.Builder"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="transferMode" type="org.ocast.core.media.TransferMode">
+</parameter>
+</method>
+<method name="setUpdateFreq"
+ return="org.ocast.core.media.PrepareCommand.Builder"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="updateFreq" type="int">
+</parameter>
+</method>
+<method name="setUrl"
+ return="org.ocast.core.media.PrepareCommand.Builder"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="url" type="java.net.URL">
+</parameter>
+</method>
+</class>
+<class name="ReplyStatus"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="get"
+ return="org.ocast.core.media.ReplyStatus"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="code" type="int">
+</parameter>
+</method>
+<method name="getCode"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="valueOf"
+ return="org.ocast.core.media.ReplyStatus"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="org.ocast.core.media.ReplyStatus[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="Track"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="Track"
+ type="org.ocast.core.media.Track"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="type" type="org.ocast.core.media.Track.Type">
+</parameter>
+<parameter name="language" type="java.lang.String">
+</parameter>
+<parameter name="label" type="java.lang.String">
+</parameter>
+<parameter name="enable" type="boolean">
+</parameter>
+<parameter name="trackId" type="java.lang.String">
+</parameter>
+</constructor>
+<method name="getLabel"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getLanguage"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getTrackId"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getType"
+ return="org.ocast.core.media.Track.Type"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="isEnable"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="Track.Type"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="org.ocast.core.media.Track.Type"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="org.ocast.core.media.Track.Type[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<class name="TransferMode"
+ extends="java.lang.Enum"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="valueOf"
+ return="org.ocast.core.media.TransferMode"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+</method>
+<method name="values"
+ return="org.ocast.core.media.TransferMode[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+</package>
+</api>
