@@ -21,15 +21,15 @@ apply plugin: 'java'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-library:1.3'
-    testCompile 'net.sf.kxml:kxml2:2.2.2'
+    testCompile 'net.sf.kxml:kxml2:2.3.0'
     testCompile 'com.squareup.okhttp3:mockwebserver:3.7.0'
-    testCompile "org.mockito:mockito-core:2.4.0"
+    testCompile "org.mockito:mockito-core:2.7.10"
     testCompile 'org.powermock:powermock-module-junit4:1.7.0RC2',
             'org.powermock:powermock-api-mockito2:1.7.0RC2'
     testCompile 'junit:junit:4.12'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    compileOnly 'net.sf.kxml:kxml2:2.2.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    compileOnly 'net.sf.kxml:kxml2:2.3.0'
 }

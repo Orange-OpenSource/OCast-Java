@@ -31,8 +31,8 @@ dependencies {
     implementation project(':discovery')
     implementation project(':referencedriver')
     implementation project(':core')
-    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    implementation 'net.sf.kxml:kxml2:2.2.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation 'net.sf.kxml:kxml2:2.3.0'
     implementation group: 'org.json', name: 'json', version: '20170516'
 }
