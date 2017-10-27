@@ -1,4 +1,6 @@
 # OCast-Java
+[![Build Status](https://travis-ci.org/Orange-OpenSource/OCast-Java.png)](https://travis-ci.org/Orange-OpenSource/OCast-Java)
+
 The Orange OCast SDK provides all required API to implement cast applications for the Orange stick.
 
 The Example project aims at demonstrating the basic instruction set of the Orange OCast SDK to help you get started.
