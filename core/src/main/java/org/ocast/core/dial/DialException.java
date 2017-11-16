@@ -19,6 +19,9 @@
 
 package org.ocast.core.dial;
 
+/**
+ * Checked exception thrown when a DIAL service XML description could not be properly parsed
+ */
 public class DialException  extends Exception {
 
     public DialException(String msg) {

@@ -25,6 +25,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * A class providing device discovery capabilities
+ */
 public class Discovery {
 
     private static final String TAG = LogTag.DISCOVERY;
@@ -33,21 +36,44 @@ public class Discovery {
     private boolean mRunning;
 
 
+    /**
+     * Initializes an object to discover devices based on multiple search targets (ST)
+     * @param searchTargetList the search targets to be discovered
+     * @param listener a DiscoveryListener to be invoked upon device detection
+     * @param reliabilty defines the discovery accuracy
+     */
     public Discovery(List<String> searchTargetList, DiscoveryListener listener, DiscoveryReliability reliabilty) {
         mDeviceInventory = new DialDeviceInventory(listener, reliabilty.getRetry());
         mDiscovery = new SSDPDiscovery(searchTargetList, reliabilty.getTimeout());
     }
 
-    public Discovery(List<String> searchTargetList, DiscoveryListener callback) {
-        this(searchTargetList, callback, DiscoveryReliability.MEDIUM);
+    /**
+     * Initializes an object to discover devices based on multiple search targets (ST) with a default accuracy
+     * @param searchTargetList the search targets to be discovered
+     * @param listener a DiscoveryListener to be invoked upon device detection
+     */
+    public Discovery(List<String> searchTargetList, DiscoveryListener listener) {
+        this(searchTargetList, listener, DiscoveryReliability.MEDIUM);
     }
 
-    public Discovery(String searchTarget, DiscoveryListener callback) {
-        this(new ArrayList<>(Arrays.asList(searchTarget)), callback);
+
+    /**
+     * Initializes an object to discover devices based on a search target (ST)
+     * @param searchTarget a single search target to be discovered
+     * @param listener a DiscoveryListener to be invoked upon device detection
+     */
+    public Discovery(String searchTarget, DiscoveryListener listener) {
+        this(new ArrayList<>(Arrays.asList(searchTarget)), listener);
     }
 
-    public Discovery(String searchTarget, DiscoveryListener callback, DiscoveryReliability reliabilty) {
-        this(new ArrayList<>(Arrays.asList(searchTarget)), callback, reliabilty);
+    /**
+     * Initializes an object to discover devices based on a search target (ST)
+     * @param searchTarget the search target to be discovered
+     * @param listener a DiscoveryListener to be invoked upon device detection
+     * @param reliabilty defines the discovery accuracy
+     */
+    public Discovery(String searchTarget, DiscoveryListener listener, DiscoveryReliability reliabilty) {
+        this(new ArrayList<>(Arrays.asList(searchTarget)), listener, reliabilty);
     }
 
     /**

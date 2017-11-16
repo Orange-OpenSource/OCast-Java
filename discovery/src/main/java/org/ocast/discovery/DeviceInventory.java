@@ -21,7 +21,19 @@ package org.ocast.discovery;
 
 import java.util.List;
 
+/**
+ * defines an inventory object listing devices
+ * @param <T>
+ */
 public interface DeviceInventory<T> extends DiscoveryExecutor.ExecutorListener<T> {
+    /**
+     * returns the list of device in this inventory
+     * @return a list of devices
+     */
     List<DialDevice> getDeviceDescriptions();
+
+    /**
+     * refresh the inventory
+     */
     void refresh();
 }

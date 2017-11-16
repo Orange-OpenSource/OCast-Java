@@ -29,26 +29,33 @@ import java.util.Map;
  */
 public class SSDPMessage {
 
-    public static final String SSDP_DISCOVER_EXTENSION = "\"ssdp:scan\"";
+    private static final String SSDP_DISCOVER_EXTENSION = "\"ssdp:scan\"";
     public static final String SSDP_MAX_WAIT_TIME = "10";
 
     // Multicast channel and port reserved for SSDP by IANA
-    public static final String SSDP_MULTICAT_CHANNEL_ADDRESS = "239.255.255.250";
-    public static final int SSDP_PORT = 1900;
+    static final String SSDP_MULTICAT_CHANNEL_ADDRESS = "239.255.255.250";
+    static final int SSDP_PORT = 1900;
 
-    public static final String HOST = "HOST";           //Should always be SSDP Multicast channel
-    public static final String LOCATION = "LOCATION";   //URL for device description
-    public static final String MAN = "MAN";             //Mandatory Extesion
-    public static final String MX = "MX";               //Max Wait Time
-    public static final String ST = "ST";               //Search Target
-    public static final String USN = "USN";             //Unique Service Name
-    public static final String CRLF = "\r\n";
+    static final String LOCATION = "LOCATION";   //URL for device description
+    static final String ST = "ST";               //Search Target
 
-    /*
-     * Type is inferred by the HTTP discoverInternal line / status line
+    private static final String HOST = "HOST";           //Should always be SSDP Multicast channel
+    private static final String MAN = "MAN";             //Mandatory Extesion
+    private static final String MX = "MX";               //Max Wait Time
+    private static final String USN = "USN";             //Unique Service Name
+    private static final String CRLF = "\r\n";
+
+    /**
+     * Type is inferred by the HTTP discover line / status line
      */
     public enum Type {
+        /**
+         * M-SEARCH request
+         */
         M_SEARCH("M-SEARCH * HTTP/1.1"),
+        /**
+         * RESPONSE message
+         */
         RESPONSE("HTTP/1.1 200 OK");
 
         private final String mValue;

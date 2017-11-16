@@ -48,7 +48,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * A media route provider publishing OCast routes
+ */
 public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiMonitor.Listener {
 
     public static final String CATEGORY_OCAST = "org.ocast.CATEGORY_OCAST";

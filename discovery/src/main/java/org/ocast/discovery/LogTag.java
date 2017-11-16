@@ -19,11 +19,17 @@
 
 package org.ocast.discovery;
 
+/**
+ * Helper to define log tags
+ */
 public class LogTag {
     private static final String PREFIX = "ocast";
 
     private static final String DISCOVERY_M = "discovery";
 
+    /**
+     * tag identifying discovery related log entries
+     */
     public static final String DISCOVERY = tag(PREFIX,DISCOVERY_M);
 
     private LogTag() {

@@ -37,12 +37,15 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * defines a SSDP {@link org.ocast.discovery.DiscoveryExecutor DiscoveryExecutor}
+ */
 public class SSDPDiscovery implements DiscoveryExecutor<SSDPMessage> {
     private static final String TAG = LogTag.DISCOVERY;
 
     private static final int SECOND_TO_MILLI = 1000;
     private static final int DEFAULT_MSEARCH_TIMEOUT = 3;
-    public static final int READ_BUFFER_SIZE = 4096;
+    private static final int READ_BUFFER_SIZE = 4096;
 
     private InetAddress mBroadcastAddress;
     private DatagramSocket mSocket;

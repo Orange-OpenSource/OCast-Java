@@ -19,23 +19,54 @@
 
 package org.ocast.discovery;
 
+/**
+ * Defines a level a reliability for the discovery process
+ *
+ * It is based on two factors: the timeout of a discovery request and the number of attempts before
+ * considering a device has been lost.
+ */
 public class DiscoveryReliability {
     private int mTimeout;
     private int mRetry;
 
+    /**
+     * defines a discovery request to be sent every 3 seconds, consider a device lost if it didn't
+     * respond 2 consecutive times.
+     */
     public static final DiscoveryReliability HIGH = new DiscoveryReliability(3, 2);
+    /**
+     * defines a discovery request to be sent every 6 seconds, consider a device lost if it didn't
+     * respond 3 consecutive times.
+     */
     public static final DiscoveryReliability MEDIUM = new DiscoveryReliability(6, 3);
+    /**
+     * defines a discovery request to be sent every 10 seconds, consider a device lost if it didn't
+     * respond 5 consecutive times.
+     */
     public static final DiscoveryReliability LOW = new DiscoveryReliability(10, 5);
 
+    /**
+     * Constructs an object and initializes it with the provided values
+     * @param timeout timeout for a discovery request (seconds)
+     * @param retry number of attempts before considering a device has been lost
+     */
     public DiscoveryReliability(int timeout, int retry) {
         this.mTimeout = timeout;
         this.mRetry = retry;
     }
 
+    /**
+     * returns the retry number
+     * @return
+     */
     public int getRetry() {
         return mRetry;
     }
 
+    /**
+     * returns the discovery timeout
+     * @return
+     */
     public int getTimeout() {
         return mTimeout;
     }

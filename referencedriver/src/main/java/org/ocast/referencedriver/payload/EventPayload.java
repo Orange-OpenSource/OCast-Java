@@ -23,6 +23,9 @@ import org.ocast.core.DriverEvent;
 
 import org.json.JSONObject;
 
+/**
+ * Defines a payload representing an event
+ */
 public class EventPayload implements DriverEvent {
     private String domain;
 

@@ -34,23 +34,46 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-
+/**
+ * A request to retrieve a {@link org.ocast.discovery.DialDevice DialDevice} based on a location URL
+ */
 public class DeviceDescriptionRequest {
     private static final String TAG = LogTag.DISCOVERY;
 
-    public static final String APP_DIAL_URL_HEADER = "Application-DIAL-URL";
-    public static final String APP_URL_HEADER = "Application-URL";
+    private static final String APP_DIAL_URL_HEADER = "Application-DIAL-URL";
+    private static final String APP_URL_HEADER = "Application-URL";
     private final OkHttpClient mClient;
 
+    /**
+     * Defines an object that will notify a DeviceDescriptipnRequest result
+     */
     public interface Callbacks {
+        /**
+         * called when a device description has been fetched
+         * @param location the location URL that has been fetched
+         * @param dd the corresponding {@link org.ocast.discovery.DialDevice DialDevice}
+         */
         void onDeviceDescription(String location, DialDevice dd);
+
+        /**
+         * called when a location could not be fetched
+         * @param location the location URL that could not be fetched
+         */
         void onError(String location);
     }
 
+    /**
+     * Initializes a newly created DeviceDescriptionRequest object using default timeout
+     */
     public DeviceDescriptionRequest() {
         this(5,5);
     }
 
+    /**
+     * Constructs a new DeviceDescriptionRequest using provided timeout
+     * @param connectTimeout connection timeout (seconds)
+     * @param readTimeout read timeout (seconds)
+     */
     public DeviceDescriptionRequest(int connectTimeout, int readTimeout) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -61,6 +84,12 @@ public class DeviceDescriptionRequest {
                 .build();
     }
 
+    /**
+     * Attempts to retrieve a {@link org.ocast.discovery.DialDevice DialDevice} at a specific
+     * location
+     * @param location the location URL of a device
+     * @param cb the callback notifying the request result
+     */
     public void getDeviceDescription(final String location, final Callbacks cb) {
         Logger.getLogger(TAG).log(Level.FINE,"Retrieving device description through {0}", location);
 

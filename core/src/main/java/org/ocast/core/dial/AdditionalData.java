@@ -19,6 +19,9 @@
 
 package org.ocast.core.dial;
 
+/**
+ * Additional data provided by the DIAL service description
+ */
 public class AdditionalData {
 
     private final String app2AppUrl;

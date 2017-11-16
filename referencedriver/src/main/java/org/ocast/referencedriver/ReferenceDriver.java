@@ -37,7 +37,9 @@ import org.json.JSONObject;
 import java.util.EnumMap;
 import java.util.Map;
 
-
+/**
+ * Defines a driver implementing communications layers with a remote device
+ */
 public class ReferenceDriver implements Driver, Link.LinkListener {
 
     public static final String SEARCH_TARGET = "urn:cast-ocast-org:service:cast:1";
@@ -60,6 +62,9 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
         }
     }
 
+    /**
+     * A {@link org.ocast.core.Driver.Factory Driver.Factory} for driver creation
+     */
     public static class ReferenceFactory implements Driver.Factory {
         public ReferenceDriver createDriver(Device device, DriverListener listener) {
             return new ReferenceDriver(device, listener);

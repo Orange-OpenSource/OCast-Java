@@ -22,6 +22,9 @@ package org.ocast.referencedriver.payload;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Defines a payload that is used by the driver protocol
+ */
 public class Payload {
 
     public static final String DST_BROADCAST = "*";
@@ -39,12 +42,27 @@ public class Payload {
     private final Status status;
     private final JSONObject message;
 
+    /**
+     * Defines the payload type
+     */
     public enum Type {
+        /**
+         * indicates an unsolicited event
+         */
         EVENT,
+        /**
+         * indicates a reply to a command
+         */
         REPLY,
+        /**
+         * indicates a command
+         */
         COMMAND
     }
 
+    /**
+     * Defines the different reply status
+     */
     public enum Status {
         OK,
         JSON_FORMAT_ERROR,

@@ -30,7 +30,7 @@ import java.net.URL;
 import java.text.ParseException;
 
 /**
- * DeviceDescription used by Dial to describe a device.
+ * Defines a DialDevice as per its DIAL device description.
  * This class provides a helper method to get an object from the parsing of the dd.xml file
  * eg:
  * <pre>

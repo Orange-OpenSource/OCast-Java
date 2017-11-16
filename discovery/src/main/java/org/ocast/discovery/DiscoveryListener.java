@@ -19,16 +19,19 @@
 
 package org.ocast.discovery;
 
+/**
+ * Defines an object listening to device add/removal
+ */
 public interface DiscoveryListener {
         /**
          * A new device has been found
-         * @param dd DeviceDescription parsed from the Location URL
+         * @param dd Dial parsed from the Location URL
          */
         void onDeviceAdded(DialDevice dd);
 
         /**
          * A known device has been lost
-         * @param dd DeviceDescription parsed from the Location URL
+         * @param dd DialDevice parsed from the Location URL
          */
         void onDeviceRemoved(DialDevice dd);
 }

@@ -26,12 +26,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Defines a {@link org.ocast.discovery.DeviceInventory DeviceInventory} for DIAL devices
+ */
 public class DialDeviceInventory  implements DeviceInventory<SSDPMessage>, DeviceDescriptionRequest.Callbacks {
 
     private static final String TAG = LogTag.DISCOVERY;
 
     private static final int DEFAULT_RETRY = 2;
-    public static final int IMMEDIATE = 0;
+    private static final int IMMEDIATE = 0;
     private final DeviceDescriptionRequest mDeviceDescriptionRequest;
     private final Map<String, DialDevice> mDevices = new ConcurrentHashMap<>();
     private final Map<String, Long> mLastResponse = new ConcurrentHashMap<>();

@@ -26,12 +26,19 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
+/**
+ * Monitors the Wifi network state to notify a {@link org.ocast.mediaroute.WifiMonitor.Listener WifiMonitor.Listener}
+ * when a change is detected
+ */
 public class WifiMonitor extends BroadcastReceiver {
 
     private static final String TAG = WifiMonitor.class.getSimpleName();
     private Listener mListener;
     private boolean mIsConnected;
 
+    /**
+     * Defines an object to be notified of network state changes
+     */
     public interface Listener {
         void onConnectionStateChanged(boolean onOff);
     }

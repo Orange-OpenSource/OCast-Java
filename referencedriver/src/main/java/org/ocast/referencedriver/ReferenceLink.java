@@ -44,7 +44,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 
-
+/**
+ * Defines a logical link between the driver and a remote device
+ */
 public class ReferenceLink implements Link {
     private static final String TAG = LogTag.LINK;
 

@@ -27,6 +27,9 @@ import org.ocast.discovery.DialDevice;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Defines a device representing a media route.
+ */
 public class MediaRouteDevice implements Parcelable {
     public static final String EXTRA_DEVICE = "org.ocast.mediaroutedevice.extra.DEVICE";
     private final String mFriendlyName;
