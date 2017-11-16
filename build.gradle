@@ -23,12 +23,16 @@ buildscript {
     repositories {
         jcenter()
         maven { url "https://maven.google.com" }
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-rc2'
-
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
+    }
+    properties.each { prop ->
+        project.ext.set(prop.key,prop.value)
     }
 }
 
@@ -36,44 +40,141 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://maven.google.com" }
+        google()
     }
-    group = "org.ocast"
-    version = "0.1.0-SNAPSHOT"
 }
 
-subprojects {
-    apply plugin: 'maven'
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                repository(url: "file://${System.properties['user.home']}/.m2/repository")
-                pom.project {
-                    name 'OCast SDK'
-                    description 'The OCast SDK for Java.'
+def javaProjects = [
+        project(':core'),
+        project(':discovery'),
+        project(':referencedriver')
+]
 
-                    licenses {
-                        license {
-                            name 'The Apache License, Version 2.0'
-                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        }
-                    }
-                    developers {
-                        developer {
-                            name 'Orange Labs'
-                        }
-                    }
-                }
+def exportedProjects = javaProjects + project(':mediaroute')
+
+project.ext {
+    minSdkVersion = 16
+    compileSdkVersion = 26
+    targetSdkVersion = 25
+
+    versionSupportLibrary = '26.1.0'
+    versionName = version
+
+    pomConfig = {
+        licenses {
+            license {
+                name "The Apache Software License, Version 2.0"
+                url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution "repo"
+            }
+        }
+        organization {
+            name "Orange Labs"
+            url "www.ocast.org"
+        }
+
+        scm {
+            url "https://github.com/Orange-OpenSource/OCast-Java.git"
+        }
+    }
+}
+
+configure(exportedProjects) {
+    apply plugin: 'maven-publish'
+
+    configurations {
+        doclava
+        doclavacp
+    }
+
+    dependencies {
+        doclava 'com.google.doclava:doclava:1.0.6'
+        doclavacp 'com.google.code.findbugs:jsr305:3.0.1'
+    }
+
+    group = "org.ocast"
+    version = "0.1.0"
+}
+
+configure(javaProjects) {
+    apply plugin: 'java'
+
+    jar {
+        from "$rootDir/LICENSE"
+        manifest {
+            attributes 'Implementation-Title': 'ocast-'+project.name,
+                    'Implementation-Version': version,
+                    'Implementation-Vendor' : 'Orange Labs'
+        }
+    }
+
+    javadoc {
+        failOnError false
+        title null
+        options.doclet = "com.google.doclava.Doclava"
+        options.docletpath = configurations.doclava.files.asType(List)
+        options.classpath += configurations.doclavacp.files.asType(List)
+        source sourceSets.main.allJava
+    }
+
+    jar {
+        from "$rootDir/LICENSE"
+        manifest {
+            attributes 'Implementation-Title': 'ocast-'+project.name,
+                    'Implementation-Version': version,
+                    'Implementation-Vendor' : 'Orange Labs'
+        }
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allJava
+    }
+
+    publishing.publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', project.name +' library of the OCast SDK')
+                root.appendNode('name', 'ocast-'+project.name)
+                root.children().last() + pomConfig
             }
         }
     }
 }
 
-// use the ext object to add any properties to the project
-project.ext {
-    minSdkVersion = 16
-    compileSdkVersion = 26
-    targetSdkVersion = 25
-    versionName = version
+gradle.projectsEvaluated {
+    configurations {
+        doclava
+        doclavacp
+    }
+
+    dependencies {
+        doclava 'com.google.doclava:doclava:1.0.6'
+        doclavacp 'com.google.code.findbugs:jsr305:3.0.1'
+    }
+
+    task alljavadoc(type: Javadoc, group: "Documentation") {
+        description = 'Generates a global javadoc from all the modules'
+        source exportedProjects.collect {
+            it.plugins.hasPlugin('com.android.library') ? it.android.sourceSets.main.java.srcDirs
+                    : it.sourceSets.main.allJava}
+        failOnError false
+        title null
+        options.doclet = "com.google.doclava.Doclava"
+        options.docletpath = configurations.doclava.files.asType(List)
+        options.classpath += configurations.doclavacp.files.asType(List)
+        destinationDir = file("$rootDir/docs")
+    }
 }
 
 task clean(type: Delete) {

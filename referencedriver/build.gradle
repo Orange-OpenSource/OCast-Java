@@ -17,7 +17,9 @@
  *
  */
 
-apply plugin: 'java'
+description = "Reference driver module for the OCast SDK"
+
+apply from: "$rootDir/publish.gradle"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

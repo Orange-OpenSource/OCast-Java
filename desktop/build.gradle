@@ -20,6 +20,12 @@
 apply plugin: 'application'
 mainClassName = "org.ocast.sample.desktop.App"
 
+repositories {
+    maven {
+        url  "https://dl.bintray.com/orange-opensource/maven"
+    }
+}
+
 tasks.withType(JavaExec) {
     if (System.getProperty('DEBUG', 'false') == 'true') {
         jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9099'
@@ -30,7 +36,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':discovery')
     implementation project(':referencedriver')
-    implementation project(':core')
+    implementation 'org.ocast:core:0.1.0'
     implementation 'com.squareup.okhttp3:okhttp:3.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     implementation 'net.sf.kxml:kxml2:2.3.0'
