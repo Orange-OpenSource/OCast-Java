@@ -147,6 +147,14 @@
   <a href="./org/ocast/core/function/package-summary.html">org.ocast.core.function</a></li>
     <li class="api apilevel-">
   <a href="./org/ocast/core/media/package-summary.html">org.ocast.core.media</a></li>
+    <li class="api apilevel-">
+  <a href="./org/ocast/discovery/package-summary.html">org.ocast.discovery</a></li>
+    <li class="api apilevel-">
+  <a href="./org/ocast/mediaroute/package-summary.html">org.ocast.mediaroute</a></li>
+    <li class="api apilevel-">
+  <a href="./org/ocast/referencedriver/package-summary.html">org.ocast.referencedriver</a></li>
+    <li class="api apilevel-">
+  <a href="./org/ocast/referencedriver/payload/package-summary.html">org.ocast.referencedriver.payload</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -198,13 +206,16 @@
     <a href="#letter_B">B</a>
     <a href="#letter_C">C</a>
     <a href="#letter_D">D</a>
+    <a href="#letter_E">E</a>
     <a href="#letter_L">L</a>
     <a href="#letter_M">M</a>
+    <a href="#letter_O">O</a>
     <a href="#letter_P">P</a>
     <a href="#letter_R">R</a>
     <a href="#letter_S">S</a>
     <a href="#letter_T">T</a>
     <a href="#letter_V">V</a>
+    <a href="#letter_W">W</a>
 </div>
 
 
@@ -215,7 +226,8 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="./org/ocast/core/dial/AdditionalData.html">AdditionalData</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
+            <td class="jd-descrcol" width="100%">Additional data provided by the DIAL service description
+&nbsp;</td>
         </tr>
     
     
@@ -304,27 +316,96 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/DeviceDescriptionRequest.html">DeviceDescriptionRequest</a></td>
+            <td class="jd-descrcol" width="100%">A request to retrieve a <code><a href="./org/ocast/discovery/DialDevice.html">DialDevice</a></code> based on a location URL
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/DeviceDescriptionRequest.Callbacks.html">DeviceDescriptionRequest.Callbacks</a></td>
+            <td class="jd-descrcol" width="100%">Defines an object that will notify a DeviceDescriptipnRequest result
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/DeviceInventory.html">DeviceInventory</a>&lt;T&gt;</td>
+            <td class="jd-descrcol" width="100%">defines an inventory object listing devices&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="./org/ocast/core/DeviceManager.html">DeviceManager</a></td>
             <td class="jd-descrcol" width="100%">Device manager is used to get control over your device.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="./org/ocast/core/DeviceManager.Failure.html">DeviceManager.Failure</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/DialDevice.html">DialDevice</a></td>
+            <td class="jd-descrcol" width="100%">Defines a DialDevice as per its DIAL device description.&nbsp;</td>
+        </tr>
+    
+    
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/DialDeviceInventory.html">DialDeviceInventory</a></td>
+            <td class="jd-descrcol" width="100%">Defines a <code><a href="./org/ocast/discovery/DeviceInventory.html">DeviceInventory</a></code> for DIAL devices
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="./org/ocast/core/DialError.html">DialError</a></td>
             <td class="jd-descrcol" width="100%">Enumerates the different errors related to Dial
 &nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="./org/ocast/core/dial/DialException.html">DialException</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
+            <td class="jd-descrcol" width="100%">Checked exception thrown when a DIAL service XML description could not be properly parsed
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/Discovery.html">Discovery</a></td>
+            <td class="jd-descrcol" width="100%">A class providing device discovery capabilities
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/DiscoveryExecutor.html">DiscoveryExecutor</a>&lt;T&gt;</td>
+            <td class="jd-descrcol" width="100%">Defines the logic of an object managing a discovery process&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/DiscoveryExecutor.ExecutorListener.html">DiscoveryExecutor.ExecutorListener</a>&lt;T&gt;</td>
+            <td class="jd-descrcol" width="100%">Listener interface invoked during the discovery process&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/DiscoveryListener.html">DiscoveryListener</a></td>
+            <td class="jd-descrcol" width="100%">Defines an object listening to device add/removal
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/DiscoveryReliability.html">DiscoveryReliability</a></td>
+            <td class="jd-descrcol" width="100%">Defines a level a reliability for the discovery process
+
+ It is based on two factors: the timeout of a discovery request and the number of attempts before
+ considering a device has been lost.&nbsp;</td>
         </tr>
     
     
@@ -385,6 +466,20 @@
 </table>
 
 
+<h2 id="letter_E">E</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/referencedriver/payload/EventPayload.html">EventPayload</a></td>
+            <td class="jd-descrcol" width="100%">Defines a payload representing an event
+&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
 <h2 id="letter_L">L</h2>
 <table class="jd-sumtable">
     
@@ -428,6 +523,13 @@
         </tr>
     
     
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/LogTag.html">LogTag</a></td>
+            <td class="jd-descrcol" width="100%">Helper to define log tags
+&nbsp;</td>
+        </tr>
+    
+    
 </table>
 
 
@@ -457,13 +559,19 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/mediaroute/MediaRouteDevice.html">MediaRouteDevice</a></td>
+            <td class="jd-descrcol" width="100%">Defines a device representing a media route.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="./org/ocast/core/media/MediaType.html">MediaType</a></td>
             <td class="jd-descrcol" width="100%">Defines the media type
 &nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="./org/ocast/core/media/Metadata.html">Metadata</a></td>
             <td class="jd-descrcol" width="100%">Describes the metadata of a media
 &nbsp;</td>
@@ -473,8 +581,56 @@
 </table>
 
 
+<h2 id="letter_O">O</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/mediaroute/OCastMediaRouteProvider.html">OCastMediaRouteProvider</a></td>
+            <td class="jd-descrcol" width="100%">A media route provider publishing OCast routes
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/mediaroute/OCastRouteHelper.html">OCastRouteHelper</a></td>
+            <td class="jd-descrcol" width="100%">Helper class to setup <code><a href="./org/ocast/mediaroute/OCastMediaRouteProvider.html">OCastMediaRouteProvider</a></code>
+&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
 <h2 id="letter_P">P</h2>
 <table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/referencedriver/payload/Payload.html">Payload</a></td>
+            <td class="jd-descrcol" width="100%">Defines a payload that is used by the driver protocol
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/referencedriver/payload/Payload.Status.html">Payload.Status</a></td>
+            <td class="jd-descrcol" width="100%">Defines the different reply status
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/referencedriver/payload/Payload.Type.html">Payload.Type</a></td>
+            <td class="jd-descrcol" width="100%">Defines the payload type
+&nbsp;</td>
+        </tr>
     
     
         <tr class="alt-color api apilevel-" >
@@ -528,13 +684,34 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/referencedriver/ReferenceDriver.html">ReferenceDriver</a></td>
+            <td class="jd-descrcol" width="100%">Defines a driver implementing communications layers with a remote device
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/referencedriver/ReferenceDriver.ReferenceFactory.html">ReferenceDriver.ReferenceFactory</a></td>
+            <td class="jd-descrcol" width="100%">A <code><a href="./org/ocast/core/Driver.Factory.html">Driver.Factory</a></code> for driver creation
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/referencedriver/ReferenceLink.html">ReferenceLink</a></td>
+            <td class="jd-descrcol" width="100%">Defines a logical link between the driver and a remote device
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="./org/ocast/core/Reply.html">Reply</a></td>
             <td class="jd-descrcol" width="100%">Interface representing a Reply from the remote devices
 &nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="./org/ocast/core/media/ReplyStatus.html">ReplyStatus</a></td>
             <td class="jd-descrcol" width="100%">Status provided in the reply of a media command
 &nbsp;</td>
@@ -556,6 +733,28 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/SSDPDiscovery.html">SSDPDiscovery</a></td>
+            <td class="jd-descrcol" width="100%">defines a SSDP <code><a href="./org/ocast/discovery/DiscoveryExecutor.html">DiscoveryExecutor</a></code>
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/SSDPMessage.html">SSDPMessage</a></td>
+            <td class="jd-descrcol" width="100%">A basic class to build/parse SSDP messages
+ Only M-SEARCH methods and location response are usefull for Dial
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/discovery/SSDPMessage.Type.html">SSDPMessage.Type</a></td>
+            <td class="jd-descrcol" width="100%">Type is inferred by the HTTP discover line / status line
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="./org/ocast/core/SSLConfig.html">SSLConfig</a></td>
             <td class="jd-descrcol" width="100%">Define specific rules regarding SSL configuration for your device connections
 &nbsp;</td>
@@ -624,6 +823,28 @@
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="./org/ocast/core/VersionInfo.html">VersionInfo</a></td>
             <td class="jd-descrcol" width="100%">Provides information related to the device version
+&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_W">W</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/mediaroute/WifiMonitor.html">WifiMonitor</a></td>
+            <td class="jd-descrcol" width="100%">Monitors the Wifi network state to notify a <code><a href="./org/ocast/mediaroute/WifiMonitor.Listener.html">WifiMonitor.Listener</a></code>
+ when a change is detected
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./org/ocast/mediaroute/WifiMonitor.Listener.html">WifiMonitor.Listener</a></td>
+            <td class="jd-descrcol" width="100%">Defines an object to be notified of network state changes
 &nbsp;</td>
         </tr>
     

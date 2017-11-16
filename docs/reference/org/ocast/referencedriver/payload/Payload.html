@@ -57,7 +57,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico" />
 <title>
 
-  Track.Builder
+  Payload
 
 
 </title>
@@ -146,41 +146,36 @@
   <a href="../../../../org/ocast/core/dial/package-summary.html">org.ocast.core.dial</a></li>
     <li class="api apilevel-">
   <a href="../../../../org/ocast/core/function/package-summary.html">org.ocast.core.function</a></li>
-    <li class="selected api apilevel-">
+    <li class="api apilevel-">
   <a href="../../../../org/ocast/core/media/package-summary.html">org.ocast.core.media</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../org/ocast/discovery/package-summary.html">org.ocast.discovery</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../org/ocast/mediaroute/package-summary.html">org.ocast.mediaroute</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../org/ocast/referencedriver/package-summary.html">org.ocast.referencedriver</a></li>
+    <li class="selected api apilevel-">
+  <a href="../../../../org/ocast/referencedriver/payload/package-summary.html">org.ocast.referencedriver.payload</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
           <div id="classes-nav">
             <ul>
               
-    <li><h2>Interfaces</h2>
-      <ul>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/MediaController.MediaControllerListener.html">MediaController.MediaControllerListener</a></li>
-      </ul>
-    </li>
               
     <li><h2>Classes</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/MediaController.html">MediaController</a></li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/MediaEvent.html">MediaEvent</a></li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/Metadata.html">Metadata</a></li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/PlaybackStatus.html">PlaybackStatus</a></li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/PrepareCommand.html">PrepareCommand</a></li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/PrepareCommand.Builder.html">PrepareCommand.Builder</a></li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/Track.html">Track</a></li>
-          <li class="selected api apilevel-"><a href="../../../../org/ocast/core/media/Track.Builder.html">Track.Builder</a></li>
+          <li class="api apilevel-"><a href="../../../../org/ocast/referencedriver/payload/EventPayload.html">EventPayload</a></li>
+          <li class="selected api apilevel-"><a href="../../../../org/ocast/referencedriver/payload/Payload.html">Payload</a></li>
+          <li class="api apilevel-"><a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a></li>
       </ul>
     </li>
               
               
     <li><h2>Enums</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/MediaType.html">MediaType</a></li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/PlaybackState.html">PlaybackState</a></li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/ReplyStatus.html">ReplyStatus</a></li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/Track.Type.html">Track.Type</a></li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/media/TransferMode.html">TransferMode</a></li>
+          <li class="api apilevel-"><a href="../../../../org/ocast/referencedriver/payload/Payload.Status.html">Payload.Status</a></li>
+          <li class="api apilevel-"><a href="../../../../org/ocast/referencedriver/payload/Payload.Type.html">Payload.Type</a></li>
       </ul>
     </li>
               
@@ -235,15 +230,21 @@
 
 Summary:
 
+  <a href="#nestedclasses">Nested Classes</a>
+  
 
 
 
 
 
+  &#124; <a href="#constants">Constants</a>
+  
 
 
 
-  <a href="#pubctors">Ctors</a>
+
+
+  &#124; <a href="#pubctors">Ctors</a>
   
 
 
@@ -273,11 +274,11 @@ Summary:
 
 <div id="jd-header">
     public
-    static 
+     
      
     
     class
-<h1>Track.Builder</h1>
+<h1>Payload</h1>
 
 
 
@@ -310,7 +311,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">org.ocast.core.media.Track.Builder</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.ocast.referencedriver.payload.Payload</td>
     </tr>
     
 
@@ -324,6 +325,10 @@ Summary:
 
 <div class="jd-descr">
 
+
+<h2>Class Overview</h2>
+<p>Defines a payload that is used by the driver protocol
+</p>
 
 
 
@@ -353,6 +358,51 @@ Summary:
 
 
 
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<table id="nestedclasses" class="jd-sumtable"><tr><th colspan="12">Nested Classes</th></tr>
+
+
+  
+    <tr class="alt-color api apilevel-" >
+      <td class="jd-typecol">
+        
+         
+         
+        
+        class</td>
+      <td class="jd-linkcol"><a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a></td>
+      <td class="jd-descrcol" width="100%">&nbsp;</td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
+      <td class="jd-typecol">
+        
+         
+         
+        
+        enum</td>
+      <td class="jd-linkcol"><a href="../../../../org/ocast/referencedriver/payload/Payload.Status.html">Payload.Status</a></td>
+      <td class="jd-descrcol" width="100%">Defines the different reply status
+&nbsp;</td>
+    </tr>
+    
+    
+    <tr class="alt-color api apilevel-" >
+      <td class="jd-typecol">
+        
+         
+         
+        
+        enum</td>
+      <td class="jd-linkcol"><a href="../../../../org/ocast/referencedriver/payload/Payload.Type.html">Payload.Type</a></td>
+      <td class="jd-descrcol" width="100%">Defines the payload type
+&nbsp;</td>
+    </tr>
+    
+    
+
+</table>
 
 
 
@@ -361,6 +411,24 @@ Summary:
 
 
 
+
+
+
+
+<!-- =========== ENUM CONSTANT SUMMARY =========== -->
+<table id="constants" class="jd-sumtable"><tr><th colspan="12">Constants</th></tr>
+
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol"><a href="../../../../org/ocast/referencedriver/payload/Payload.html#DST_BROADCAST">DST_BROADCAST</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+
+</table>
 
 
 
@@ -389,7 +457,7 @@ Summary:
             
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/media/Track.Builder.html#Builder()">Builder</a></span>()
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.html#Payload(java.lang.String, java.lang.String, org.ocast.referencedriver.payload.Payload.Type, int, org.ocast.referencedriver.payload.Payload.Status, JSONObject)">Payload</a></span>(String dst, String src, <a href="../../../../org/ocast/referencedriver/payload/Payload.Type.html">Payload.Type</a> type, int id, <a href="../../../../org/ocast/referencedriver/payload/Payload.Status.html">Payload.Status</a> status, JSONObject message)
         
   </td></tr>
 
@@ -413,12 +481,12 @@ Summary:
             
             
             
+            static
             
-            
-            <a href="../../../../org/ocast/core/media/Track.html">Track</a>
+            <a href="../../../../org/ocast/referencedriver/payload/Payload.html">Payload</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/media/Track.Builder.html#build()">build</a></span>()
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.html#decode(java.lang.String)">decode</a></span>(String payload)
         
   </td></tr>
 
@@ -431,10 +499,10 @@ Summary:
             
             
             
-            <a href="../../../../org/ocast/core/media/Track.Builder.html">Track.Builder</a>
+            String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/media/Track.Builder.html#setEnable(boolean)">setEnable</a></span>(boolean enable)
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.html#encode()">encode</a></span>()
         
   </td></tr>
 
@@ -447,10 +515,10 @@ Summary:
             
             
             
-            <a href="../../../../org/ocast/core/media/Track.Builder.html">Track.Builder</a>
+            String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/media/Track.Builder.html#setLabel(java.lang.String)">setLabel</a></span>(String label)
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.html#getDst()">getDst</a></span>()
         
   </td></tr>
 
@@ -463,10 +531,10 @@ Summary:
             
             
             
-            <a href="../../../../org/ocast/core/media/Track.Builder.html">Track.Builder</a>
+            int
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/media/Track.Builder.html#setLanguage(java.lang.String)">setLanguage</a></span>(String language)
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.html#getId()">getId</a></span>()
         
   </td></tr>
 
@@ -479,10 +547,10 @@ Summary:
             
             
             
-            <a href="../../../../org/ocast/core/media/Track.Builder.html">Track.Builder</a>
+            JSONObject
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/media/Track.Builder.html#setTrackId(java.lang.String)">setTrackId</a></span>(String trackId)
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.html#getMessage()">getMessage</a></span>()
         
   </td></tr>
 
@@ -495,10 +563,42 @@ Summary:
             
             
             
-            <a href="../../../../org/ocast/core/media/Track.Builder.html">Track.Builder</a>
+            String
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/media/Track.Builder.html#setTrackType(org.ocast.core.media.Track.Type)">setTrackType</a></span>(<a href="../../../../org/ocast/core/media/Track.Type.html">Track.Type</a> trackType)
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.html#getSrc()">getSrc</a></span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../org/ocast/referencedriver/payload/Payload.Status.html">Payload.Status</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.html#getStatus()">getStatus</a></span>()
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../org/ocast/referencedriver/payload/Payload.Type.html">Payload.Type</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.html#getType()">getType</a></span>()
         
   </td></tr>
 
@@ -742,6 +842,52 @@ From class
 <!-- Constants -->
 
 
+<!-- ========= ENUM CONSTANTS DETAIL ======== -->
+<h2>Constants</h2>
+
+
+
+
+<a id="DST_BROADCAST"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        String
+      </span>
+        DST_BROADCAST
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                "*"
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
+
+
 <!-- Fields -->
 
 
@@ -753,7 +899,7 @@ From class
 
 
 
-<a id="Builder()"></a>
+<a id="Payload(java.lang.String, java.lang.String, org.ocast.referencedriver.payload.Payload.Type, int, org.ocast.referencedriver.payload.Payload.Status, JSONObject)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -765,8 +911,8 @@ From class
          
         
       </span>
-      <span class="sympad">Builder</span>
-      <span class="normal">()</span>
+      <span class="sympad">Payload</span>
+      <span class="normal">(String dst, String src, <a href="../../../../org/ocast/referencedriver/payload/Payload.Type.html">Payload.Type</a> type, int id, <a href="../../../../org/ocast/referencedriver/payload/Payload.Status.html">Payload.Status</a> status, JSONObject message)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -799,7 +945,47 @@ From class
 
 
 
-<a id="build()"></a>
+<a id="decode(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        <a href="../../../../org/ocast/referencedriver/payload/Payload.html">Payload</a>
+      </span>
+      <span class="sympad">decode</span>
+      <span class="normal">(String payload)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>JSONException</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="encode()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -809,9 +995,49 @@ From class
          
          
          
-        <a href="../../../../org/ocast/core/media/Track.html">Track</a>
+        String
       </span>
-      <span class="sympad">build</span>
+      <span class="sympad">encode</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>JSONException</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="getDst()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getDst</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -830,7 +1056,7 @@ From class
 </div>
 
 
-<a id="setEnable(boolean)"></a>
+<a id="getId()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -840,10 +1066,10 @@ From class
          
          
          
-        <a href="../../../../org/ocast/core/media/Track.Builder.html">Track.Builder</a>
+        int
       </span>
-      <span class="sympad">setEnable</span>
-      <span class="normal">(boolean enable)</span>
+      <span class="sympad">getId</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -861,7 +1087,7 @@ From class
 </div>
 
 
-<a id="setLabel(java.lang.String)"></a>
+<a id="getMessage()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -871,10 +1097,10 @@ From class
          
          
          
-        <a href="../../../../org/ocast/core/media/Track.Builder.html">Track.Builder</a>
+        JSONObject
       </span>
-      <span class="sympad">setLabel</span>
-      <span class="normal">(String label)</span>
+      <span class="sympad">getMessage</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -892,7 +1118,7 @@ From class
 </div>
 
 
-<a id="setLanguage(java.lang.String)"></a>
+<a id="getSrc()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -902,10 +1128,10 @@ From class
          
          
          
-        <a href="../../../../org/ocast/core/media/Track.Builder.html">Track.Builder</a>
+        String
       </span>
-      <span class="sympad">setLanguage</span>
-      <span class="normal">(String language)</span>
+      <span class="sympad">getSrc</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -923,7 +1149,7 @@ From class
 </div>
 
 
-<a id="setTrackId(java.lang.String)"></a>
+<a id="getStatus()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -933,10 +1159,10 @@ From class
          
          
          
-        <a href="../../../../org/ocast/core/media/Track.Builder.html">Track.Builder</a>
+        <a href="../../../../org/ocast/referencedriver/payload/Payload.Status.html">Payload.Status</a>
       </span>
-      <span class="sympad">setTrackId</span>
-      <span class="normal">(String trackId)</span>
+      <span class="sympad">getStatus</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -954,7 +1180,7 @@ From class
 </div>
 
 
-<a id="setTrackType(org.ocast.core.media.Track.Type)"></a>
+<a id="getType()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -964,10 +1190,10 @@ From class
          
          
          
-        <a href="../../../../org/ocast/core/media/Track.Builder.html">Track.Builder</a>
+        <a href="../../../../org/ocast/referencedriver/payload/Payload.Type.html">Payload.Type</a>
       </span>
-      <span class="sympad">setTrackType</span>
-      <span class="normal">(<a href="../../../../org/ocast/core/media/Track.Type.html">Track.Type</a> trackType)</span>
+      <span class="sympad">getType</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>

@@ -57,7 +57,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico" />
 <title>
 
-  DialService
+  Payload.Builder
 
 
 </title>
@@ -142,12 +142,20 @@
                 
     <li class="api apilevel-">
   <a href="../../../../org/ocast/core/package-summary.html">org.ocast.core</a></li>
-    <li class="selected api apilevel-">
+    <li class="api apilevel-">
   <a href="../../../../org/ocast/core/dial/package-summary.html">org.ocast.core.dial</a></li>
     <li class="api apilevel-">
   <a href="../../../../org/ocast/core/function/package-summary.html">org.ocast.core.function</a></li>
     <li class="api apilevel-">
   <a href="../../../../org/ocast/core/media/package-summary.html">org.ocast.core.media</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../org/ocast/discovery/package-summary.html">org.ocast.discovery</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../org/ocast/mediaroute/package-summary.html">org.ocast.mediaroute</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../org/ocast/referencedriver/package-summary.html">org.ocast.referencedriver</a></li>
+    <li class="selected api apilevel-">
+  <a href="../../../../org/ocast/referencedriver/payload/package-summary.html">org.ocast.referencedriver.payload</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -157,25 +165,20 @@
               
     <li><h2>Classes</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/dial/AbsAdditionalDataParser.html">AbsAdditionalDataParser</a></li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/dial/AdditionalData.html">AdditionalData</a></li>
-          <li class="selected api apilevel-"><a href="../../../../org/ocast/core/dial/DialService.html">DialService</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/dial/DialServiceParser.html">DialServiceParser</a></li>
+          <li class="api apilevel-"><a href="../../../../org/ocast/referencedriver/payload/EventPayload.html">EventPayload</a></li>
+          <li class="api apilevel-"><a href="../../../../org/ocast/referencedriver/payload/Payload.html">Payload</a></li>
+          <li class="selected api apilevel-"><a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a></li>
       </ul>
     </li>
               
               
     <li><h2>Enums</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/dial/DialService.State.html">DialService.State</a></li>
+          <li class="api apilevel-"><a href="../../../../org/ocast/referencedriver/payload/Payload.Status.html">Payload.Status</a></li>
+          <li class="api apilevel-"><a href="../../../../org/ocast/referencedriver/payload/Payload.Type.html">Payload.Type</a></li>
       </ul>
     </li>
               
-    <li><h2>Exceptions</h2>
-      <ul>
-          <li class="api apilevel-"><a href="../../../../org/ocast/core/dial/DialException.html">DialException</a></li>
-      </ul>
-    </li>
               
             </ul><br/>
           </div><!-- end classes -->
@@ -227,8 +230,6 @@
 
 Summary:
 
-  <a href="#nestedclasses">Nested Classes</a>
-  
 
 
 
@@ -237,8 +238,7 @@ Summary:
 
 
 
-
-  &#124; <a href="#pubctors">Ctors</a>
+  <a href="#pubctors">Ctors</a>
   
 
 
@@ -268,11 +268,11 @@ Summary:
 
 <div id="jd-header">
     public
-     
+    static 
      
     
     class
-<h1>DialService</h1>
+<h1>Payload.Builder</h1>
 
 
 
@@ -305,7 +305,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">org.ocast.core.dial.DialService&lt;T&gt;</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.ocast.referencedriver.payload.Payload.Builder</td>
     </tr>
     
 
@@ -348,27 +348,6 @@ Summary:
 
 
 
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-<table id="nestedclasses" class="jd-sumtable"><tr><th colspan="12">Nested Classes</th></tr>
-
-
-  
-    <tr class="alt-color api apilevel-" >
-      <td class="jd-typecol">
-        
-         
-         
-        
-        enum</td>
-      <td class="jd-linkcol"><a href="../../../../org/ocast/core/dial/DialService.State.html">DialService.State</a></td>
-      <td class="jd-descrcol" width="100%">&nbsp;</td>
-    </tr>
-    
-    
-
-</table>
-
-
 
 
 
@@ -405,7 +384,7 @@ Summary:
             
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/dial/DialService.html#DialService(java.net.URL, java.lang.String, org.ocast.core.dial.DialService.State, java.net.URL, T)">DialService</a></span>(URL baseURL, String name, <a href="../../../../org/ocast/core/dial/DialService.State.html">DialService.State</a> state, URL link, T additionanData)
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html#Builder()">Builder</a></span>()
         
   </td></tr>
 
@@ -431,10 +410,10 @@ Summary:
             
             
             
-            T
+            <a href="../../../../org/ocast/referencedriver/payload/Payload.html">Payload</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/dial/DialService.html#getAdditionalData()">getAdditionalData</a></span>()
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html#build()">build</a></span>()
         
   </td></tr>
 
@@ -447,10 +426,10 @@ Summary:
             
             
             
-            URL
+            <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/dial/DialService.html#getBaseURL()">getBaseURL</a></span>()
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html#setDst(java.lang.String)">setDst</a></span>(String dst)
         
   </td></tr>
 
@@ -463,10 +442,10 @@ Summary:
             
             
             
-            String
+            <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/dial/DialService.html#getName()">getName</a></span>()
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html#setId(int)">setId</a></span>(int id)
         
   </td></tr>
 
@@ -479,10 +458,10 @@ Summary:
             
             
             
-            URL
+            <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/dial/DialService.html#getRunLink()">getRunLink</a></span>()
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html#setMessage(JSONObject)">setMessage</a></span>(JSONObject message)
         
   </td></tr>
 
@@ -495,10 +474,42 @@ Summary:
             
             
             
-            <a href="../../../../org/ocast/core/dial/DialService.State.html">DialService.State</a>
+            <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../../org/ocast/core/dial/DialService.html#getState()">getState</a></span>()
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html#setSrc(java.lang.String)">setSrc</a></span>(String src)
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html#setStatus(org.ocast.referencedriver.payload.Payload.Status)">setStatus</a></span>(<a href="../../../../org/ocast/referencedriver/payload/Payload.Status.html">Payload.Status</a> status)
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html#setType(org.ocast.referencedriver.payload.Payload.Type)">setType</a></span>(<a href="../../../../org/ocast/referencedriver/payload/Payload.Type.html">Payload.Type</a> type)
         
   </td></tr>
 
@@ -753,7 +764,7 @@ From class
 
 
 
-<a id="DialService(java.net.URL, java.lang.String, org.ocast.core.dial.DialService.State, java.net.URL, T)"></a>
+<a id="Builder()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -765,8 +776,8 @@ From class
          
         
       </span>
-      <span class="sympad">DialService</span>
-      <span class="normal">(URL baseURL, String name, <a href="../../../../org/ocast/core/dial/DialService.State.html">DialService.State</a> state, URL link, T additionanData)</span>
+      <span class="sympad">Builder</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -799,7 +810,7 @@ From class
 
 
 
-<a id="getAdditionalData()"></a>
+<a id="build()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -809,9 +820,9 @@ From class
          
          
          
-        T
+        <a href="../../../../org/ocast/referencedriver/payload/Payload.html">Payload</a>
       </span>
-      <span class="sympad">getAdditionalData</span>
+      <span class="sympad">build</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -830,7 +841,7 @@ From class
 </div>
 
 
-<a id="getBaseURL()"></a>
+<a id="setDst(java.lang.String)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -840,10 +851,10 @@ From class
          
          
          
-        URL
+        <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
       </span>
-      <span class="sympad">getBaseURL</span>
-      <span class="normal">()</span>
+      <span class="sympad">setDst</span>
+      <span class="normal">(String dst)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -861,7 +872,7 @@ From class
 </div>
 
 
-<a id="getName()"></a>
+<a id="setId(int)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -871,10 +882,10 @@ From class
          
          
          
-        String
+        <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
       </span>
-      <span class="sympad">getName</span>
-      <span class="normal">()</span>
+      <span class="sympad">setId</span>
+      <span class="normal">(int id)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -892,7 +903,7 @@ From class
 </div>
 
 
-<a id="getRunLink()"></a>
+<a id="setMessage(JSONObject)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -902,10 +913,10 @@ From class
          
          
          
-        URL
+        <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
       </span>
-      <span class="sympad">getRunLink</span>
-      <span class="normal">()</span>
+      <span class="sympad">setMessage</span>
+      <span class="normal">(JSONObject message)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -923,7 +934,7 @@ From class
 </div>
 
 
-<a id="getState()"></a>
+<a id="setSrc(java.lang.String)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -933,10 +944,72 @@ From class
          
          
          
-        <a href="../../../../org/ocast/core/dial/DialService.State.html">DialService.State</a>
+        <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
       </span>
-      <span class="sympad">getState</span>
-      <span class="normal">()</span>
+      <span class="sympad">setSrc</span>
+      <span class="normal">(String src)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="setStatus(org.ocast.referencedriver.payload.Payload.Status)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
+      </span>
+      <span class="sympad">setStatus</span>
+      <span class="normal">(<a href="../../../../org/ocast/referencedriver/payload/Payload.Status.html">Payload.Status</a> status)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<a id="setType(org.ocast.referencedriver.payload.Payload.Type)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../org/ocast/referencedriver/payload/Payload.Builder.html">Payload.Builder</a>
+      </span>
+      <span class="sympad">setType</span>
+      <span class="normal">(<a href="../../../../org/ocast/referencedriver/payload/Payload.Type.html">Payload.Type</a> type)</span>
     </h4>
       <div class="api-level">
         <div>

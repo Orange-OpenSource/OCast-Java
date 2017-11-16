@@ -2,4 +2,8 @@ org.ocast.core
 org.ocast.core.dial
 org.ocast.core.function
 org.ocast.core.media
+org.ocast.discovery
+org.ocast.mediaroute
+org.ocast.referencedriver
+org.ocast.referencedriver.payload
 
