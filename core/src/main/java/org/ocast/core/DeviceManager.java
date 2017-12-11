@@ -156,7 +156,7 @@ public class DeviceManager implements Driver.DriverListener {
     public void getApplicationController(String appId, Consumer<ApplicationController> onSuccess, Consumer<Throwable> onFailure) {
         Request request = new Request.Builder().url(getApplicationURL(appId)).build();
         Call call = httpClient.newCall(request);
-        call.enqueue(new DialCallbackConsumer<>(onSuccess, onFailure, this::isGetSuccess));
+        call.enqueue(new DialCallbackConsumer<>(callback(onSuccess), callback(onFailure), this::isGetSuccess));
     }
 
     @Override

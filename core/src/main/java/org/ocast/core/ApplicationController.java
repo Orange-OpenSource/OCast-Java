@@ -45,6 +45,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 
+import static org.ocast.core.CallbackThreadHandler.callback;
+
 /**
  * Provides means to control the web application.
  * The ApplicationController also gives you access to the {@link org.ocast.core.media.MediaController}
@@ -97,7 +99,7 @@ public class ApplicationController extends DataStream {
                 StartInterceptor startInterceptor = new StartInterceptor();
                 OkHttpClient client = httpClient.newBuilder().addInterceptor(startInterceptor).build();
                 Call call = client.newCall(request);
-                call.enqueue(new DialCallbackRunnable(onSuccess, onFailure, this::isStartSuccess));
+                call.enqueue(new DialCallbackRunnable(callback(onSuccess), callback(onFailure), this::isStartSuccess));
             };
 
             if (additionalData != null) {
@@ -127,7 +129,10 @@ public class ApplicationController extends DataStream {
             Runnable onConnectSuccess = () -> {
                 Request request = new Request.Builder().url(dialService.getBaseURL()).build();
                 Call call = httpClient.newCall(request);
-                call.enqueue(new DialCallbackRunnable(onSuccess, onFailure, this::isJoinSuccess));
+                call.enqueue(new DialCallbackRunnable(
+                        callback(onSuccess),
+                        callback(onFailure),
+                        this::isJoinSuccess));
             };
 
             if (additionalData != null) {
@@ -157,7 +162,7 @@ public class ApplicationController extends DataStream {
             }
             Request request = new Request.Builder().url(runLink).delete().build();
             Call call = httpClient.newCall(request);
-            call.enqueue(new DialCallbackRunnable(onSuccess, onFailure, (c, r) -> driver.disconnect(Driver.Module.APPLICATION, onSuccess)));
+            call.enqueue(new DialCallbackRunnable(callback(onSuccess), callback(onFailure), (c, r) -> driver.disconnect(Driver.Module.APPLICATION, onSuccess)));
         } catch (ApplicationException e) {
             onFailure.accept(e);
         }
