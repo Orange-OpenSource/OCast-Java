@@ -119,7 +119,7 @@ public class DialDialDeviceInventoryTest {
         callback.await(2, TimeUnit.SECONDS);
         verify(callback, times(1)).onDeviceAdded(any(DialDevice.class));
         assertThat(mgr.getDeviceDescriptions(), hasSize(1));
-        assertThat(mgr.getDeviceDescriptions(), hasItem(new DialDevice("11111111-1111-1111-1111-111111111111", "dongle1", "Orange SA", "OCast", new URL("http://127.0.0.1:8008/apps"))));
+        assertThat(mgr.getDeviceDescriptions(), hasItem(new DialDevice("11111111-1111-1111-1111-111111111111", "device1", "OCast", "OCast", new URL("http://127.0.0.1:8008/apps"))));
     }
 
     @Test
@@ -141,9 +141,9 @@ public class DialDialDeviceInventoryTest {
         verify(callback, times(2)).onDeviceAdded(any(DialDevice.class));
         assertThat(mgr.getDeviceDescriptions(), hasSize(2));
         assertThat(mgr.getDeviceDescriptions(), containsInAnyOrder(new DialDevice("11111111-1111-1111-1111-111111111111",
-                        "dongle1", "Orange SA", "OCast", new URL("http://127.0.0.1:8008/apps")),
+                        "device1", "OCast", "OCast", new URL("http://127.0.0.1:8008/apps")),
                 new DialDevice("22222222-2222-2222-2222-222222222222",
-                        "dongle2", "Orange SA", "OCast", new URL("http://127.0.0.1:8008/apps"))));
+                        "device2", "OCast", "OCast", new URL("http://127.0.0.1:8008/apps"))));
     }
 
     @Test
@@ -191,7 +191,7 @@ public class DialDialDeviceInventoryTest {
         verify(callback, times(2)).onDeviceAdded(any(DialDevice.class));
         assertThat(mgr.getDeviceDescriptions(), hasSize(1));
         assertThat(mgr.getDeviceDescriptions(), hasItem(new DialDevice("11111111-1111-1111-1111-111111111111",
-                "nouveau nom", "Orange SA", "OCast", new URL("http://127.0.0.1:8008/apps"))));
+                "nouveau nom", "OCast", "OCast", new URL("http://127.0.0.1:8008/apps"))));
     }
 
     @Test

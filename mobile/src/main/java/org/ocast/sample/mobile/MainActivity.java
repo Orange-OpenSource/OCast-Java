@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         @Override
         public void onRouteSelected(MediaRouter router, MediaRouter.RouteInfo route) {
             if (route.matchesSelector(orangeSelector)) {
-                Log.d(TAG, "selected a orange dongle");
+                Log.d(TAG, "selected a OCast device");
                 Bundle extras = route.getExtras();
                 if(extras.containsKey(MediaRouteDevice.EXTRA_DEVICE)) {
 
@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         @Override
         public void onRouteUnselected(MediaRouter mediaRouter, MediaRouter.RouteInfo route) {
             if (route.matchesSelector(orangeSelector)) {
-                Log.d(TAG, "unselected a orange dongle");
+                Log.d(TAG, "unselected an OCast device");
             }
         }
 
@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         @Override
         public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo route) {
             if (route.matchesSelector(orangeSelector)) {
-                Log.d(TAG, "removed a orange dongle");
+                Log.d(TAG, "removed an OCast device");
             }
         }
     }

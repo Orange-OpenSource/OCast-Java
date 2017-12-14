@@ -42,8 +42,8 @@ import java.text.ParseException;
  *     </specVersion>
  *     <device>
  *         <deviceType>urn:schemas-upnp-org:device:tvdevice:1</deviceType>
- *         <friendlyName>dongle_1</friendlyName>
- *         <manufacturer>Orange SA</manufacturer>
+ *         <friendlyName>device_1</friendlyName>
+ *         <manufacturer>OCast</manufacturer>
  *         <modelName>OCast</modelName>
  *         <UDN>uuid:c4323fee-db4b-4aa7-9039-fa4b71589e26</UDN>
  *     </device>

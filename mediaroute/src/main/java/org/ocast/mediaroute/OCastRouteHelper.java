@@ -29,7 +29,7 @@ import java.util.List;
  * Helper class to setup {@link org.ocast.mediaroute.OCastMediaRouteProvider OCastMediaRouteProvider}
  */
 public class OCastRouteHelper {
-    private static MediaRouteProvider sOrangeProvider;
+    private static MediaRouteProvider sOCastProvider;
 
     private OCastRouteHelper() {
     }
@@ -41,10 +41,10 @@ public class OCastRouteHelper {
      * @param searchTargets a list of search targets to be discovered
      */
     public static void addMediaRouteProvider(Context context, List<String> searchTargets) {
-        if(sOrangeProvider == null) {
+        if(sOCastProvider == null) {
             MediaRouter mediaRouter = MediaRouter.getInstance(context.getApplicationContext());
-            sOrangeProvider = new OCastMediaRouteProvider(context.getApplicationContext(), searchTargets);
-            mediaRouter.addProvider(sOrangeProvider);
+            sOCastProvider = new OCastMediaRouteProvider(context.getApplicationContext(), searchTargets);
+            mediaRouter.addProvider(sOCastProvider);
         }
     }
 }

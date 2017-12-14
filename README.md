@@ -1,7 +1,7 @@
 # OCast-Java
 [![Build Status](https://travis-ci.org/Orange-OpenSource/OCast-Java.png)](https://travis-ci.org/Orange-OpenSource/OCast-Java)
 
-The Orange OCast SDK provides all required API to implement cast applications for the Orange stick.
+The Orange OCast SDK provides all required API to implement cast enabled applications and devices.
 
 The Example project aims at demonstrating the basic instruction set of the Orange OCast SDK to help you get started.
 
@@ -26,14 +26,14 @@ Here are the main features of the Sample project:
 
 ## Sample
 
-To run the sample projects, you will need the [Dongle TV Simulator](https://github.com/Orange-OpenSource/OCast-DongleTV-JS) :
+To run the sample projects, you will need the [Device Simulator](https://github.com/Orange-OpenSource/OCast-DongleTV-JS) :
 ```
 $git clone https://github.com/Orange-OpenSource/OCast-DongleTV-JS.git
 $cd OCast-DongleTV-JS
 $npm install
 $npm start
 ```
-Once the simulator is running, you can run the sample mobile application:
+Once the device simulator is running, you can run the sample mobile application:
 ```
 ./gradlew mobile:installDebug
 adb shell am start -n org.ocast.sample.mobile/org.ocast.sample.mobile.MainActivity

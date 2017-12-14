@@ -44,8 +44,8 @@ public class DialDeviceTest {
     public void fromDeviceDescriptionWithURLBase() throws Exception {
         String ddXmlContent = new FileReader().readFile("dd1_WithURLBase.xml");
         DialDevice dd = DialDevice.fromDeviceDescription(ddXmlContent, null);
-        assertThat(dd.getFriendlyName(), is(equalTo("dongle1")));
-        assertThat(dd.getManufacturer(), is(equalTo("Orange SA")));
+        assertThat(dd.getFriendlyName(), is(equalTo("device1")));
+        assertThat(dd.getManufacturer(), is(equalTo("OCast")));
         assertThat(dd.getModelName(), is(equalTo("OCast")));
         assertThat(dd.getUuid(), is(equalTo("11111111-1111-1111-1111-111111111111")));
         assertThat(dd.getDialApplURL(), is(equalTo("http://127.0.0.1:8008/apps")));
@@ -55,8 +55,8 @@ public class DialDeviceTest {
     public void fromDeviceDescriptionWithHeader() throws Exception {
         String ddXmlContent = new FileReader().readFile("dd_WithoutURLBase.xml");
         DialDevice dd = DialDevice.fromDeviceDescription(ddXmlContent, "http://127.0.0.1:8008/apps_in_header");
-        assertThat(dd.getFriendlyName(), is(equalTo("dongle1")));
-        assertThat(dd.getManufacturer(), is(equalTo("Orange SA")));
+        assertThat(dd.getFriendlyName(), is(equalTo("device1")));
+        assertThat(dd.getManufacturer(), is(equalTo("OCast")));
         assertThat(dd.getModelName(), is(equalTo("OCast")));
         assertThat(dd.getUuid(), is(equalTo("11111111-1111-1111-1111-111111111111")));
         assertThat(dd.getDialApplURL(), is(equalTo("http://127.0.0.1:8008/apps_in_header")));

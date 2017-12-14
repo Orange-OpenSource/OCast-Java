@@ -25,8 +25,8 @@
     </specVersion>
     <device>
         <deviceType>urn:schemas-upnp-org:device:tvdevice:1</deviceType>
-        <friendlyName>dongle1</friendlyName>
-        <manufacturer>Orange SA</manufacturer>
+        <friendlyName>device1</friendlyName>
+        <manufacturer>OCast</manufacturer>
         <modelName>OCast</modelName>
         <UDN>uuid:11111111-1111-1111-1111-111111111111</UDN>
         <URLBase>http://127.0.0.1:8008/apps</URLBase>

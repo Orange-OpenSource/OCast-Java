@@ -17,7 +17,7 @@
  *
  */
 
-description = "Discovery module of the OCast SDK. Used to detect TV dongle with SSDP"
+description = "Discovery module of the OCast SDK. Used to detect devices with SSDP"
 
 apply from: "$rootDir/publish.gradle"
 
