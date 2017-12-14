@@ -32,7 +32,7 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
     }
     properties.each { prop ->
-        project.ext.set(prop.key,prop.value)
+        project.ext.set(prop.key, prop.value)
     }
 }
 
@@ -102,9 +102,9 @@ configure(javaProjects) {
     jar {
         from "$rootDir/LICENSE"
         manifest {
-            attributes 'Implementation-Title': 'ocast-'+project.name,
+            attributes 'Implementation-Title': 'ocast-' + project.name,
                     'Implementation-Version': version,
-                    'Implementation-Vendor' : 'Orange Labs'
+                    'Implementation-Vendor': 'Orange Labs'
         }
     }
 
@@ -120,9 +120,9 @@ configure(javaProjects) {
     jar {
         from "$rootDir/LICENSE"
         manifest {
-            attributes 'Implementation-Title': 'ocast-'+project.name,
+            attributes 'Implementation-Title': 'ocast-' + project.name,
                     'Implementation-Version': version,
-                    'Implementation-Vendor' : 'Orange Labs'
+                    'Implementation-Vendor': 'Orange Labs'
         }
     }
 
@@ -144,8 +144,8 @@ configure(javaProjects) {
 
             pom.withXml {
                 def root = asNode()
-                root.appendNode('description', project.name +' library of the OCast SDK')
-                root.appendNode('name', 'ocast-'+project.name)
+                root.appendNode('description', project.name + ' library of the OCast SDK')
+                root.appendNode('name', 'ocast-' + project.name)
                 root.children().last() + pomConfig
             }
         }
@@ -166,8 +166,13 @@ gradle.projectsEvaluated {
     task alljavadoc(type: Javadoc, group: "Documentation") {
         description = 'Generates a global javadoc from all the modules'
         source exportedProjects.collect {
-            it.plugins.hasPlugin('com.android.library') ? it.android.sourceSets.main.java.srcDirs
-                    : it.sourceSets.main.allJava}
+            if (it.plugins.hasPlugin('com.android.library') && it.android.hasProperty('sourceSets')) {
+                it.android.sourceSets.main.java.srcDirs
+            } else if (it.hasProperty('sourceSets')) {
+                it.sourceSets.main.allJava
+            }
+        }
+
         failOnError false
         title null
         options.doclet = "com.google.doclava.Doclava"
