@@ -71,8 +71,8 @@ public interface Driver {
 
     /**
      * Disconnects the given {@link Module Module}
-     * @param module
-     * @param onSuccess
+     * @param module the module to be disconnected
+     * @param onSuccess to be called in case of success.
      */
     void disconnect(Module module, Runnable onSuccess);
 

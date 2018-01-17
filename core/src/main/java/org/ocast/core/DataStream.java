@@ -34,7 +34,7 @@ public abstract class DataStream {
 
     /**
      * Create a Datastream for the given service name
-     * @param serviceName
+     * @param serviceName the service name
      */
     public DataStream(String serviceName) {
         this.serviceName = serviceName;
@@ -67,7 +67,7 @@ public abstract class DataStream {
 
     /**
      * Get the service name this DataStream is used for.
-     * @return
+     * @return the service name if this DataStream
      */
     public String getServiceName() {
         return serviceName;

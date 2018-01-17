@@ -47,7 +47,7 @@ public class Browser implements Driver.BrowserListener {
     /**
      * Initializes a new Browser that will use the given {@link org.ocast.core.Driver Driver} to communicate
      * with the device.
-     * @param driver
+     * @param driver a {@link org.ocast.core.Driver Driver} object that will be used to send/receive data
      */
     public Browser (Driver driver){
         this.driver = driver;
@@ -80,7 +80,7 @@ public class Browser implements Driver.BrowserListener {
     /**
      * Registers a {@link org.ocast.core.DataStream DataStream} that will be able to communicate with
      * the remote browser
-     * @param dataStream
+     * @param dataStream a {@link org.ocast.core.DataStream DataStream} object that will be managed by this Browser
      */
     public void registerStream(DataStream dataStream) {
         registeredStreams.put(dataStream.getServiceName(), dataStream);

@@ -27,8 +27,8 @@ import org.ocast.core.function.Consumer;
  * on a specific thread.
  */
 public class CallbackThreadHandler {
-    private CallbackWrapper wrapper;
-    static CallbackThreadHandler sHandler;
+    private final CallbackWrapper wrapper;
+    private static CallbackThreadHandler sHandler;
 
     private CallbackThreadHandler(CallbackWrapper callbackWrapper) {
         wrapper = callbackWrapper;

@@ -120,7 +120,7 @@ public class DeviceManager implements Driver.DriverListener {
 
     /**
      * Used to release the public settings controller resources
-     * @param callback
+     * @param callback to be called once released
      */
     public void releasePublicSettings(Runnable callback) {
         driver.disconnect(Driver.Module.PUBLIC_SETTINGS,callback);
@@ -141,7 +141,7 @@ public class DeviceManager implements Driver.DriverListener {
 
     /**
      * Used to release the private settings controller resources
-     * @param callback
+     * @param callback to be called once released
      */
     public void releasePrivateSettings(Runnable callback) {
         driver.disconnect(Driver.Module.PRIVATE_SETTINGS,callback);

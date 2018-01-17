@@ -51,16 +51,16 @@ public class Device {
     /**
      * Retrieve the manufacturer found in found in device tag
      *
-     * @return
+     * @return the manufacturer name
      */
     public String getManufacturer() {
         return manufacturer;
     }
 
     /**
-     * Retrieve the modelName found in device tag
+     * Retrieve the model name found in device tag
      *
-     * @return
+     * @return the model name
      */
     public String getModelName() {
         return modelName;

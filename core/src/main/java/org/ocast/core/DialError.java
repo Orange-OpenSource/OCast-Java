@@ -19,8 +19,6 @@
 
 package org.ocast.core;
 
-import org.ocast.core.function.Consumer;
-
 /**
  * Enumerates the different errors related to Dial
  */
