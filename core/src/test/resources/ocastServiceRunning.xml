@@ -23,7 +23,9 @@
     <options allowStop="true"/>
     <state>running</state>
     <additionalData>
-        <ocast:X_OCAST_App2AppURL>ws://127.0.0.1:1234/ocast</ocast:X_OCAST_App2AppURL>
+        <ocast:X_OCAST_App2AppURL>
+            ws://127.0.0.1:1234/ocast
+        </ocast:X_OCAST_App2AppURL>
         <ocast:X_OCAST_Version>1.0</ocast:X_OCAST_Version >
     </additionalData>
     <link rel="run" href="run"/>

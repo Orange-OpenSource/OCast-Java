@@ -37,7 +37,7 @@ class DialParserUtils {
             parser.nextTag();
         }
         parser.require(XmlPullParser.END_TAG, namespace, tag);
-        return result;
+        return result.trim();
     }
 
 
