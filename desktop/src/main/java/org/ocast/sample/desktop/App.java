@@ -86,6 +86,7 @@ public class App implements MediaController.MediaControllerListener {
             stop.await();
         } catch (InterruptedException e) {
             logger.log(Level.SEVERE, "error", e);
+            Thread.currentThread().interrupt();
         }
         System.exit(0);
     }
