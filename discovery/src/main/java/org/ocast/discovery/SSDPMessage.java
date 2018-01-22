@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public class SSDPMessage {
 
-    private static final String SSDP_DISCOVER_EXTENSION = "\"ssdp:scan\"";
+    private static final String SSDP_DISCOVER_EXTENSION = "\"ssdp:discover\"";
     public static final String SSDP_MAX_WAIT_TIME = "10";
 
     // Multicast channel and port reserved for SSDP by IANA

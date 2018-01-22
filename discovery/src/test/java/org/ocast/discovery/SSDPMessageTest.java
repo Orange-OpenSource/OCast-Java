@@ -86,7 +86,7 @@ public class SSDPMessageTest {
         String expecteddMsg = "M-SEARCH * HTTP/1.1\r\n" +
                 "ST: urn:cast-ocast-org:service:cast:1\r\n"+
                 "HOST: 239.255.255.250:1900\r\n" +
-                "MAN: \"ssdp:scan\"\r\n" +
+                "MAN: \"ssdp:discover\"\r\n" +
                 "MX: 10\r\n"+
                 "\r\n";
         SSDPMessage msg = SSDPMessage.createMSearchMessage("urn:cast-ocast-org:service:cast:1",10);
