@@ -107,7 +107,7 @@ public class PlaybackStatus {
         PlaybackStatus.Builder builder = new PlaybackStatus.Builder();
         double position = json.getDouble(KEY_POSITION);
         builder.setPosition(position);
-        double duration = json.getDouble(KEY_DURATION);
+        double duration = json.optDouble(KEY_DURATION);
         builder.setDuration(duration);
         double volume = json.getDouble(KEY_VOLUME);
         builder.setVolume(volume);
