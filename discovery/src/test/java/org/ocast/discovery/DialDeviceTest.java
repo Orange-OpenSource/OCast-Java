@@ -37,7 +37,7 @@ public class DialDeviceTest {
     public void fromDeviceDescriptionWithoutURLBase() throws Exception {
         thrown.expect(ParseException.class);
         String ddXmlContent = new FileReader().readFile("dd_WithoutURLBase.xml");
-        DialDevice dd = DialDevice.fromDeviceDescription(ddXmlContent, null);
+        DialDevice.fromDeviceDescription(ddXmlContent, null);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class DialDeviceTest {
         assertThat(dd.getManufacturer(), is(equalTo("OCast")));
         assertThat(dd.getModelName(), is(equalTo("OCast")));
         assertThat(dd.getUuid(), is(equalTo("11111111-1111-1111-1111-111111111111")));
-        assertThat(dd.getDialApplURL(), is(equalTo("http://127.0.0.1:8008/apps")));
+        assertThat(dd.getDialURI().toString(), is(equalTo("http://127.0.0.1:8008/apps")));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class DialDeviceTest {
         assertThat(dd.getManufacturer(), is(equalTo("OCast")));
         assertThat(dd.getModelName(), is(equalTo("OCast")));
         assertThat(dd.getUuid(), is(equalTo("11111111-1111-1111-1111-111111111111")));
-        assertThat(dd.getDialApplURL(), is(equalTo("http://127.0.0.1:8008/apps_in_header")));
+        assertThat(dd.getDialURI().toString(), is(equalTo("http://127.0.0.1:8008/apps_in_header")));
     }
 
     @Test

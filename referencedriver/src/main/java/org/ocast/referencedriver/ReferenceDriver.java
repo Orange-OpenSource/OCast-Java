@@ -92,10 +92,10 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
         LinkProfile profile;
         switch(module) {
             case PUBLIC_SETTINGS:
-                profile = new LinkProfile.Builder().setApp2AppUrl(String.format("ws://%s:4434/%s", device.getDialURL().getHost(), "/ocast")).build();
+                profile = new LinkProfile.Builder().setApp2AppUrl(String.format("ws://%s:4434/%s", device.getDialURI().getHost(), "/ocast")).build();
                 break;
             case PRIVATE_SETTINGS:
-                profile = new LinkProfile.Builder().setApp2AppUrl(String.format("wss://%s:4433/%s", device.getDialURL().getHost(), "/ocast")).setSslConfig(sslConfig).build();
+                profile = new LinkProfile.Builder().setApp2AppUrl(String.format("wss://%s:4433/%s", device.getDialURI().getHost(), "/ocast")).setSslConfig(sslConfig).build();
                 break;
             default:
                 throw new DriverException("unsupported module");

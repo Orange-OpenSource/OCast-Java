@@ -107,7 +107,7 @@ public class DialDeviceDescriptionRequestTest {
         request.getDeviceDescription(url.toString(), callback);
         callback.await(5000, TimeUnit.MILLISECONDS);
         verify(callback, times(1)).onDeviceDescription(eq(url.toString()), any(DialDevice.class));
-        assertThat(callback.getResult().getDialApplURL(), is(equalTo("http://127.0.0.1:8008/apps")));
+        assertThat(callback.getResult().getDialURI().toString(), is(equalTo("http://127.0.0.1:8008/apps")));
     }
 
     @Test

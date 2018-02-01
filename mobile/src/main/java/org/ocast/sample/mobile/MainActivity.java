@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
                 if(extras.containsKey(MediaRouteDevice.EXTRA_DEVICE)) {
 
                     MediaRouteDevice d = extras.getParcelable(MediaRouteDevice.EXTRA_DEVICE);
-                    Device device = new Device(d.getUuid(),d.getFriendlyName(), d.getManufacturer(), d.getModelName(), d.getDialURL());
+                    Device device = new Device(d.getUuid(),d.getFriendlyName(), d.getManufacturer(), d.getModelName(), d.getDialURI());
                     mDeviceManager = new DeviceManager(device, MainActivity.this::onDeviceStateChanged);
                     mDeviceManager.getApplicationController(viewmodel.getWebAppName(),
                             app -> {

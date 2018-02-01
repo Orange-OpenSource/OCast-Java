@@ -19,7 +19,7 @@
 
 package org.ocast.core;
 
-import java.net.URL;
+import java.net.URI;
 
 /**
  * Represents an OCast device
@@ -29,14 +29,14 @@ public class Device {
     private final String manufacturer;
     private final String modelName;
     private final String uuid;
-    private final URL dialApplURL;
+    private final URI dialApplURI;
 
-    public Device(String uuid, String friendlyName, String manufacturer, String modelName, URL urlBase) {
+    public Device(String uuid, String friendlyName, String manufacturer, String modelName, URI urlBase) {
         this.uuid = uuid;
         this.friendlyName = friendlyName;
         this.manufacturer = manufacturer;
         this.modelName = modelName;
-        dialApplURL = urlBase;
+        dialApplURI = urlBase;
     }
 
     /**
@@ -79,19 +79,9 @@ public class Device {
      * Retrieve the Dial application URL found in device tag URLBase or the one provided
      * to fromDeviceDescription if it comes from a header.
      *
-     * @return the URL as a String
-     */
-    public String getDialApplURL() {
-        return dialApplURL.toString();
-    }
-
-    /**
-     * Retrieve the Dial application URL found in device tag URLBase or the one provided
-     * to fromDeviceDescription if it comes from a header.
-     *
      * @return an URL
      */
-    public URL getDialURL() {
-        return dialApplURL;
+    public URI getDialURI() {
+        return dialApplURI;
     }
 }

@@ -24,8 +24,8 @@ import android.os.Parcelable;
 
 import org.ocast.discovery.DialDevice;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Defines a device representing a media route.
@@ -36,14 +36,14 @@ public class MediaRouteDevice implements Parcelable {
     private final String mManufacturer;
     private final String mModelName;
     private final String mUuid;
-    private final URL mDialApplURL;
+    private final URI mDialApplURI;
 
-    public MediaRouteDevice(String uuid, String friendlyName, String manufacturer, String modelName, URL urlBase) {
+    public MediaRouteDevice(String uuid, String friendlyName, String manufacturer, String modelName, URI urlBase) {
         mUuid = uuid;
         mFriendlyName = friendlyName;
         mManufacturer = manufacturer;
         mModelName = modelName;
-        mDialApplURL = urlBase;
+        mDialApplURI = urlBase;
     }
 
     public MediaRouteDevice(DialDevice dd) {
@@ -51,7 +51,7 @@ public class MediaRouteDevice implements Parcelable {
         mFriendlyName = dd.getFriendlyName();
         mManufacturer = dd.getManufacturer();
         mModelName = dd.getModelName();
-        mDialApplURL = dd.getDialURL();
+        mDialApplURI = dd.getDialURI();
     }
 
     protected MediaRouteDevice(Parcel in) {
@@ -60,8 +60,8 @@ public class MediaRouteDevice implements Parcelable {
         mModelName = in.readString();
         mUuid = in.readString();
         try {
-            mDialApplURL = new URL(in.readString());
-        } catch (MalformedURLException e) {
+            mDialApplURI = new URI(in.readString());
+        } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);
         }
     }
@@ -118,14 +118,10 @@ public class MediaRouteDevice implements Parcelable {
      * Retrieve the Dial application URL found in <device> tag URLBase or the one provided
      * to fromDeviceDescription if it comes from a header.
      *
-     * @return
+     * @return a URI object representing the Dial application URL
      */
-    public String getDialApplURL() {
-        return mDialApplURL.toString();
-    }
-
-    public URL getDialURL() {
-        return mDialApplURL;
+    public URI getDialURI() {
+        return mDialApplURI;
     }
 
     @Override
@@ -139,6 +135,6 @@ public class MediaRouteDevice implements Parcelable {
         dest.writeString(mFriendlyName);
         dest.writeString(mManufacturer);
         dest.writeString(mModelName);
-        dest.writeString(mDialApplURL.toString());
+        dest.writeString(mDialApplURI.toString());
     }
 }

@@ -25,7 +25,7 @@ import org.ocast.core.dial.DialService;
 import org.ocast.core.function.Consumer;
 
 import java.io.Reader;
-import java.net.URL;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -56,7 +56,7 @@ public class DeviceManager implements Driver.DriverListener {
     private final Driver driver;
 
     private final Consumer<Failure> listener;
-    private final URL baseDialURL;
+    private final URI baseDialURL;
     private final OkHttpClient httpClient;
 
     /**
@@ -66,7 +66,7 @@ public class DeviceManager implements Driver.DriverListener {
      */
     public DeviceManager(Device device, Consumer<Failure> listener) {
         driver = createDriver(device);
-        baseDialURL = device.getDialURL();
+        baseDialURL = device.getDialURI();
         this.listener = listener;
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -84,7 +84,7 @@ public class DeviceManager implements Driver.DriverListener {
      */
     public DeviceManager(Device device, SSLConfig sslConfig, Consumer<Failure> listener) {
         driver = createDriver(device, sslConfig);
-        baseDialURL = device.getDialURL();
+        baseDialURL = device.getDialURI();
         this.listener = listener;
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

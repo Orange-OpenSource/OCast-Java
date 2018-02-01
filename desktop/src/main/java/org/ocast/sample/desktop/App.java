@@ -93,7 +93,7 @@ public class App implements MediaController.MediaControllerListener {
 
     private void selectDevice(DialDevice dd) {
         Device selectedDevice = new Device(dd.getUuid(),dd.getFriendlyName(),dd.getManufacturer(),
-                dd.getModelName(),dd.getDialURL());
+                dd.getModelName(),dd.getDialURI());
         DeviceManager manager = new DeviceManager(selectedDevice, t -> logger.log(Level.WARNING, "Device error:", t));
 
         manager.getApplicationController("Orange-DefaultReceiver-DEV",
