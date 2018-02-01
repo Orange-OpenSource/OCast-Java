@@ -27,6 +27,7 @@ import org.mockito.stubbing.Answer;
 import java.io.InterruptedIOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.MulticastSocket;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +43,7 @@ import static org.mockito.Mockito.verify;
 
 public class SSDPDiscoveryTest {
 
-    public static final String GOOD_SSDP_PAYLOAD1 = "HTTP/1.1 200 OK\r\n" +
+    private static final String GOOD_SSDP_PAYLOAD1 = "HTTP/1.1 200 OK\r\n" +
             "LOCATION: http://127.0.0.1:8089/dd.xml\r\n" +
             "CACHE-CONTROL: max-age=1800\r\n" +
             "EXT:\r\n" +
@@ -51,7 +52,7 @@ public class SSDPDiscoveryTest {
             "ST: urn:cast-ocast-org:service:cast:1\r\n" +
             "USN: uuid:c4323fee-db4b-4227-9039-fa4b71589e26::";
 
-    public static final String GOOD_SSDP_PAYLOAD2 = "HTTP/1.1 200 OK\r\n" +
+    private static final String GOOD_SSDP_PAYLOAD2 = "HTTP/1.1 200 OK\r\n" +
             "LOCATION: http://127.0.0.1:8089/dd2.xml\r\n" +
             "CACHE-CONTROL: max-age=1800\r\n" +
             "EXT:\r\n" +
@@ -60,7 +61,7 @@ public class SSDPDiscoveryTest {
             "ST: urn:cast-ocast-org:service:cast:1\r\n" +
             "USN: uuid:c4323fee-db4b-4227-9039-fa4b71589e27::";
 
-    public static final String BAD_SSDP_PAYLOAD = "HTTP/1.1 200 OK\r\n" +
+    private static final String BAD_SSDP_PAYLOAD = "HTTP/1.1 200 OK\r\n" +
             "CACHE-CONTROL: max-age=1800\r\n" +
             "EXT:\r\n" +
             "BOOTID.UPNP.ORG: 1\r\n" +
@@ -74,7 +75,7 @@ public class SSDPDiscoveryTest {
         private int mCount = 0;
         private String[] mAnswers = {GOOD_SSDP_PAYLOAD1, GOOD_SSDP_PAYLOAD2};
 
-        public ReceiveAnswer(String[] answers) {
+        ReceiveAnswer(String[] answers) {
             mResponseToSend = answers.length;
             mAnswers = answers;
         }
@@ -86,12 +87,12 @@ public class SSDPDiscoveryTest {
             int timeout = 5000;
             Object[] args = invocation.getArguments();
             if (mCount < mResponseToSend) {
-                Thread.sleep(timeout/2);
+                Thread.sleep(timeout/2);//not advised but not completely useless to have this test
                 ((DatagramPacket) args[0]).setData(mAnswers[mCount].getBytes());
                 mCount++;
                 return null;
             } else {
-                Thread.sleep(timeout);
+                Thread.sleep(timeout);//not advised but not completely useless to have this test
                 throw new InterruptedIOException();
             }
         }
@@ -99,11 +100,11 @@ public class SSDPDiscoveryTest {
 
     private class FakeExecutorListener extends TestableCallback<SSDPMessage> implements DiscoveryExecutor.ExecutorListener<SSDPMessage> {
 
-        public FakeExecutorListener() {
+        FakeExecutorListener() {
             super();
         }
 
-        public FakeExecutorListener(int count) {
+        FakeExecutorListener(int count) {
             super(count);
         }
 
@@ -125,12 +126,12 @@ public class SSDPDiscoveryTest {
 
     @Test
     public void discover() throws Exception {
-        final DatagramSocket socketMessage = mock(DatagramSocket.class);
+        final MulticastSocket socketMessage = mock(MulticastSocket.class);
         doAnswer(new ReceiveAnswer(new String[]{GOOD_SSDP_PAYLOAD1, GOOD_SSDP_PAYLOAD2})).when(socketMessage).receive(any(DatagramPacket.class));
 
         SSDPDiscovery ssdp = new SSDPDiscovery("urn:cast-ocast-org:service:cast:1", 5000) {
             @Override
-            protected DatagramSocket createSocket() {
+            protected MulticastSocket createSocket() {
                 return socketMessage;
             }
         };
@@ -141,13 +142,13 @@ public class SSDPDiscoveryTest {
 
     @Test
     public void scanSingleResult() throws Exception {
-        final DatagramSocket socketMessage = mock(DatagramSocket.class);
+        final MulticastSocket socketMessage = mock(MulticastSocket.class);
         doAnswer(new ReceiveAnswer(new String[]{GOOD_SSDP_PAYLOAD1})).when(socketMessage).receive(any(DatagramPacket.class));
 
         FakeExecutorListener callback = Mockito.spy(new FakeExecutorListener());
         SSDPDiscovery ssdp = new SSDPDiscovery("urn:cast-ocast-org:service:cast:1", 3000) {
             @Override
-            protected DatagramSocket createSocket() {
+            protected MulticastSocket createSocket() {
                 return socketMessage;
             }
         };
@@ -162,13 +163,13 @@ public class SSDPDiscoveryTest {
 
     @Test
     public void scanTwoResult() throws Exception {
-        final DatagramSocket socketMessage = mock(DatagramSocket.class);
+        final MulticastSocket socketMessage = mock(MulticastSocket.class);
         doAnswer(new ReceiveAnswer(new String[]{GOOD_SSDP_PAYLOAD1, GOOD_SSDP_PAYLOAD2})).when(socketMessage).receive(Mockito.any(DatagramPacket.class));
 
         FakeExecutorListener callback = Mockito.spy(new FakeExecutorListener(2));
         SSDPDiscovery ssdp = new SSDPDiscovery("urn:cast-ocast-org:service:cast:1", 5000) {
             @Override
-            protected DatagramSocket createSocket() {
+            protected MulticastSocket createSocket() {
                 return socketMessage;
             }
         };
@@ -180,13 +181,13 @@ public class SSDPDiscoveryTest {
 
     @Test
     public void scanWithTimeout() throws Exception {
-        final DatagramSocket socketMessage = mock(DatagramSocket.class);
+        final MulticastSocket socketMessage = mock(MulticastSocket.class);
         doAnswer(new ReceiveAnswer(new String[]{})).when(socketMessage).receive(Mockito.any(DatagramPacket.class));
 
         FakeExecutorListener callback = Mockito.spy(new FakeExecutorListener());
         SSDPDiscovery ssdp = new SSDPDiscovery("urn:cast-ocast-org:service:cast:1", 2000) {
             @Override
-            protected DatagramSocket createSocket() {
+            protected MulticastSocket createSocket() {
                 return socketMessage;
             }
         };
@@ -199,13 +200,13 @@ public class SSDPDiscoveryTest {
 
     @Test
     public void testScanWithWrongST() throws Exception {
-        final DatagramSocket socketMessage = mock(DatagramSocket.class);
+        final MulticastSocket socketMessage = mock(MulticastSocket.class);
         doAnswer(new ReceiveAnswer(new String[]{GOOD_SSDP_PAYLOAD1})).when(socketMessage).receive(Mockito.any(DatagramPacket.class));
 
         FakeExecutorListener callback = Mockito.spy(new FakeExecutorListener());
         SSDPDiscovery ssdp = new SSDPDiscovery("urn:dummy:service:vucast:1", 3000) {
             @Override
-            protected DatagramSocket createSocket() {
+            protected MulticastSocket createSocket() {
                 return socketMessage;
             }
         };
@@ -218,13 +219,13 @@ public class SSDPDiscoveryTest {
 
     @Test
     public void testScanWithoutLocation() throws Exception {
-        final DatagramSocket socketMessage = mock(DatagramSocket.class);
+        final MulticastSocket socketMessage = mock(MulticastSocket.class);
         doAnswer(new ReceiveAnswer(new String[]{BAD_SSDP_PAYLOAD})).when(socketMessage).receive(Mockito.any(DatagramPacket.class));
 
         FakeExecutorListener callback = Mockito.spy(new FakeExecutorListener());
         SSDPDiscovery ssdp = new SSDPDiscovery("urn:cast-ocast-org:service:cast:1", 3000) {
             @Override
-            protected DatagramSocket createSocket() {
+            protected MulticastSocket createSocket() {
                 return socketMessage;
             }
         };
@@ -237,13 +238,13 @@ public class SSDPDiscoveryTest {
 
     @Test
     public void startActiveScan() throws Exception {
-        final DatagramSocket socketMessage = mock(DatagramSocket.class);
+        final MulticastSocket socketMessage = mock(MulticastSocket.class);
         doAnswer(new ReceiveAnswer(new String[]{GOOD_SSDP_PAYLOAD1, GOOD_SSDP_PAYLOAD2,GOOD_SSDP_PAYLOAD1, GOOD_SSDP_PAYLOAD2})).when(socketMessage).receive(any(DatagramPacket.class));
 
         FakeExecutorListener callback = Mockito.spy(new FakeExecutorListener(4));
         SSDPDiscovery ssdp = new SSDPDiscovery("urn:cast-ocast-org:service:cast:1", 5000) {
             @Override
-            protected DatagramSocket createSocket() {
+            protected MulticastSocket createSocket() {
                 return socketMessage;
             }
         };

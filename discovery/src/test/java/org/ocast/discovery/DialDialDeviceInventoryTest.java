@@ -44,12 +44,12 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 @PowerMockIgnore("javax.net.ssl.*")
 public class DialDialDeviceInventoryTest {
 
-    MockWebServer server;
+    private MockWebServer server;
     private static SSDPMessage SSDP_MESSAGE1, SSDP_MESSAGE2;
 
     static {
         try {
-            SSDP_MESSAGE1 = SSDPMessage.fromText(
+            SSDP_MESSAGE1 = SSDPMessage.fromString(
                     "HTTP/1.1 200 OK\r\n" +
                             "LOCATION: http://127.0.0.1:30000/dd1.xml\r\n" +
                             "CACHE-CONTROL: max-age=1800\r\n" +
@@ -60,7 +60,7 @@ public class DialDialDeviceInventoryTest {
                             "USN: uuid:11111111-1111-1111-1111-111111111111::"
             );
 
-            SSDP_MESSAGE2 = SSDPMessage.fromText(
+            SSDP_MESSAGE2 = SSDPMessage.fromString(
                     "HTTP/1.1 200 OK\r\n" +
                             "LOCATION: http://127.0.0.1:30000/dd2.xml\r\n" +
                             "CACHE-CONTROL: max-age=1800\r\n" +
@@ -71,6 +71,7 @@ public class DialDialDeviceInventoryTest {
                             "USN: uuid:22222222-2222-2222-2222-222222222222::"
             );
         } catch (ParseException e) {
+            //Something appears to be wrong in the above message
         }
     }
 
@@ -87,11 +88,11 @@ public class DialDialDeviceInventoryTest {
 
     public class TestListener extends TestableCallback<DialDevice> implements DiscoveryListener {
 
-        public TestListener() {
+        TestListener() {
             super();
         }
 
-        public TestListener(int count) {
+        TestListener(int count) {
             super(count);
         }
 
@@ -184,7 +185,7 @@ public class DialDialDeviceInventoryTest {
         DialDeviceInventory mgr = new DialDeviceInventory(callback);
         mgr.onLocationSent();
         mgr.onLocationReceived(SSDP_MESSAGE1);
-        Thread.sleep(1000);//ugly
+        Thread.sleep(1000);//not advised but not completely useless to have this test
         mgr.onLocationSent();
         mgr.onLocationReceived(SSDP_MESSAGE1);
         callback.await(5, TimeUnit.SECONDS);
@@ -204,7 +205,7 @@ public class DialDialDeviceInventoryTest {
         DialDeviceInventory mgr = new DialDeviceInventory(callback);
         mgr.onLocationSent();
         mgr.onLocationReceived(SSDP_MESSAGE1);
-        Thread.sleep(1000);//ugly
+        Thread.sleep(1000);//not advised but not completely useless to have this test
         mgr.onLocationSent();
         mgr.onLocationReceived(SSDP_MESSAGE1);
         callback.await(5, TimeUnit.SECONDS);

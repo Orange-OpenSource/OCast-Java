@@ -45,7 +45,7 @@ public class SSDPMessageTest {
                 "USN: uuid:c4323fee-db4b-4227-9039-fa4b71589e26::\r\n" +
                 "\r\n";
 
-        SSDPMessage ssdp = SSDPMessage.parseResponse(msg);
+        SSDPMessage ssdp = SSDPMessage.fromString(msg);
         assertThat(ssdp, is(not(nullValue())));
         assertThat(ssdp.getType(), is(equalTo(SSDPMessage.Type.RESPONSE)));
         assertThat(ssdp.getUuid(), is(equalTo("c4323fee-db4b-4227-9039-fa4b71589e26")));
@@ -54,7 +54,6 @@ public class SSDPMessageTest {
 
     @Test
     public void parseResponseWithoutLocation() throws Exception {
-        thrown.expect(ParseException.class);
         String msg = "HTTP/1.1 200 OK\r\n" +
                 "CACHE-CONTROL: max-age=1800\r\n" +
                 "EXT:\r\n" +
@@ -63,7 +62,27 @@ public class SSDPMessageTest {
                 "ST: urn:cast-ocast-org:service:cast:1\r\n" +
                 "USN: uuid:c4323fee-db4b-4227-9039-fa4b71589e26::\r\n" +
                 "\r\n";
-        SSDPMessage.parseResponse(msg);
+        SSDPMessage ssdp = SSDPMessage.fromString(msg);
+        assertThat(ssdp, is(not(nullValue())));
+        assertThat(ssdp.getType(), is(equalTo(SSDPMessage.Type.RESPONSE)));
+        assertThat(ssdp.getUuid(), is(equalTo("c4323fee-db4b-4227-9039-fa4b71589e26")));
+        assertThat(ssdp.getHeader("LOCATION"), is(nullValue()));
+    }
+
+    @Test
+    public void parseNotify() throws Exception {
+        String msg = "NOTIFY * HTTP/1.1\r\n" +
+                "Host: 239.255.255.250:1900\r\n" +
+                "Location: http://192.168.1.33:2222/\r\n" +
+                "Cache-Control: max-age=1800\r\n" +
+                "Server: UPnP/1.0 DLNADOC/1.50 Platinum/1.0.5.13\r\n" +
+                "NTS: ssdp:alive\r\n" +
+                "USN: uuid:506f0cff-1568-4e20-9d6e-f34fb7::upnp:rootdevice\r\n" +
+                "NT: upnp:rootdevice\r\n" +
+                "\r\n";
+        SSDPMessage ssdp = SSDPMessage.fromString(msg);
+        assertThat(ssdp, is(not(nullValue())));
+        assertThat(ssdp.getType(), is(equalTo(SSDPMessage.Type.NOTIFY)));
     }
 
     @Test
@@ -78,7 +97,7 @@ public class SSDPMessageTest {
                 "ST: urn:cast-ocast-org:service:cast:1\r\n" +
                 "USN: uuid:c4323fee-db4b-4227-9039-fa4b71589e26::\r\n" +
                 "\r\n";
-        SSDPMessage.parseResponse(msg);
+        SSDPMessage.fromString(msg);
     }
 
     @Test

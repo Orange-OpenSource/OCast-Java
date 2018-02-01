@@ -22,8 +22,8 @@ package org.ocast.discovery;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.text.ParseException;
@@ -47,8 +47,7 @@ public class SSDPDiscovery implements DiscoveryExecutor<SSDPMessage> {
     private static final int DEFAULT_MSEARCH_TIMEOUT = 3;
     private static final int READ_BUFFER_SIZE = 4096;
 
-    private InetAddress mBroadcastAddress;
-    private DatagramSocket mSocket;
+    private InetAddress mMulticastAddress;
     private List<String> mSearchTargetList = new ArrayList<>();
     private List<DatagramPacket> mSearchPacketList = new ArrayList<>();
     private int mMSearchTimeout;
@@ -56,6 +55,8 @@ public class SSDPDiscovery implements DiscoveryExecutor<SSDPMessage> {
     private ExecutorService mDiscoveryThread = Executors.newSingleThreadExecutor();
     private boolean mRunning;
     private Set<ExecutorListener<SSDPMessage>> mExecutorListenerListener = new CopyOnWriteArraySet<>();
+    //flag to tell whether we should join the multicast group to manage NOTIFY
+    private boolean mJoinGroupEnabled = false; // but expected to be configured
 
 
     /**
@@ -66,38 +67,36 @@ public class SSDPDiscovery implements DiscoveryExecutor<SSDPMessage> {
     }
 
     /**
-     * @param searchTarget   the scanInternal target corresponding to devices of interest
-     * @param msearchtimeout
+     * @param searchTarget   the search target corresponding to devices of interest
+     * @param timeout time after we consider no device responded
      */
-    public SSDPDiscovery(final String searchTarget, final int msearchtimeout) {
-        this(new ArrayList<>(Arrays.asList(searchTarget)), msearchtimeout);
+    public SSDPDiscovery(final String searchTarget, final int timeout) {
+        this(new ArrayList<>(Arrays.asList(searchTarget)), timeout);
     }
 
     public SSDPDiscovery(List<String> searchTargetList) {
         this(searchTargetList, DEFAULT_MSEARCH_TIMEOUT);
     }
 
-    public SSDPDiscovery(List<String> searchTargetList, int msearchtimeout) {
-        mMSearchTimeout = msearchtimeout * SECOND_TO_MILLI;
+    public SSDPDiscovery(List<String> searchTargetList, int timeout) {
+        mMSearchTimeout = timeout * SECOND_TO_MILLI;
         mSearchTargetList = searchTargetList;
         try {
-            mBroadcastAddress = InetAddress.getByName(SSDPMessage.SSDP_MULTICAT_CHANNEL_ADDRESS);
+            mMulticastAddress = InetAddress.getByName(SSDPMessage.SSDP_MULTICAT_ADDRESS);
+            for (String searchTarget : mSearchTargetList) {
+                String message = SSDPMessage.createMSearchMessage(searchTarget, timeout).toString();
+                byte[] payload = message.getBytes();
+                DatagramPacket packet = new DatagramPacket(payload, payload.length, mMulticastAddress, SSDPMessage.SSDP_PORT);
+                mSearchPacketList.add(packet);
+            }
         } catch (UnknownHostException e) {
             //Should not happen as we provide a dotted address representation
             Logger.getLogger(TAG).log(Level.WARNING, "Exception at init ", e);
         }
-        for (String searchTarget : mSearchTargetList) {
-            String message = SSDPMessage.createMSearchMessage(searchTarget, msearchtimeout).toString();
-            byte[] payload = message.getBytes();
-            DatagramPacket packet = new DatagramPacket(payload, payload.length, mBroadcastAddress, SSDPMessage.SSDP_PORT);
-            mSearchPacketList.add(packet);
-        }
     }
 
-    protected DatagramSocket createSocket() throws SocketException {
-        DatagramSocket socket = new DatagramSocket();
-        socket.setReuseAddress(true);
-        return socket;
+    protected MulticastSocket createSocket() throws IOException {
+        return new MulticastSocket(SSDPMessage.SSDP_PORT);
     }
 
     @Override
@@ -118,27 +117,37 @@ public class SSDPDiscovery implements DiscoveryExecutor<SSDPMessage> {
         Logger.getLogger(TAG).log(Level.INFO, "Starting active scan...");
         if (!mRunning) {
             mRunning = true;
-            mDiscoveryThread.submit(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        mSocket = createSocket();
-                        while (mRunning) {
-                            discoverInternal(mMSearchTimeout);
-                        }
-                        mSocket.close();
-                    } catch (SocketException e) {
-                        Logger.getLogger(TAG).log(Level.WARNING, "could not create Socket", e);
-                        mRunning = false;
-                        notifyOnError();
-                    } catch (IOException e) {
-                        Logger.getLogger(TAG).log(Level.WARNING, "could not execute request", e);
-                        mRunning = false;
-                        notifyOnError();
-                    }
-                }
-            });
+            mDiscoveryThread.submit(getPeriodicDiscoveryTask());
         }
+    }
+
+    private Runnable getPeriodicDiscoveryTask() {
+        return () -> {
+            MulticastSocket socket = null;
+            try {
+                socket = createSocket();
+                if(mJoinGroupEnabled) {
+                    socket.joinGroup(mMulticastAddress);
+                }
+                while (mRunning) {
+                    discoverInternal(socket, mMSearchTimeout);
+                }
+            } catch (SocketException e) {
+                Logger.getLogger(TAG).log(Level.WARNING, "could not create Socket", e);
+                notifyOnError();
+            } catch (IOException e) {
+                Logger.getLogger(TAG).log(Level.WARNING, "could not execute request", e);
+                notifyOnError();
+            } catch (Exception e) {
+                Logger.getLogger(TAG).log(Level.INFO, "Exception ", e);
+                notifyOnError();
+            } finally {
+                mRunning = false;
+                if (socket != null) {
+                    socket.close();
+                }
+            }
+        };
     }
 
     /**
@@ -150,55 +159,65 @@ public class SSDPDiscovery implements DiscoveryExecutor<SSDPMessage> {
         mRunning = false;
     }
 
+    /**
+     * Create an M-SEARCH SSDPMessage targeting searchTarget and sends it on the network.
+     * This method then reads data on the socket until discovery timeout occurs.
+     *
+     * @param timeout time after we consider no device responded
+     */
     public List<SSDPMessage> discover(long timeout) {
+        MulticastSocket socket = null;
         try {
-            mSocket = createSocket();
-            return discoverInternal(timeout);
+            socket = createSocket();
+            if(mJoinGroupEnabled) {
+                socket.joinGroup(mMulticastAddress);
+            }
+            return discoverInternal(socket, timeout);
         } catch (SocketException e) {
             Logger.getLogger(TAG).log(Level.WARNING,"could not create Socket", e);
         } catch (IOException e) {
             Logger.getLogger(TAG).log(Level.WARNING, "Exception sending discoverInternal packet", e);
         } finally {
-            mSocket.close();
+            if (socket != null) {
+                socket.close();
+            }
         }
         return new ArrayList<>();
     }
 
-    /**
-     * Create an M-SEARCH SSDPMessage targeting searchTarget and sends it on the network.
-     * This method then reads data on the socket until discovery timeout occurs.
-     *
-     * @param timeout
-     */
-    public List<SSDPMessage> discoverInternal(long timeout) throws IOException {
+    private List<SSDPMessage> discoverInternal(MulticastSocket socket, long timeout) throws IOException {
         for (DatagramPacket packet : mSearchPacketList) {
-            mSocket.send(packet);
+            socket.send(packet);
         }
         notifyOnLocationSent();
-        List<SSDPMessage> result = readResponses(timeout);
+        List<SSDPMessage> result = readResponses(socket, timeout);
         if (result.isEmpty()) {
             Logger.getLogger(TAG).log(Level.FINE, "no device found");
         }
         return result;
     }
 
-    private List<SSDPMessage> readResponses(long timeout) throws IOException {
+    private List<SSDPMessage> readResponses(MulticastSocket socket, long timeout) throws IOException {
         List<SSDPMessage> result = new ArrayList<>();
         byte[] buffer = new byte[READ_BUFFER_SIZE];
         DatagramPacket receivedPacket = new DatagramPacket(buffer, buffer.length);
-        mSocket.setSoTimeout((int) timeout);
+        socket.setSoTimeout((int) timeout);
         long endTime = System.currentTimeMillis() + timeout;
         do {
             try {
-                mSocket.receive(receivedPacket);
+                socket.receive(receivedPacket);
                 String data = new String(receivedPacket.getData(), 0, receivedPacket.getLength());
-                Logger.getLogger(TAG).log(Level.FINEST, "Received UDP packet : " + data.replace("\r", ""));
-                SSDPMessage ssdpResponse = SSDPMessage.parseResponse(data);
-                if (mSearchTargetList.contains(ssdpResponse.getHeader(SSDPMessage.ST))) {
-                    notifyOnLocationReceived(ssdpResponse);
-                    result.add(ssdpResponse);
-                } else {
-                    Logger.getLogger(TAG).log(Level.WARNING, "Skipping response from:" + ssdpResponse.getHeader(SSDPMessage.ST));
+                Logger.getLogger(TAG).log(Level.FINEST, "Received UDP packet : {0}", data.replace("\r", ""));
+                SSDPMessage ssdpResponse = SSDPMessage.fromString(data);
+                if (ssdpResponse.getType() == SSDPMessage.Type.RESPONSE) {
+                    if (validateResponse(ssdpResponse)) {
+                        notifyOnLocationReceived(ssdpResponse);
+                        result.add(ssdpResponse);
+                    } else {
+                        Logger.getLogger(TAG).log(Level.WARNING, "Skipping response from:" + ssdpResponse.getHeader(SSDPMessage.ST));
+                    }
+                } else if (ssdpResponse.getType() == SSDPMessage.Type.NOTIFY) {
+                    Logger.getLogger(TAG).log(Level.FINEST, "got a NOTIFY");
                 }
             } catch (ParseException e) {
                 Logger.getLogger(TAG).log(Level.SEVERE, "Could not parse response", e);
@@ -208,6 +227,13 @@ public class SSDPDiscovery implements DiscoveryExecutor<SSDPMessage> {
             }
         } while (endTime - System.currentTimeMillis() > 0);
         return result;
+    }
+
+    private boolean validateResponse(SSDPMessage ssdpResponse) {
+        String location = ssdpResponse.getHeader(SSDPMessage.LOCATION);
+        String searchTarget = ssdpResponse.getHeader(SSDPMessage.ST);
+        return (location != null && location.length() > 0 &&
+                mSearchTargetList.contains(searchTarget));
     }
 
     private void notifyOnLocationSent() {
