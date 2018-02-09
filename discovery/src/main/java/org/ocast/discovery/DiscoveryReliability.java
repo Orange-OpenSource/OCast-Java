@@ -26,8 +26,8 @@ package org.ocast.discovery;
  * considering a device has been lost.
  */
 public class DiscoveryReliability {
-    private int mTimeout;
-    private int mRetry;
+    private final int mTimeout;
+    private final int mRetry;
 
     /**
      * defines a discovery request to be sent every 3 seconds, consider a device lost if it didn't
@@ -56,18 +56,23 @@ public class DiscoveryReliability {
     }
 
     /**
-     * returns the retry number
-     * @return
+     * get the retry number before considering a device got lost
+     * @return the number of retry
      */
     public int getRetry() {
         return mRetry;
     }
 
     /**
-     * returns the discovery timeout
-     * @return
+     * get the discovery timeout to consider no device responded
+     * @return a duration in seconds
      */
     public int getTimeout() {
         return mTimeout;
+    }
+
+    @Override
+    public String toString() {
+        return "reliability [retry:"+mRetry+" timeout:"+mTimeout+"]";
     }
 }
