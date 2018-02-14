@@ -31,10 +31,9 @@ import org.ocast.core.media.Metadata;
 import org.ocast.core.media.PlaybackStatus;
 import org.ocast.core.media.PrepareCommand;
 import org.ocast.core.media.TransferMode;
-import org.ocast.discovery.DialDevice;
+import org.ocast.discovery.DiscoveredDevice;
 import org.ocast.discovery.Discovery;
-import org.ocast.discovery.DiscoveryListener;
-import org.ocast.discovery.DiscoveryReliability;
+import org.ocast.discovery.SSDPDiscovery;
 import org.ocast.referencedriver.ReferenceDriver;
 
 import java.net.MalformedURLException;
@@ -45,26 +44,24 @@ import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class App implements MediaController.MediaControllerListener {
 
     private static final int PLAY_DURATION = 10 * 1000;
     private final Logger logger = Logger.getLogger("sample");
-    private final Discovery activeDiscovery;
     private final CountDownLatch stop = new CountDownLatch(1);
     private final Consumer<Throwable> errorLog = t -> logger.log(Level.WARNING, "error:",t);
+    private Discovery discovery;
 
-    private final DiscoveryListener callback = new DiscoveryListener() {
+    private final Discovery.DiscoveryListener callback = new Discovery.DiscoveryListener() {
         @Override
-        public void onDeviceAdded(DialDevice dd) {
-            activeDiscovery.stop();
+        public void onDeviceAdded(DiscoveredDevice dd) {
             logger.log(Level.INFO, String.format("found %s", dd.getFriendlyName()));
             selectDevice(dd);
             logger.log(Level.INFO,"stopping discovery");
         }
 
         @Override
-        public void onDeviceRemoved(DialDevice dd) {
+        public void onDeviceRemoved(DiscoveredDevice dd) {
             logger.log(Level.INFO,"device removed");
         }
     };
@@ -77,11 +74,11 @@ public class App implements MediaController.MediaControllerListener {
 
     private App() {
         CallbackThreadHandler.init(new SimpleWrapper());
-        activeDiscovery = new Discovery(ReferenceDriver.SEARCH_TARGET, callback, DiscoveryReliability.HIGH);
+        discovery = new SSDPDiscovery(ReferenceDriver.SEARCH_TARGET, callback);
     }
 
     private void run() {
-        activeDiscovery.start();
+        discovery.start();
         try {
             stop.await();
         } catch (InterruptedException e) {
@@ -91,7 +88,7 @@ public class App implements MediaController.MediaControllerListener {
         System.exit(0);
     }
 
-    private void selectDevice(DialDevice dd) {
+    private void selectDevice(DiscoveredDevice dd) {
         Device selectedDevice = new Device(dd.getUuid(),dd.getFriendlyName(),dd.getManufacturer(),
                 dd.getModelName(),dd.getDialURI());
         DeviceManager manager = new DeviceManager(selectedDevice, t -> logger.log(Level.WARNING, "Device error:", t));

@@ -53,6 +53,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class MainActivity extends AppCompatActivity implements MediaController.MediaControllerListener, ViewModel.ViewModelListener {
 
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         binding.buttonPlayMedia.setOnClickListener(v -> playMedia());
         binding.buttonPauseMedia.setOnClickListener(v-> pauseMedia());
         binding.buttonStopMedia.setOnClickListener(v -> stopMedia());
-        OCastRouteHelper.addMediaRouteProvider(getApplicationContext(), Arrays.asList(ReferenceDriver.SEARCH_TARGET));
+        OCastRouteHelper.addMediaRouteProvider(getApplicationContext(), new HashSet<>(Arrays.asList(ReferenceDriver.SEARCH_TARGET)));
         DeviceManager.registerDriver("Orange SA", new ReferenceDriver.ReferenceFactory());
         mMediaRouter = MediaRouter.getInstance(getApplicationContext());
         mMediaRouteSelector = new MediaRouteSelector.Builder()

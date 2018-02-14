@@ -26,11 +26,17 @@ public class LogTag {
     private static final String PREFIX = "ocast";
 
     private static final String DISCOVERY_M = "discovery";
+    private static final String SSDP_M = "ssdp";
 
     /**
      * tag identifying discovery related log entries
      */
     public static final String DISCOVERY = tag(PREFIX,DISCOVERY_M);
+
+    /**
+     * tag identifying SSDP related log entries
+     */
+    public static final String SSDP = tag(PREFIX,DISCOVERY_M, SSDP_M);
 
     private LogTag() {
     }

@@ -46,6 +46,10 @@ public class TestableCallback<T> {
         mLatch.await(timeout, unit);
     }
 
+    public void await() throws InterruptedException {
+        mLatch.await();
+    }
+
     public void countDown() {
         mLatch.countDown();
     }

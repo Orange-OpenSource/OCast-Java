@@ -51,65 +51,17 @@ import java.text.ParseException;
  * }
  * </pre>
  */
-public class DialDevice {
-    private final String mFriendlyName;
-	private final String mManufacturer;
-	private final String mModelName;
-	private final String mUuid;
-	private final URI mDialApplURI;
+public class DialDevice extends DiscoveredDevice {
 
-	public DialDevice(String uuid, String friendlyName, String manufacturer, String modelName, URI urlBase) {
-		mUuid = uuid;
-		mFriendlyName = friendlyName;
-		mManufacturer = manufacturer;
-		mModelName = modelName;
-		mDialApplURI = urlBase;
+	private URI location;
+
+	public DialDevice(String uuid, String friendlyName, String manufacturer, String modelName, URI url, URI location) {
+		super(uuid, friendlyName, manufacturer, modelName, url);
+		this.location = location;
 	}
 
-    /**
-	 * Retrieve the device friendly name found in device tag
-	 *
-	 * @return friendly name
-	 */
-	public String getFriendlyName() {
-		return mFriendlyName;
-	}
-
-	/**
-	 * Retrieve the manufacturer found in found in device tag
-	 *
-	 * @return
-	 */
-	public String getManufacturer() {
-		return mManufacturer;
-	}
-
-	/**
-	 * Retrieve the modelName found in device tag
-	 *
-	 * @return
-	 */
-	public String getModelName() {
-		return mModelName;
-	}
-
-	/**
-	 * Retrieve the UUID found in device tag
-	 *
-	 * @return the uuid value without uuid: prefix
-	 */
-	public String getUuid() {
-		return mUuid;
-	}
-
-	/**
-	 * Retrieve the Dial application URL found in device tag URLBase or the one provided
-	 * to fromDeviceDescription if it comes from a header.
-	 *
-	 * @return a URI object representing the Dial application URL
-	 */
-	public URI getDialURI() {
-		return mDialApplURI;
+	public URI getLocation() {
+		return location;
 	}
 
 	/**
@@ -120,7 +72,7 @@ public class DialDevice {
 	 * @return the resulting DeviceDescription
      * @throws ParseException if the XML content is invalid
 	 */
-	public static DialDevice fromDeviceDescription(String xml, String dialUrlHeader) throws ParseException {
+	public static DialDevice fromDeviceDescription(String xml, String dialUrlHeader, URI location) throws ParseException {
 		String friendlyName = null;
 		String manufacturer = null;
 		String modelName = null;
@@ -173,7 +125,7 @@ public class DialDevice {
 			sr.close();
 			if(urlBase != null) {
 				url = new URI(urlBase);
-				return new DialDevice(uuid, friendlyName, manufacturer, modelName, url);
+				return new DialDevice(uuid, friendlyName, manufacturer, modelName, url, location);
 			} else {
 				throw new ParseException("Could find Dial URL", -1);
 			}
@@ -185,32 +137,4 @@ public class DialDevice {
 			throw new ParseException("Could find Dial URL", -1);
 		}
 	}
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        DialDevice that = (DialDevice) o;
-
-        if (mFriendlyName != null ? !mFriendlyName.equals(that.mFriendlyName) : that.mFriendlyName != null)
-            return false;
-        if (mManufacturer != null ? !mManufacturer.equals(that.mManufacturer) : that.mManufacturer != null)
-            return false;
-        if (mModelName != null ? !mModelName.equals(that.mModelName) : that.mModelName != null)
-            return false;
-        if (mUuid != null ? !mUuid.equals(that.mUuid) : that.mUuid != null) return false;
-        return mDialApplURI != null ? mDialApplURI.equals(that.mDialApplURI) : that.mDialApplURI == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = mFriendlyName != null ? mFriendlyName.hashCode() : 0;
-        result = 31 * result + (mManufacturer != null ? mManufacturer.hashCode() : 0);
-        result = 31 * result + (mModelName != null ? mModelName.hashCode() : 0);
-        result = 31 * result + (mUuid != null ? mUuid.hashCode() : 0);
-        result = 31 * result + (mDialApplURI != null ? mDialApplURI.hashCode() : 0);
-        return result;
-    }
 }

@@ -87,7 +87,7 @@ public class SSDPMessage {
     private Type mType;
     private Map<String, String> mHeaders = new HashMap<>();
 
-    private SSDPMessage(Type type) {
+    public SSDPMessage(Type type) {
         this.mType = type;
     }
 
