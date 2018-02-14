@@ -30,6 +30,7 @@ buildscript {
         // in the individual module build.gradle files
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.1'
     }
     properties.each { prop ->
         project.ext.set(prop.key, prop.value)
@@ -93,7 +94,7 @@ configure(exportedProjects) {
     }
 
     group = "org.ocast"
-    version = "0.1.0"
+    version = "0.1.1"
 }
 
 configure(javaProjects) {
@@ -153,6 +154,8 @@ configure(javaProjects) {
 }
 
 gradle.projectsEvaluated {
+    apply plugin: "org.sonarqube"
+
     configurations {
         doclava
         doclavacp
