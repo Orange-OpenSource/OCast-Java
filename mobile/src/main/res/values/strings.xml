@@ -29,4 +29,8 @@
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
     <string name="stop">Stop</string>
+    <string name="volume">Volume</string>
+    <string name="mute">Mute</string>
+    <string name="mute_on">Muted</string>
+    <string name="mute_off">Unmuted</string>
 </resources>

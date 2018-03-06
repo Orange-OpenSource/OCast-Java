@@ -32,6 +32,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 
 import org.ocast.core.media.Track;
@@ -54,6 +55,8 @@ public class ViewModel extends BaseObservable {
     public ObservableField<String> webappname = new ObservableField<>();
     public ObservableField<Double> duration = new ObservableField<>();
     public ObservableField<Double> position = new ObservableField<>();
+    public ObservableField<Double> volumeLevel = new ObservableField<>();
+    public ObservableField<Boolean> mute = new ObservableField<>();
     private List<Track> audioTracks;
     private List<Track> subtitleTracks;
     private Integer selectedAudioTrackPosition = 0;
@@ -64,6 +67,8 @@ public class ViewModel extends BaseObservable {
         void onSeek(long position);
         void onCustomDataClicked();
         void onSubtitleTrackChanged(Track track);
+        void onVolumeChanged(double volumeLevel);
+        void onCheckedChanged(boolean isMuted);
     }
 
     public ViewModel(String webAppName, ViewModelListener listener) {
@@ -203,8 +208,19 @@ public class ViewModel extends BaseObservable {
 
     public void onValueChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
         if(fromUser) {
-            listener.onSeek(progresValue);
+            switch (seekBar.getId()) {
+                case R.id.volumeLevel:
+                    listener.onVolumeChanged((double) progresValue /1000f);
+                    break;
+                case R.id.seekPosition:
+                    listener.onSeek(progresValue);
+                    break;
+            }
         }
+    }
+
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        listener.onCheckedChanged(isChecked);
     }
 
     public void onCustomDataClicked(View view) {

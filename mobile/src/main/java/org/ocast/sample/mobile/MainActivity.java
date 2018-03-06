@@ -194,6 +194,8 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         viewmodel.duration.set(status.getDuration());
         viewmodel.position.set(status.getPosition());
         viewmodel.playerState.set(status.getState().toString());
+        viewmodel.volumeLevel.set(status.getVolume()*1000);
+        viewmodel.mute.set(status.isMute());
     }
 
     @Override
@@ -209,6 +211,16 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     @Override
     public void onSubtitleTrackChanged(Track track) {
         mediaController.track(track, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+    }
+
+    @Override
+    public void onVolumeChanged(double volumeLevel) {
+        mediaController.volume(volumeLevel, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+    }
+
+    @Override
+    public void onCheckedChanged(boolean isMuted) {
+        mediaController.mute(isMuted, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
     }
 
     @Override

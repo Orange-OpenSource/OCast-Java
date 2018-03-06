@@ -170,13 +170,13 @@
                     android:id="@+id/buttonStopMedia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/linearLayout"
+                    android:layout_above="@+id/progressLinearLayout"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:text="Stop" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout"
+                    android:id="@+id/progressLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/buttonPauseMedia"
@@ -191,7 +191,7 @@
                         android:text='@{String.format("%.2f",safeUnbox(viewmodel.position))}' />
 
                     <SeekBar
-                        android:id="@+id/progress"
+                        android:id="@+id/seekPosition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
@@ -206,13 +206,54 @@
                         android:layout_weight="1"
                         android:text='@{String.format("%.2f",safeUnbox(viewmodel.duration))}' />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/volumeLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/progressLinearLayout"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/volumeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text='@string/volume' />
+
+                    <SeekBar
+                        android:id="@+id/volumeLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:max="1000"
+                        android:onProgressChanged="@{viewmodel.onValueChanged}"
+                        android:progress="@{(int)safeUnbox(viewmodel.volumeLevel)}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text='@{String.format("%.2f",safeUnbox(viewmodel.volumeLevel))}' />
+
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textOff="@string/mute_off"
+                        android:textOn="@string/mute_on"
+                        android:text="@string/mute"
+                        android:checked="@{viewmodel.mute}"
+                        android:onCheckedChanged="@{viewmodel.onCheckedChanged}"
+                        />
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/stateLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/linearLayout"
+                    android:layout_below="@+id/volumeLinearLayout"
                     android:layout_marginTop="23dp"
                     android:text="State" />
 
