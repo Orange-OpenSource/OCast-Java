@@ -122,8 +122,9 @@ public class MediaController extends DataStream {
      * @param onSuccess
      * @param onFailure
      */
-    public void volume(float level, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        //TODO
+    public void volume(double level, Runnable onSuccess, Consumer<Throwable> onFailure) {
+        VolumeCommand command = new VolumeCommand(level);
+        sendSimpleCommand(onSuccess, onFailure, command);
     }
 
     /**
@@ -133,7 +134,8 @@ public class MediaController extends DataStream {
      * @param onFailure
      */
     public void mute(boolean enable, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        //TODO
+        MuteCommand command = new MuteCommand(enable);
+        sendSimpleCommand(onSuccess, onFailure, command);
     }
 
     /**
