@@ -179,7 +179,7 @@ public class ApplicationController extends DataStream {
     @Override
     public void onMessage(JSONObject message) {
         try {
-            if(isConnectedEvent(message)) {
+            if(isConnectedEvent(message) && connectedLatch != null) {
                 connectedLatch.countDown();
             }
         } catch (JSONException e) {
