@@ -180,6 +180,9 @@ public class ReferenceLink implements Link {
 
         private void handleReply(Payload payload) {
             CallbackRecord record = callbacks.get(payload.getId());
+            if(record == null) {
+                return;
+            }
             if(payload.getStatus() == Payload.Status.OK) {
                 record.success.accept(new Reply() {
                     @Override
