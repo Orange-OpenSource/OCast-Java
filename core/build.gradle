@@ -18,8 +18,7 @@
  */
 
 description = "Core module of the OCast SDK"
-
-apply from: "$rootDir/publish.gradle"
+apply plugin: 'java'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
