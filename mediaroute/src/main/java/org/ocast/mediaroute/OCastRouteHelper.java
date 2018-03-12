@@ -23,7 +23,7 @@ import android.content.Context;
 import android.support.v7.media.MediaRouteProvider;
 import android.support.v7.media.MediaRouter;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Helper class to setup {@link org.ocast.mediaroute.OCastMediaRouteProvider OCastMediaRouteProvider}
@@ -40,7 +40,7 @@ public class OCastRouteHelper {
      * @param context
      * @param searchTargets a list of search targets to be discovered
      */
-    public static void addMediaRouteProvider(Context context, List<String> searchTargets) {
+    public static void addMediaRouteProvider(Context context, Set<String> searchTargets) {
         if(sOCastProvider == null) {
             MediaRouter mediaRouter = MediaRouter.getInstance(context.getApplicationContext());
             sOCastProvider = new OCastMediaRouteProvider(context.getApplicationContext(), searchTargets);

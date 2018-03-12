@@ -22,7 +22,7 @@ package org.ocast.mediaroute;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.ocast.discovery.DialDevice;
+import org.ocast.discovery.DiscoveredDevice;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -46,7 +46,7 @@ public class MediaRouteDevice implements Parcelable {
         mDialApplURI = urlBase;
     }
 
-    public MediaRouteDevice(DialDevice dd) {
+    public MediaRouteDevice(DiscoveredDevice dd) {
         mUuid = dd.getUuid();
         mFriendlyName = dd.getFriendlyName();
         mManufacturer = dd.getManufacturer();

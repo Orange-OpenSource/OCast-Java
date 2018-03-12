@@ -38,15 +38,15 @@ import android.support.v7.media.MediaRouteProvider;
 import android.support.v7.media.MediaRouteProviderDescriptor;
 import android.util.Log;
 
-import org.ocast.discovery.DialDevice;
-import org.ocast.discovery.DiscoveryListener;
+import org.ocast.discovery.DiscoveredDevice;
 import org.ocast.discovery.Discovery;
-import org.ocast.discovery.DiscoveryReliability;
+import org.ocast.discovery.SSDPDiscovery;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A media route provider publishing OCast routes
@@ -60,36 +60,41 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
     private List<IntentFilter> mCategoryIntentFilterList;
     private IntentFilter mWifiMonitorIntentFilter = new IntentFilter();
     private MediaRouteDiscoveryRequest mCurrentRequest;
-    Discovery mActiveDiscovery, mProcessDiscovery;
+    private final SSDPDiscovery mSSDPDiscovery;
     private final ConnectivityManager mConnectivityManager;
     private WifiMonitor mWifiMonitorReceiver = new WifiMonitor(this);
     private Map<String, MediaRouteDescriptor> mRoutes = new HashMap<>();
 
-    private DiscoveryListener callback = new DiscoveryListener() {
+    private Discovery.DiscoveryListener listener = new Discovery.DiscoveryListener() {
         @Override
-        public void onDeviceAdded(DialDevice dd) {
-            Bundle bundledDevice = new Bundle();
-            MediaRouteDevice device = new MediaRouteDevice(dd);
-            bundledDevice.putParcelable(MediaRouteDevice.EXTRA_DEVICE,device);
-            Uri uri = new Uri.Builder().scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                    .authority(getContext().getPackageName())
-                    .build();
-            MediaRouteDescriptor routeDescriptor = new MediaRouteDescriptor.Builder(
-                    dd.getUuid(),
-                    dd.getFriendlyName())
-                    .setDescription(dd.getModelName())
-                    .setIconUri(uri)
-                    .addControlFilters(mCategoryIntentFilterList)
-                    .setExtras(bundledDevice)
-                    .build();
-            mRoutes.put(dd.getUuid(),routeDescriptor);
+        public void onDeviceAdded(DiscoveredDevice dd) {
+            MediaRouteDescriptor routeDescriptor = createMediaRouteDescriptor(dd);
+            mRoutes.put(dd.getFriendlyName(),routeDescriptor);
             publishRoutes();
         }
 
         @Override
-        public void onDeviceRemoved(DialDevice dd) {
-            mRoutes.remove(dd.getUuid());
+        public void onDeviceRemoved(DiscoveredDevice dd) {
+            mRoutes.remove(dd.getFriendlyName());
             publishRoutes();
+        }
+
+        @NonNull
+        private MediaRouteDescriptor createMediaRouteDescriptor(DiscoveredDevice device) {
+            Bundle bundledDevice = new Bundle();
+            MediaRouteDevice mediaRouteDevice = new MediaRouteDevice(device);
+            bundledDevice.putParcelable(MediaRouteDevice.EXTRA_DEVICE,mediaRouteDevice);
+            Uri uri = new Uri.Builder().scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                    .authority(getContext().getPackageName())
+                    .build();
+            return new MediaRouteDescriptor.Builder(
+                    device.getUuid(),
+                    device.getFriendlyName())
+                    .setDescription(device.getModelName())
+                    .setIconUri(uri)
+                    .addControlFilters(mCategoryIntentFilterList)
+                    .setExtras(bundledDevice)
+                    .build();
         }
     };
 
@@ -99,20 +104,14 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
             providerDescriptorBuilder.addRoute(d);
         }
         final MediaRouteProviderDescriptor providerDescriptor = providerDescriptorBuilder.build();
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                setDescriptor(providerDescriptor);
-            }
-        });
+        mHandler.post(() -> setDescriptor(providerDescriptor));
     }
 
-    public OCastMediaRouteProvider(@NonNull Context context, List<String> searchTargets) {
+    public OCastMediaRouteProvider(@NonNull Context context, Set<String> searchTargets) {
         super(context);
         mContext = context.getApplicationContext();
         mHandler = new Handler(Looper.getMainLooper());
-        mActiveDiscovery = new Discovery(searchTargets, callback, DiscoveryReliability.HIGH);
-        mProcessDiscovery = new Discovery(searchTargets, callback, DiscoveryReliability.LOW);
+        mSSDPDiscovery = new SSDPDiscovery(searchTargets, listener);
         mCategoryIntentFilterList = new ArrayList<>();
         IntentFilter f = new IntentFilter();
         f.addCategory(CATEGORY_OCAST);
@@ -121,17 +120,13 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
         mWifiMonitorIntentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
     }
 
-    @Nullable
-    @Override
-    public RouteController onCreateRouteController(String routeId) {
-        return super.onCreateRouteController(routeId);
-    }
-
     @Override
     public void onDiscoveryRequestChanged(@Nullable MediaRouteDiscoveryRequest request) {
         if(request != null) {
             if(mCurrentRequest == null) {
                 mContext.registerReceiver(mWifiMonitorReceiver, mWifiMonitorIntentFilter);
+                mRoutes.clear();
+                publishRoutes();
             }
             Log.d(TAG, "onDiscoveryRequest "+request.toString());
             NetworkInfo activeNetwork = mConnectivityManager.getActiveNetworkInfo();
@@ -149,20 +144,12 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
     }
 
     private void startDiscovery(MediaRouteDiscoveryRequest request) {
-        if (request.isActiveScan()) {
-            mProcessDiscovery.stop();
-            mActiveDiscovery.start();
-        } else {
-            mActiveDiscovery.stop();
-            mProcessDiscovery.start();
-
-        }
+        mSSDPDiscovery.start(request.isActiveScan());
     }
 
     private void stopDiscovery() {
         Log.d(TAG, "onDiscoveryRequest no discovery required");
-        mProcessDiscovery.stop();
-        mActiveDiscovery.stop();
+        mSSDPDiscovery.stop();
     }
 
     @Override
