@@ -30,7 +30,7 @@ android {
 
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionName version
+        versionName project(":mediaroute").version
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
