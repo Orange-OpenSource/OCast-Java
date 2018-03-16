@@ -165,10 +165,10 @@
     <li><h2>Interfaces</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.Callbacks.html">DeviceDescriptionRequest.Callbacks</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceInventory.html">DeviceInventory</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryExecutor.html">DiscoveryExecutor</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryExecutor.ExecutorListener.html">DiscoveryExecutor.ExecutorListener</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryListener.html">DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.DiscoveryListener.html">Discovery.DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPManager.DiscoveryListener.html">SSDPManager.DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPSocket.Listener.html">SSDPSocket.Listener</a></li>
       </ul>
     </li>
               
@@ -176,12 +176,13 @@
       <ul>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.html">DeviceDescriptionRequest</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DialDevice.html">DialDevice</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DialDeviceInventory.html">DialDeviceInventory</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveredDevice.html">DiscoveredDevice</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryReliability.html">DiscoveryReliability</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/LogTag.html">LogTag</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPDiscovery.html">SSDPDiscovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPManager.html">SSDPManager</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPMessage.html">SSDPMessage</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPSocket.html">SSDPSocket</a></li>
       </ul>
     </li>
               
@@ -419,6 +420,14 @@ Summary:
     
     
     <tr class=" api apilevel-" >
+        <td class="jd-descrcol"><a href="../../../org/ocast/discovery/SSDPMessage.Type.html">SSDPMessage.Type</a>&nbsp;</td>
+        <td class="jd-linkcol">NOTIFY&nbsp;</td>
+        <td class="jd-descrcol" width="100%">NOTIFY
+&nbsp;</td>
+    </tr>
+    
+    
+    <tr class="alt-color api apilevel-" >
         <td class="jd-descrcol"><a href="../../../org/ocast/discovery/SSDPMessage.Type.html">SSDPMessage.Type</a>&nbsp;</td>
         <td class="jd-linkcol">RESPONSE&nbsp;</td>
         <td class="jd-descrcol" width="100%">RESPONSE message
@@ -1025,6 +1034,37 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>M-SEARCH request
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<a id="NOTIFY"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        <a href="../../../org/ocast/discovery/SSDPMessage.Type.html">SSDPMessage.Type</a>
+      </span>
+        NOTIFY
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>NOTIFY
 </p></div>
 
     

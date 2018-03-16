@@ -165,10 +165,10 @@
     <li><h2>Interfaces</h2>
       <ul>
           <li class="selected api apilevel-"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.Callbacks.html">DeviceDescriptionRequest.Callbacks</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceInventory.html">DeviceInventory</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryExecutor.html">DiscoveryExecutor</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryExecutor.ExecutorListener.html">DiscoveryExecutor.ExecutorListener</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryListener.html">DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.DiscoveryListener.html">Discovery.DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPManager.DiscoveryListener.html">SSDPManager.DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPSocket.Listener.html">SSDPSocket.Listener</a></li>
       </ul>
     </li>
               
@@ -176,12 +176,13 @@
       <ul>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.html">DeviceDescriptionRequest</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DialDevice.html">DialDevice</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DialDeviceInventory.html">DialDeviceInventory</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveredDevice.html">DiscoveredDevice</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryReliability.html">DiscoveryReliability</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/LogTag.html">LogTag</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPDiscovery.html">SSDPDiscovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPManager.html">SSDPManager</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPMessage.html">SSDPMessage</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPSocket.html">SSDPSocket</a></li>
       </ul>
     </li>
               
@@ -234,25 +235,6 @@
 <div class="sum-details-links">
 
 
-Summary:
-
-
-
-
-
-
-
-
-
-
-
-  <a href="#pubmethods">Methods</a>
-  
-
-
-
-&#124; <a href="#" onclick="return toggleAllClassInherited()" id="toggleAllClassInherited">[Expand All]</a>
-
 </div><!-- end sum-details-links -->
 <div class="api-level">
   
@@ -302,38 +284,6 @@ Summary:
 
 
 
-
-<table class="jd-sumtable jd-sumtable-subclasses"><tr><td colspan="12" style="border:none;margin:0;padding:0;">
-
-  <a href="#" onclick="return toggleInherited(this, null)" id="subclasses-indirect" class="jd-expando-trigger closed"
-          ><img id="subclasses-indirect-trigger"
-          src="../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>Known Indirect Subclasses
-
-  <div id="subclasses-indirect">
-      <div id="subclasses-indirect-list"
-              class="jd-inheritedlinks"
-              
-              >
-          
-            
-              <a href="../../../org/ocast/discovery/DialDeviceInventory.html">DialDeviceInventory</a>
-            
-          
-      </div>
-      <div id="subclasses-indirect-summary"
-              style="display: none;"
-              >
-  <table class="jd-sumtable-expando">
-        <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/DialDeviceInventory.html">DialDeviceInventory</a></td>
-              <td class="jd-descrcol" width="100%">Defines a <code><a href="../../../org/ocast/discovery/DeviceInventory.html">DeviceInventory</a></code> for DIAL devices
-&nbsp;</td>
-          </tr>
-  </table>
-      </div>
-  </div>
-</td></tr></table>
 
 
 <div class="jd-descr">
@@ -411,7 +361,7 @@ Summary:
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.Callbacks.html#onDeviceDescription(java.lang.String, org.ocast.discovery.DialDevice)">onDeviceDescription</a></span>(String location, <a href="../../../org/ocast/discovery/DialDevice.html">DialDevice</a> dd)
+        <span class="sympad"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.Callbacks.html#onDeviceDescription(java.net.URI, org.ocast.discovery.DialDevice)">onDeviceDescription</a></span>(URI location, <a href="../../../org/ocast/discovery/DialDevice.html">DialDevice</a> dd)
         
         <div class="jd-descrdiv">called when a device description has been fetched</div>
   
@@ -429,7 +379,7 @@ Summary:
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.Callbacks.html#onError(java.lang.String)">onError</a></span>(String location)
+        <span class="sympad"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.Callbacks.html#onError(java.net.URI)">onError</a></span>(URI location)
         
         <div class="jd-descrdiv">called when a location could not be fetched</div>
   
@@ -484,7 +434,7 @@ Summary:
 
 
 
-<a id="onDeviceDescription(java.lang.String, org.ocast.discovery.DialDevice)"></a>
+<a id="onDeviceDescription(java.net.URI, org.ocast.discovery.DialDevice)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -497,7 +447,7 @@ Summary:
         void
       </span>
       <span class="sympad">onDeviceDescription</span>
-      <span class="normal">(String location, <a href="../../../org/ocast/discovery/DialDevice.html">DialDevice</a> dd)</span>
+      <span class="normal">(URI location, <a href="../../../org/ocast/discovery/DialDevice.html">DialDevice</a> dd)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -529,7 +479,7 @@ Summary:
 </div>
 
 
-<a id="onError(java.lang.String)"></a>
+<a id="onError(java.net.URI)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -542,7 +492,7 @@ Summary:
         void
       </span>
       <span class="sympad">onError</span>
-      <span class="normal">(String location)</span>
+      <span class="normal">(URI location)</span>
     </h4>
       <div class="api-level">
         <div>
