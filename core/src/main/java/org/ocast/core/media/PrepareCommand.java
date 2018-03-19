@@ -19,6 +19,7 @@
 
 package org.ocast.core.media;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,6 +45,7 @@ public class PrepareCommand extends MediaCommand {
     private final MediaType mediaType;
     private final TransferMode transferMode;
     private final boolean autoplay;
+    private final JSONArray options;
 
     /**
      * Builder to initialize and instanciate a PrepareCommand
@@ -57,6 +59,7 @@ public class PrepareCommand extends MediaCommand {
         private MediaType mediaType;
         private TransferMode transferMode;
         private boolean autoplay;
+        private JSONArray options;
 
         public Builder setUrl(URL url) {
             this.url = url;
@@ -93,17 +96,22 @@ public class PrepareCommand extends MediaCommand {
             return this;
         }
 
+        public Builder setOptions(JSONArray options) {
+            this.options = options;
+            return this;
+        }
+
         public Builder setAutoplay(boolean autoplay) {
             this.autoplay = autoplay;
             return this;
         }
 
         public PrepareCommand build() {
-            return new PrepareCommand(url, updateFreq, title, subtitle, logo, mediaType, transferMode, autoplay);
+            return new PrepareCommand(url, updateFreq, title, subtitle, logo, mediaType, transferMode, options, autoplay);
         }
     }
 
-    private PrepareCommand(URL url, int updateFreq, String title, String subtitle, URL logo, MediaType mediaType, TransferMode transferMode, boolean autoplay) {
+    private PrepareCommand(URL url, int updateFreq, String title, String subtitle, URL logo, MediaType mediaType, TransferMode transferMode, JSONArray options, boolean autoplay) {
         super("prepare");
         this.url = url;
         this.updateFreq = updateFreq;
@@ -112,6 +120,7 @@ public class PrepareCommand extends MediaCommand {
         this.logo = logo;
         this.mediaType = mediaType;
         this.transferMode = transferMode;
+        this.options = options;
         this.autoplay = autoplay;
     }
 
@@ -129,5 +138,10 @@ public class PrepareCommand extends MediaCommand {
         params.put(KEY_TRANSFER_MODE, transferMode.name().toLowerCase());
         params.put(KEY_AUTOPLAY, autoplay);
         return params;
+    }
+
+    @Override
+    public JSONArray getOptions() throws JSONException {
+        return options;
     }
 }
