@@ -17,6 +17,8 @@ Here are the main features of the Sample project:
 
 • Image cast
 
+• Volume management
+
 • Time seek management
 
 • Media tracks management
