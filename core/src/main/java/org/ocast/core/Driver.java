@@ -92,6 +92,8 @@ public interface Driver {
 
     PublicSettings getPublicSettings();
 
+    PrivateSettings getPrivateSettings();
+
     /**
      * Callback invoked when a failure occured in the Driver
      */

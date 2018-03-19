@@ -252,11 +252,6 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
                                 mApplicationController = app;
                                 viewmodel.setConnected(true);
                     }, t -> Log.d(TAG, "failure: " + t));
-                    mDeviceManager.getPublicSettings(
-                            s -> s.getVersion(
-                                    v -> Log.d(TAG, "getVersion:" + v.getSoftwareVersion()),
-                                    t -> Log.d(TAG, "getVersion error:",t)),
-                            t-> Log.e(TAG,"getPublicSetting error:", t));
                 }
             }
         }
