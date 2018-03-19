@@ -128,12 +128,12 @@ public class DeviceManager implements Driver.DriverListener {
 
     /**
      *  Used to get a reference to the private Setting controller class
-     * @param onSuccess to be called in case of success. Returns a reference to the publicSetting.
+     * @param onSuccess to be called in case of success. Returns a reference to the privateSetting.
      * @param onFailure to be called in case of error
      */
-    public void getPrivateSettings(Consumer<PublicSettings> onSuccess, Consumer<Throwable> onFailure) {
+    public void getPrivateSettings(Consumer<PrivateSettings> onSuccess, Consumer<Throwable> onFailure) {
         try {
-            driver.connect(Driver.Module.PRIVATE_SETTINGS, () -> callback(onSuccess).accept(driver.getPublicSettings()), onFailure);
+            driver.connect(Driver.Module.PRIVATE_SETTINGS, () -> callback(onSuccess).accept(driver.getPrivateSettings()), onFailure);
         } catch (DriverException e) {
             onFailure.accept(e);
         }
