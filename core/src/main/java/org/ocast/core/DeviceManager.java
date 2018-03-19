@@ -25,7 +25,7 @@ import org.ocast.core.dial.DialService;
 import org.ocast.core.function.Consumer;
 
 import java.io.Reader;
-import java.net.URL;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -56,7 +56,7 @@ public class DeviceManager implements Driver.DriverListener {
     private final Driver driver;
 
     private final Consumer<Failure> listener;
-    private final URL baseDialURL;
+    private final URI baseDialURL;
     private final OkHttpClient httpClient;
 
     /**
@@ -66,7 +66,7 @@ public class DeviceManager implements Driver.DriverListener {
      */
     public DeviceManager(Device device, Consumer<Failure> listener) {
         driver = createDriver(device);
-        baseDialURL = device.getDialURL();
+        baseDialURL = device.getDialURI();
         this.listener = listener;
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -84,7 +84,7 @@ public class DeviceManager implements Driver.DriverListener {
      */
     public DeviceManager(Device device, SSLConfig sslConfig, Consumer<Failure> listener) {
         driver = createDriver(device, sslConfig);
-        baseDialURL = device.getDialURL();
+        baseDialURL = device.getDialURI();
         this.listener = listener;
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -120,7 +120,7 @@ public class DeviceManager implements Driver.DriverListener {
 
     /**
      * Used to release the public settings controller resources
-     * @param callback
+     * @param callback to be called once released
      */
     public void releasePublicSettings(Runnable callback) {
         driver.disconnect(Driver.Module.PUBLIC_SETTINGS,callback);
@@ -128,12 +128,12 @@ public class DeviceManager implements Driver.DriverListener {
 
     /**
      *  Used to get a reference to the private Setting controller class
-     * @param onSuccess to be called in case of success. Returns a reference to the publicSetting.
+     * @param onSuccess to be called in case of success. Returns a reference to the privateSetting.
      * @param onFailure to be called in case of error
      */
-    public void getPrivateSettings(Consumer<PublicSettings> onSuccess, Consumer<Throwable> onFailure) {
+    public void getPrivateSettings(Consumer<PrivateSettings> onSuccess, Consumer<Throwable> onFailure) {
         try {
-            driver.connect(Driver.Module.PRIVATE_SETTINGS, () -> callback(onSuccess).accept(driver.getPublicSettings()), onFailure);
+            driver.connect(Driver.Module.PRIVATE_SETTINGS, () -> callback(onSuccess).accept(driver.getPrivateSettings()), onFailure);
         } catch (DriverException e) {
             onFailure.accept(e);
         }
@@ -141,7 +141,7 @@ public class DeviceManager implements Driver.DriverListener {
 
     /**
      * Used to release the private settings controller resources
-     * @param callback
+     * @param callback to be called once released
      */
     public void releasePrivateSettings(Runnable callback) {
         driver.disconnect(Driver.Module.PRIVATE_SETTINGS,callback);
@@ -156,7 +156,7 @@ public class DeviceManager implements Driver.DriverListener {
     public void getApplicationController(String appId, Consumer<ApplicationController> onSuccess, Consumer<Throwable> onFailure) {
         Request request = new Request.Builder().url(getApplicationURL(appId)).build();
         Call call = httpClient.newCall(request);
-        call.enqueue(new DialCallbackConsumer<>(onSuccess, onFailure, this::isGetSuccess));
+        call.enqueue(new DialCallbackConsumer<>(callback(onSuccess), callback(onFailure), this::isGetSuccess));
     }
 
     @Override

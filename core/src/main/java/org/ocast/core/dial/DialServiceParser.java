@@ -114,9 +114,10 @@ public class DialServiceParser {
         URI link = null;
         parser.require(XmlPullParser.START_TAG, null, TAG_LINK);
         String relType = parser.getAttributeValue(null, "rel");
-        if (relType.equals("run")){
+        String href = parser.getAttributeValue(null, "href");
+        if ("run".equals(relType) && href != null){
             try {
-                link = new URI(parser.getAttributeValue(null, "href"));
+                link = new URI(href);
             } catch (URISyntaxException e) {
                 throw new DialException(e);
             }

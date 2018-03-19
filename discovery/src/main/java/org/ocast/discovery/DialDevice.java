@@ -25,8 +25,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 
 /**
@@ -51,69 +51,17 @@ import java.text.ParseException;
  * }
  * </pre>
  */
-public class DialDevice {
-    private final String mFriendlyName;
-	private final String mManufacturer;
-	private final String mModelName;
-	private final String mUuid;
-	private final URL mDialApplURL;
+public class DialDevice extends DiscoveredDevice {
 
-	public DialDevice(String uuid, String friendlyName, String manufacturer, String modelName, URL urlBase) {
-		mUuid = uuid;
-		mFriendlyName = friendlyName;
-		mManufacturer = manufacturer;
-		mModelName = modelName;
-		mDialApplURL = urlBase;
+	private URI location;
+
+	public DialDevice(String uuid, String friendlyName, String manufacturer, String modelName, URI url, URI location) {
+		super(uuid, friendlyName, manufacturer, modelName, url);
+		this.location = location;
 	}
 
-    /**
-	 * Retrieve the device friendly name found in device tag
-	 *
-	 * @return friendly name
-	 */
-	public String getFriendlyName() {
-		return mFriendlyName;
-	}
-
-	/**
-	 * Retrieve the manufacturer found in found in device tag
-	 *
-	 * @return
-	 */
-	public String getManufacturer() {
-		return mManufacturer;
-	}
-
-	/**
-	 * Retrieve the modelName found in device tag
-	 *
-	 * @return
-	 */
-	public String getModelName() {
-		return mModelName;
-	}
-
-	/**
-	 * Retrieve the UUID found in device tag
-	 *
-	 * @return the uuid value without uuid: prefix
-	 */
-	public String getUuid() {
-		return mUuid;
-	}
-
-	/**
-	 * Retrieve the Dial application URL found in device tag URLBase or the one provided
-	 * to fromDeviceDescription if it comes from a header.
-	 *
-	 * @return
-	 */
-	public String getDialApplURL() {
-		return mDialApplURL.toString();
-	}
-
-	public URL getDialURL() {
-		return mDialApplURL;
+	public URI getLocation() {
+		return location;
 	}
 
 	/**
@@ -124,13 +72,13 @@ public class DialDevice {
 	 * @return the resulting DeviceDescription
      * @throws ParseException if the XML content is invalid
 	 */
-	public static DialDevice fromDeviceDescription(String xml, String dialUrlHeader) throws ParseException {
+	public static DialDevice fromDeviceDescription(String xml, String dialUrlHeader, URI location) throws ParseException {
 		String friendlyName = null;
 		String manufacturer = null;
 		String modelName = null;
 		String uuid = null;
 		String urlBase = dialUrlHeader;
-		URL url;
+		URI url;
 		try {
 			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
 			factory.setNamespaceAware(true);
@@ -175,43 +123,18 @@ public class DialDevice {
 				eventType = parser.next();
 			}
 			sr.close();
-			url = new URL(urlBase);
-
+			if(urlBase != null) {
+				url = new URI(urlBase);
+				return new DialDevice(uuid, friendlyName, manufacturer, modelName, url, location);
+			} else {
+				throw new ParseException("Could find Dial URL", -1);
+			}
 		} catch (XmlPullParserException e) {
 			throw new ParseException("Could not parse device description ", e.getLineNumber());
-		} catch (MalformedURLException e) {
-			throw new ParseException("Could find Dial URL", -1);
 		} catch (IOException e) {
 			throw new ParseException("Could not parse device description", -1);
+		} catch (URISyntaxException e) {
+			throw new ParseException("Could find Dial URL", -1);
 		}
-		return new DialDevice(uuid, friendlyName, manufacturer, modelName, url);
 	}
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        DialDevice that = (DialDevice) o;
-
-        if (mFriendlyName != null ? !mFriendlyName.equals(that.mFriendlyName) : that.mFriendlyName != null)
-            return false;
-        if (mManufacturer != null ? !mManufacturer.equals(that.mManufacturer) : that.mManufacturer != null)
-            return false;
-        if (mModelName != null ? !mModelName.equals(that.mModelName) : that.mModelName != null)
-            return false;
-        if (mUuid != null ? !mUuid.equals(that.mUuid) : that.mUuid != null) return false;
-        return mDialApplURL != null ? mDialApplURL.equals(that.mDialApplURL) : that.mDialApplURL == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = mFriendlyName != null ? mFriendlyName.hashCode() : 0;
-        result = 31 * result + (mManufacturer != null ? mManufacturer.hashCode() : 0);
-        result = 31 * result + (mModelName != null ? mModelName.hashCode() : 0);
-        result = 31 * result + (mUuid != null ? mUuid.hashCode() : 0);
-        result = 31 * result + (mDialApplURL != null ? mDialApplURL.hashCode() : 0);
-        return result;
-    }
 }

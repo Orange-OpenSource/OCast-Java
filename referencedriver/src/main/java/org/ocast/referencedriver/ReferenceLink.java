@@ -49,6 +49,7 @@ import okhttp3.WebSocket;
  */
 public class ReferenceLink implements Link {
     private static final String TAG = LogTag.LINK;
+    public static final int PING_INTERVAL = 7;
 
 
     private final SSLConfig sslConfig;
@@ -83,6 +84,7 @@ public class ReferenceLink implements Link {
             builder.sslSocketFactory(sslConfig.getSocketFactory(), sslConfig.getTrustManager());
             builder.hostnameVerifier(sslConfig.getHostnameVerifier());
         }
+        builder.pingInterval(PING_INTERVAL, TimeUnit.SECONDS);
         OkHttpClient client = builder.build();
         Request request;
 
@@ -172,11 +174,15 @@ public class ReferenceLink implements Link {
 
         @Override
         public void onFailure(WebSocket webSocket, Throwable t, Response response) {
+            Logger.getLogger(TAG).log(Level.SEVERE, "failure: ",t);
             linkListener.onFailure(t);
         }
 
         private void handleReply(Payload payload) {
             CallbackRecord record = callbacks.get(payload.getId());
+            if(record == null) {
+                return;
+            }
             if(payload.getStatus() == Payload.Status.OK) {
                 record.success.accept(new Reply() {
                     @Override

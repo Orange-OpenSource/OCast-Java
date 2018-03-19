@@ -29,11 +29,11 @@ import java.util.Map;
  */
 public class SSDPMessage {
 
-    private static final String SSDP_DISCOVER_EXTENSION = "\"ssdp:scan\"";
+    private static final String SSDP_DISCOVER_EXTENSION = "\"ssdp:discover\"";
     public static final String SSDP_MAX_WAIT_TIME = "10";
 
     // Multicast channel and port reserved for SSDP by IANA
-    static final String SSDP_MULTICAT_CHANNEL_ADDRESS = "239.255.255.250";
+    static final String SSDP_MULTICAT_ADDRESS = "239.255.255.250";
     static final int SSDP_PORT = 1900;
 
     static final String LOCATION = "LOCATION";   //URL for device description
@@ -49,6 +49,10 @@ public class SSDPMessage {
      * Type is inferred by the HTTP discover line / status line
      */
     public enum Type {
+        /**
+         * NOTIFY
+         */
+        NOTIFY("NOTIFY * HTTP/1.1"),
         /**
          * M-SEARCH request
          */
@@ -89,7 +93,7 @@ public class SSDPMessage {
 
     /**
      * Get SSDP message type
-     * @return
+     * @return the {@link org.ocast.discovery.SSDPMessage.Type Type} of the message
      */
     public Type getType() {
         return mType;
@@ -97,10 +101,10 @@ public class SSDPMessage {
 
     /**
      * Set the key header with value: value
-     * @param key
-     * @param value
+     * @param key the header name
+     * @param value the header value
      */
-    public void addHeader(String key, String value){
+    private void addHeader(String key, String value){
         mHeaders.put(key, value);
     }
 
@@ -109,7 +113,7 @@ public class SSDPMessage {
      * @param name the header name
      * @return header value or null if header is not present
      */
-    public String getHeader(String name){
+    String getHeader(String name){
         return mHeaders.get(name);
     }
 
@@ -117,11 +121,27 @@ public class SSDPMessage {
      * Retrieve and parse the urn provided in the USN header
      * eg: if header is "uuid:c4323fee-db4b-4227-9039-fa4b71589e26::"
      * the return value will be "c4323fee-db4b-4227-9039-fa4b71589e26"
-     * @return
+     * @return a unique id
      */
     public String getUuid() {
         String usn = mHeaders.get(USN);
         return usn.split(":")[1];
+    }
+
+    /**
+     * Returns an SSDPMessage to send a M-SEARCH message
+     * @param searchTarget the urn identifying the devices targeted by the scanInternal discoverInternal
+     *                     eg: urn:cast-ocast-org:service:cast:1
+     * @param mx maximum amount of time the responder is supposed to send an answer
+     * @return a M-SEARCH SSDP message
+     */
+    static SSDPMessage createMSearchMessage(String searchTarget, int mx) {
+        SSDPMessage mSearchMessage = new SSDPMessage(Type.M_SEARCH);
+        mSearchMessage.addHeader(HOST, String.format("%s:%d", SSDPMessage.SSDP_MULTICAT_ADDRESS, SSDPMessage.SSDP_PORT));
+        mSearchMessage.addHeader(MAN, SSDP_DISCOVER_EXTENSION);
+        mSearchMessage.addHeader(MX, String.valueOf(mx));
+        mSearchMessage.addHeader(ST, searchTarget);
+        return mSearchMessage;
     }
 
     /**
@@ -137,7 +157,7 @@ public class SSDPMessage {
      *            </pre>
      * @return an SSDPMessage
      */
-    public static SSDPMessage fromText(String txt) throws ParseException {
+    static SSDPMessage fromString(String txt) throws ParseException {
         String[] lines = txt.split(CRLF);
         Type type = Type.fromString(lines[0].trim());
         if(type == null){
@@ -154,31 +174,6 @@ public class SSDPMessage {
             }
         }
         return ssdpMessage;
-    }
-
-    public static SSDPMessage parseResponse(String text) throws ParseException {
-        SSDPMessage ssdpMessage = fromText(text);
-        String location = ssdpMessage.getHeader(SSDPMessage.LOCATION);
-        if (location == null || location.length() == 0) {
-            throw new ParseException("missing " + SSDPMessage.LOCATION, 0);
-        }
-        return ssdpMessage;
-    }
-
-    /**
-     * Returns an SSDPMessage to send a M-SEARCH message
-     * @param searchTarget the urn identifying the devices targeted by the scanInternal discoverInternal
-     *                     eg: urn:cast-ocast-org:service:cast:1
-     * @param mx maximum amount of time the responder is supposed to send an answer
-     * @return a M-SEARCH SSDP message
-     */
-    public static SSDPMessage createMSearchMessage(String searchTarget, int mx) {
-        SSDPMessage mSearchMessage = new SSDPMessage(Type.M_SEARCH);
-        mSearchMessage.addHeader(HOST, String.format("%s:%d", SSDPMessage.SSDP_MULTICAT_CHANNEL_ADDRESS, SSDPMessage.SSDP_PORT));
-        mSearchMessage.addHeader(MAN, SSDP_DISCOVER_EXTENSION);
-        mSearchMessage.addHeader(MX, String.valueOf(mx));
-        mSearchMessage.addHeader(ST, searchTarget);
-        return mSearchMessage;
     }
 
     @Override

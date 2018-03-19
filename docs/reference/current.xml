@@ -392,22 +392,11 @@
 </parameter>
 <parameter name="modelName" type="java.lang.String">
 </parameter>
-<parameter name="urlBase" type="java.net.URL">
+<parameter name="urlBase" type="java.net.URI">
 </parameter>
 </constructor>
-<method name="getDialApplURL"
- return="java.lang.String"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="getDialURL"
- return="java.net.URL"
+<method name="getDialURI"
+ return="java.net.URI"
  abstract="false"
  native="false"
  synchronized="false"
@@ -2136,7 +2125,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="level" type="float">
+<parameter name="level" type="double">
 </parameter>
 <parameter name="onSuccess" type="java.lang.Runnable">
 </parameter>
@@ -2430,7 +2419,7 @@
 >
 </method>
 <method name="getVolume"
- return="float"
+ return="double"
  abstract="false"
  native="false"
  synchronized="false"
@@ -2852,7 +2841,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="location" type="java.lang.String">
+<parameter name="location" type="java.net.URI">
 </parameter>
 <parameter name="cb" type="org.ocast.discovery.DeviceDescriptionRequest.Callbacks">
 </parameter>
@@ -2875,7 +2864,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="location" type="java.lang.String">
+<parameter name="location" type="java.net.URI">
 </parameter>
 <parameter name="dd" type="org.ocast.discovery.DialDevice">
 </parameter>
@@ -2890,44 +2879,12 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="location" type="java.lang.String">
+<parameter name="location" type="java.net.URI">
 </parameter>
 </method>
 </interface>
-<interface name="DeviceInventory"
- abstract="true"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<implements name="org.ocast.discovery.DiscoveryExecutor.ExecutorListener">
-</implements>
-<method name="getDeviceDescriptions"
- return="java.util.List&lt;org.ocast.discovery.DialDevice&gt;"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="refresh"
- return="void"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-</interface>
 <class name="DialDevice"
- extends="java.lang.Object"
+ extends="org.ocast.discovery.DiscoveredDevice"
  abstract="false"
  static="false"
  final="false"
@@ -2949,7 +2906,9 @@
 </parameter>
 <parameter name="modelName" type="java.lang.String">
 </parameter>
-<parameter name="urlBase" type="java.net.URL">
+<parameter name="url" type="java.net.URI">
+</parameter>
+<parameter name="location" type="java.net.URI">
 </parameter>
 </constructor>
 <method name="fromDeviceDescription"
@@ -2966,11 +2925,13 @@
 </parameter>
 <parameter name="dialUrlHeader" type="java.lang.String">
 </parameter>
+<parameter name="location" type="java.net.URI">
+</parameter>
 <exception name="ParseException" type="java.text.ParseException">
 </exception>
 </method>
-<method name="getDialApplURL"
- return="java.lang.String"
+<method name="getLocation"
+ return="java.net.URI"
  abstract="false"
  native="false"
  synchronized="false"
@@ -2980,8 +2941,35 @@
  visibility="public"
 >
 </method>
-<method name="getDialURL"
- return="java.net.URL"
+</class>
+<class name="DiscoveredDevice"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="DiscoveredDevice"
+ type="org.ocast.discovery.DiscoveredDevice"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="uuid" type="java.lang.String">
+</parameter>
+<parameter name="friendlyName" type="java.lang.String">
+</parameter>
+<parameter name="manufacturer" type="java.lang.String">
+</parameter>
+<parameter name="modelName" type="java.lang.String">
+</parameter>
+<parameter name="urlBase" type="java.net.URI">
+</parameter>
+</constructor>
+<method name="getDialURI"
+ return="java.net.URI"
  abstract="false"
  native="false"
  synchronized="false"
@@ -3036,253 +3024,13 @@
 >
 </method>
 </class>
-<class name="DialDeviceInventory"
- extends="java.lang.Object"
- abstract="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<implements name="org.ocast.discovery.DeviceDescriptionRequest.Callbacks">
-</implements>
-<implements name="org.ocast.discovery.DeviceInventory">
-</implements>
-<constructor name="DialDeviceInventory"
- type="org.ocast.discovery.DialDeviceInventory"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="listener" type="org.ocast.discovery.DiscoveryListener">
-</parameter>
-</constructor>
-<constructor name="DialDeviceInventory"
- type="org.ocast.discovery.DialDeviceInventory"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="listener" type="org.ocast.discovery.DiscoveryListener">
-</parameter>
-<parameter name="retry" type="int">
-</parameter>
-</constructor>
-<method name="getDeviceDescriptions"
- return="java.util.List&lt;org.ocast.discovery.DialDevice&gt;"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="onDeviceDescription"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="location" type="java.lang.String">
-</parameter>
-<parameter name="dd" type="org.ocast.discovery.DialDevice">
-</parameter>
-</method>
-<method name="onError"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="onError"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="location" type="java.lang.String">
-</parameter>
-</method>
-<method name="onLocationReceived"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="ssdpMessage" type="org.ocast.discovery.SSDPMessage">
-</parameter>
-</method>
-<method name="onLocationSent"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="refresh"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-</class>
-<class name="Discovery"
- extends="java.lang.Object"
- abstract="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<constructor name="Discovery"
- type="org.ocast.discovery.Discovery"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="searchTargetList" type="java.util.List&lt;java.lang.String&gt;">
-</parameter>
-<parameter name="listener" type="org.ocast.discovery.DiscoveryListener">
-</parameter>
-<parameter name="reliabilty" type="org.ocast.discovery.DiscoveryReliability">
-</parameter>
-</constructor>
-<constructor name="Discovery"
- type="org.ocast.discovery.Discovery"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="searchTargetList" type="java.util.List&lt;java.lang.String&gt;">
-</parameter>
-<parameter name="listener" type="org.ocast.discovery.DiscoveryListener">
-</parameter>
-</constructor>
-<constructor name="Discovery"
- type="org.ocast.discovery.Discovery"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="searchTarget" type="java.lang.String">
-</parameter>
-<parameter name="listener" type="org.ocast.discovery.DiscoveryListener">
-</parameter>
-</constructor>
-<constructor name="Discovery"
- type="org.ocast.discovery.Discovery"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="searchTarget" type="java.lang.String">
-</parameter>
-<parameter name="listener" type="org.ocast.discovery.DiscoveryListener">
-</parameter>
-<parameter name="reliabilty" type="org.ocast.discovery.DiscoveryReliability">
-</parameter>
-</constructor>
-<method name="getDeviceDescriptions"
- return="java.util.List&lt;org.ocast.discovery.DialDevice&gt;"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="start"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="stop"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-</class>
-<interface name="DiscoveryExecutor"
+<interface name="Discovery"
  abstract="true"
  static="false"
  final="false"
  deprecated="not deprecated"
  visibility="public"
 >
-<method name="addListener"
- return="void"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="listener" type="org.ocast.discovery.DiscoveryExecutor.ExecutorListener&lt;T&gt;">
-</parameter>
-</method>
-<method name="removeListener"
- return="void"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="listener" type="org.ocast.discovery.DiscoveryExecutor.ExecutorListener&lt;T&gt;">
-</parameter>
-</method>
 <method name="start"
  return="void"
  abstract="true"
@@ -3306,52 +3054,9 @@
 >
 </method>
 </interface>
-<interface name="DiscoveryExecutor.ExecutorListener"
+<interface name="Discovery.DiscoveryListener"
  abstract="true"
  static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<method name="onError"
- return="void"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="onLocationReceived"
- return="void"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="message" type="T">
-</parameter>
-</method>
-<method name="onLocationSent"
- return="void"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-</interface>
-<interface name="DiscoveryListener"
- abstract="true"
- static="false"
  final="false"
  deprecated="not deprecated"
  visibility="public"
@@ -3366,7 +3071,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="dd" type="org.ocast.discovery.DialDevice">
+<parameter name="dd" type="org.ocast.discovery.DiscoveredDevice">
 </parameter>
 </method>
 <method name="onDeviceRemoved"
@@ -3379,7 +3084,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="dd" type="org.ocast.discovery.DialDevice">
+<parameter name="dd" type="org.ocast.discovery.DiscoveredDevice">
 </parameter>
 </method>
 </interface>
@@ -3474,6 +3179,16 @@
  visibility="public"
 >
 </field>
+<field name="SSDP"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 </class>
 <class name="SSDPDiscovery"
  extends="java.lang.Object"
@@ -3483,7 +3198,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<implements name="org.ocast.discovery.DiscoveryExecutor">
+<implements name="org.ocast.discovery.Discovery">
 </implements>
 <constructor name="SSDPDiscovery"
  type="org.ocast.discovery.SSDPDiscovery"
@@ -3494,17 +3209,7 @@
 >
 <parameter name="searchTarget" type="java.lang.String">
 </parameter>
-</constructor>
-<constructor name="SSDPDiscovery"
- type="org.ocast.discovery.SSDPDiscovery"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="searchTarget" type="java.lang.String">
-</parameter>
-<parameter name="msearchtimeout" type="int">
+<parameter name="listener" type="org.ocast.discovery.Discovery.DiscoveryListener">
 </parameter>
 </constructor>
 <constructor name="SSDPDiscovery"
@@ -3514,22 +3219,12 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="searchTargetList" type="java.util.List&lt;java.lang.String&gt;">
+<parameter name="searchTargetList" type="java.util.Set&lt;java.lang.String&gt;">
+</parameter>
+<parameter name="listener" type="org.ocast.discovery.Discovery.DiscoveryListener">
 </parameter>
 </constructor>
-<constructor name="SSDPDiscovery"
- type="org.ocast.discovery.SSDPDiscovery"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="searchTargetList" type="java.util.List&lt;java.lang.String&gt;">
-</parameter>
-<parameter name="msearchtimeout" type="int">
-</parameter>
-</constructor>
-<method name="addListener"
+<method name="start"
  return="void"
  abstract="false"
  native="false"
@@ -3539,62 +3234,6 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="listener" type="org.ocast.discovery.DiscoveryExecutor.ExecutorListener&lt;org.ocast.discovery.SSDPMessage&gt;">
-</parameter>
-</method>
-<method name="createSocket"
- return="java.net.DatagramSocket"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="protected"
->
-<exception name="SocketException" type="java.net.SocketException">
-</exception>
-</method>
-<method name="discover"
- return="java.util.List&lt;org.ocast.discovery.SSDPMessage&gt;"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="timeout" type="long">
-</parameter>
-</method>
-<method name="discoverInternal"
- return="java.util.List&lt;org.ocast.discovery.SSDPMessage&gt;"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="timeout" type="long">
-</parameter>
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="removeListener"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="listener" type="org.ocast.discovery.DiscoveryExecutor.ExecutorListener&lt;org.ocast.discovery.SSDPMessage&gt;">
-</parameter>
 </method>
 <method name="start"
  return="void"
@@ -3606,6 +3245,8 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<parameter name="active" type="boolean">
+</parameter>
 </method>
 <method name="stop"
  return="void"
@@ -3619,6 +3260,173 @@
 >
 </method>
 </class>
+<class name="SSDPManager"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="SSDPManager"
+ type="org.ocast.discovery.SSDPManager"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="searchTarget" type="java.lang.String">
+</parameter>
+<parameter name="listener" type="org.ocast.discovery.SSDPManager.DiscoveryListener">
+</parameter>
+</constructor>
+<constructor name="SSDPManager"
+ type="org.ocast.discovery.SSDPManager"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="searchTargetList" type="java.util.Set&lt;java.lang.String&gt;">
+</parameter>
+<parameter name="listener" type="org.ocast.discovery.SSDPManager.DiscoveryListener">
+</parameter>
+</constructor>
+<method name="changeReliability"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="reliability" type="org.ocast.discovery.DiscoveryReliability">
+</parameter>
+</method>
+<method name="createSocket"
+ return="org.ocast.discovery.SSDPSocket"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="discoverServices"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="reliability" type="org.ocast.discovery.DiscoveryReliability">
+</parameter>
+</method>
+<method name="getDeviceDescriptions"
+ return="java.util.List&lt;org.ocast.discovery.DialDevice&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="resolve"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="location" type="java.net.URI">
+</parameter>
+</method>
+<method name="stopDiscovery"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+</class>
+<interface name="SSDPManager.DiscoveryListener"
+ abstract="true"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="onServiceFound"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="location" type="java.net.URI">
+</parameter>
+</method>
+<method name="onServiceLost"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="location" type="java.net.URI">
+</parameter>
+</method>
+<method name="onServiceResolveFailed"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="location" type="java.net.URI">
+</parameter>
+</method>
+<method name="onServiceResolved"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="device" type="org.ocast.discovery.DialDevice">
+</parameter>
+</method>
+</interface>
 <class name="SSDPMessage"
  extends="java.lang.Object"
  abstract="false"
@@ -3637,64 +3445,6 @@
 <parameter name="type" type="org.ocast.discovery.SSDPMessage.Type">
 </parameter>
 </constructor>
-<method name="addHeader"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="key" type="java.lang.String">
-</parameter>
-<parameter name="value" type="java.lang.String">
-</parameter>
-</method>
-<method name="createMSearchMessage"
- return="org.ocast.discovery.SSDPMessage"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="searchTarget" type="java.lang.String">
-</parameter>
-<parameter name="mx" type="int">
-</parameter>
-</method>
-<method name="fromText"
- return="org.ocast.discovery.SSDPMessage"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="txt" type="java.lang.String">
-</parameter>
-<exception name="ParseException" type="java.text.ParseException">
-</exception>
-</method>
-<method name="getHeader"
- return="java.lang.String"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="name" type="java.lang.String">
-</parameter>
-</method>
 <method name="getType"
  return="org.ocast.discovery.SSDPMessage.Type"
  abstract="false"
@@ -3716,21 +3466,6 @@
  deprecated="not deprecated"
  visibility="public"
 >
-</method>
-<method name="parseResponse"
- return="org.ocast.discovery.SSDPMessage"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="text" type="java.lang.String">
-</parameter>
-<exception name="ParseException" type="java.text.ParseException">
-</exception>
 </method>
 <field name="SSDP_MAX_WAIT_TIME"
  type="java.lang.String"
@@ -3790,6 +3525,115 @@
 >
 </method>
 </class>
+<class name="SSDPSocket"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="SSDPSocket"
+ type="org.ocast.discovery.SSDPSocket"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="close"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="createSocket"
+ return="java.net.MulticastSocket"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="protected"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="init"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="joinGroup" type="boolean">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="read"
+ return="java.util.List&lt;org.ocast.discovery.SSDPMessage&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="timeout" type="int">
+</parameter>
+<parameter name="responseListener" type="org.ocast.discovery.SSDPSocket.Listener">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="send"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="message" type="org.ocast.discovery.SSDPMessage">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+</class>
+<interface name="SSDPSocket.Listener"
+ abstract="true"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="onResponse"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="response" type="org.ocast.discovery.SSDPMessage">
+</parameter>
+</method>
+</interface>
 </package>
 <package name="org.ocast.mediaroute"
 >
@@ -3816,7 +3660,7 @@
 </parameter>
 <parameter name="modelName" type="java.lang.String">
 </parameter>
-<parameter name="urlBase" type="java.net.URL">
+<parameter name="urlBase" type="java.net.URI">
 </parameter>
 </constructor>
 <constructor name="MediaRouteDevice"
@@ -3826,7 +3670,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="dd" type="org.ocast.discovery.DialDevice">
+<parameter name="dd" type="org.ocast.discovery.DiscoveredDevice">
 </parameter>
 </constructor>
 <constructor name="MediaRouteDevice"
@@ -3850,19 +3694,8 @@
  visibility="public"
 >
 </method>
-<method name="getDialApplURL"
- return="java.lang.String"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="getDialURL"
- return="java.net.URL"
+<method name="getDialURI"
+ return="java.net.URI"
  abstract="false"
  native="false"
  synchronized="false"
@@ -3972,7 +3805,7 @@
 >
 <parameter name="context" type="Context">
 </parameter>
-<parameter name="searchTargets" type="java.util.List&lt;java.lang.String&gt;">
+<parameter name="searchTargets" type="java.util.Set&lt;java.lang.String&gt;">
 </parameter>
 </constructor>
 <method name="onConnectionStateChanged"
@@ -3986,19 +3819,6 @@
  visibility="public"
 >
 <parameter name="isConnected" type="boolean">
-</parameter>
-</method>
-<method name="onCreateRouteController"
- return="RouteController"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="routeId" type="java.lang.String">
 </parameter>
 </method>
 <method name="onDiscoveryRequestChanged"
@@ -4046,7 +3866,7 @@
 >
 <parameter name="context" type="Context">
 </parameter>
-<parameter name="searchTargets" type="java.util.List&lt;java.lang.String&gt;">
+<parameter name="searchTargets" type="java.util.Set&lt;java.lang.String&gt;">
 </parameter>
 </method>
 </class>
@@ -4422,6 +4242,17 @@
 <parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
 </parameter>
 </method>
+<field name="PING_INTERVAL"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="7"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 </class>
 </package>
 <package name="org.ocast.referencedriver.payload"

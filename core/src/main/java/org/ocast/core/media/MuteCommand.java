@@ -17,23 +17,29 @@
  *
  */
 
-package org.ocast.discovery;
+package org.ocast.core.media;
 
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
- * defines an inventory object listing devices
- * @param <T>
+ * Describes a mute command
  */
-public interface DeviceInventory<T> extends DiscoveryExecutor.ExecutorListener<T> {
-    /**
-     * returns the list of device in this inventory
-     * @return a list of devices
-     */
-    List<DialDevice> getDeviceDescriptions();
+class MuteCommand extends MediaCommand {
+    private static final String KEY_MUTE = "mute";
+    private static final String KEY_MUTE_ENABLED = "mute";
 
-    /**
-     * refresh the inventory
-     */
-    void refresh();
+    private final boolean mute;
+
+    MuteCommand(boolean mute) {
+        super(KEY_MUTE);
+        this.mute = mute;
+    }
+
+    @Override
+    public JSONObject getParams() throws JSONException {
+        JSONObject params = new JSONObject();
+        params.put(KEY_MUTE_ENABLED, mute);
+        return params;
+    }
 }

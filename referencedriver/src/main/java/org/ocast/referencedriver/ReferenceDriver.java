@@ -24,9 +24,9 @@ import org.ocast.core.DriverException;
 import org.ocast.core.DriverEvent;
 import org.ocast.core.Link;
 import org.ocast.core.LinkProfile;
+import org.ocast.core.PrivateSettings;
 import org.ocast.core.PublicSettings;
 import org.ocast.core.SSLConfig;
-import org.ocast.core.VersionInfo;
 import org.ocast.core.dial.AdditionalData;
 import org.ocast.core.function.Consumer;
 import org.ocast.core.function.ThrowingConsumer;
@@ -92,10 +92,16 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
         LinkProfile profile;
         switch(module) {
             case PUBLIC_SETTINGS:
-                profile = new LinkProfile.Builder().setApp2AppUrl(String.format("ws://%s:4434/%s", device.getDialURL().getHost(), "/ocast")).build();
-                break;
             case PRIVATE_SETTINGS:
-                profile = new LinkProfile.Builder().setApp2AppUrl(String.format("wss://%s:4433/%s", device.getDialURL().getHost(), "/ocast")).setSslConfig(sslConfig).build();
+                LinkProfile.Builder builder = new LinkProfile.Builder().setApp2AppUrl(
+                        String.format("wss://%s:4433/%s",
+                                device.getDialURI().getHost(),
+                                "/ocast")
+                );
+                if(sslConfig != null) {
+                    builder.setSslConfig(sslConfig);
+                }
+                profile = builder.build();
                 break;
             default:
                 throw new DriverException("unsupported module");
@@ -108,7 +114,13 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
         LinkProfile profile;
         switch(module) {
             case APPLICATION:
-                profile = new LinkProfile.Builder().setApp2AppUrl(additionalData.getApp2AppUrl()).build();
+                LinkProfile.Builder builder = new LinkProfile.Builder().setApp2AppUrl(
+                        additionalData.getApp2AppUrl()
+                );
+                if(sslConfig != null) {
+                    builder.setSslConfig(sslConfig);
+                }
+                profile = builder.build();
                 break;
             default:
                 throw new DriverException(("unsupported module"));
@@ -149,9 +161,12 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public PublicSettings getPublicSettings() {
-        return (onSuccess, onFailure) -> {
-            onSuccess.accept(new VersionInfo("0", "0"));
-        };
+        return null;
+    }
+
+    @Override
+    public PrivateSettings getPrivateSettings() {
+        return null;
     }
 
     private boolean isLinkRemovable(Module module) {

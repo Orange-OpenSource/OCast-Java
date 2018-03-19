@@ -53,6 +53,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class MainActivity extends AppCompatActivity implements MediaController.MediaControllerListener, ViewModel.ViewModelListener {
 
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         binding.buttonPlayMedia.setOnClickListener(v -> playMedia());
         binding.buttonPauseMedia.setOnClickListener(v-> pauseMedia());
         binding.buttonStopMedia.setOnClickListener(v -> stopMedia());
-        OCastRouteHelper.addMediaRouteProvider(getApplicationContext(), Arrays.asList(ReferenceDriver.SEARCH_TARGET));
+        OCastRouteHelper.addMediaRouteProvider(getApplicationContext(), new HashSet<>(Arrays.asList(ReferenceDriver.SEARCH_TARGET)));
         DeviceManager.registerDriver("Orange SA", new ReferenceDriver.ReferenceFactory());
         mMediaRouter = MediaRouter.getInstance(getApplicationContext());
         mMediaRouteSelector = new MediaRouteSelector.Builder()
@@ -194,6 +195,8 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         viewmodel.duration.set(status.getDuration());
         viewmodel.position.set(status.getPosition());
         viewmodel.playerState.set(status.getState().toString());
+        viewmodel.volumeLevel.set(status.getVolume()*1000);
+        viewmodel.mute.set(status.isMute());
     }
 
     @Override
@@ -209,6 +212,16 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     @Override
     public void onSubtitleTrackChanged(Track track) {
         mediaController.track(track, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+    }
+
+    @Override
+    public void onVolumeChanged(double volumeLevel) {
+        mediaController.volume(volumeLevel, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+    }
+
+    @Override
+    public void onCheckedChanged(boolean isMuted) {
+        mediaController.mute(isMuted, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
     }
 
     @Override
@@ -232,18 +245,13 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
                 if(extras.containsKey(MediaRouteDevice.EXTRA_DEVICE)) {
 
                     MediaRouteDevice d = extras.getParcelable(MediaRouteDevice.EXTRA_DEVICE);
-                    Device device = new Device(d.getUuid(),d.getFriendlyName(), d.getManufacturer(), d.getModelName(), d.getDialURL());
+                    Device device = new Device(d.getUuid(),d.getFriendlyName(), d.getManufacturer(), d.getModelName(), d.getDialURI());
                     mDeviceManager = new DeviceManager(device, MainActivity.this::onDeviceStateChanged);
                     mDeviceManager.getApplicationController(viewmodel.getWebAppName(),
                             app -> {
                                 mApplicationController = app;
                                 viewmodel.setConnected(true);
                     }, t -> Log.d(TAG, "failure: " + t));
-                    mDeviceManager.getPublicSettings(
-                            s -> s.getVersion(
-                                    v -> Log.d(TAG, "getVersion:" + v.getSoftwareVersion()),
-                                    t -> Log.d(TAG, "getVersion error:",t)),
-                            t-> Log.e(TAG,"getPublicSetting error:", t));
                 }
             }
         }

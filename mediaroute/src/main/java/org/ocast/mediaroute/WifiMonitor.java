@@ -49,7 +49,7 @@ public class WifiMonitor extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
+        if(!isInitialStickyBroadcast() && intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
             NetworkInfo networkInfo =
                     intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
             if(networkInfo.isConnected()) {

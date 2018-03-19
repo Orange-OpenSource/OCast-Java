@@ -19,93 +19,35 @@
 
 package org.ocast.discovery;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
- * A class providing device discovery capabilities
+ * Defines the logic of an object managing a discovery process
  */
-public class Discovery {
-
-    private static final String TAG = LogTag.DISCOVERY;
-    private final DiscoveryExecutor mDiscovery;
-    private final DeviceInventory mDeviceInventory;
-    private boolean mRunning;
-
-
+public interface Discovery {
     /**
-     * Initializes an object to discover devices based on multiple search targets (ST)
-     * @param searchTargetList the search targets to be discovered
-     * @param listener a DiscoveryListener to be invoked upon device detection
-     * @param reliabilty defines the discovery accuracy
+     * Defines an object listening to device add/removal
      */
-    public Discovery(List<String> searchTargetList, DiscoveryListener listener, DiscoveryReliability reliabilty) {
-        mDeviceInventory = new DialDeviceInventory(listener, reliabilty.getRetry());
-        mDiscovery = new SSDPDiscovery(searchTargetList, reliabilty.getTimeout());
-    }
+    interface DiscoveryListener {
 
-    /**
-     * Initializes an object to discover devices based on multiple search targets (ST) with a default accuracy
-     * @param searchTargetList the search targets to be discovered
-     * @param listener a DiscoveryListener to be invoked upon device detection
-     */
-    public Discovery(List<String> searchTargetList, DiscoveryListener listener) {
-        this(searchTargetList, listener, DiscoveryReliability.MEDIUM);
-    }
+        /**
+         * A new device has been found
+         * @param dd Dial parsed from the Location URL
+         */
+        void onDeviceAdded(DiscoveredDevice dd);
 
-
-    /**
-     * Initializes an object to discover devices based on a search target (ST)
-     * @param searchTarget a single search target to be discovered
-     * @param listener a DiscoveryListener to be invoked upon device detection
-     */
-    public Discovery(String searchTarget, DiscoveryListener listener) {
-        this(new ArrayList<>(Arrays.asList(searchTarget)), listener);
+        /**
+         * A known device has been lost
+         * @param dd DialDevice parsed from the Location URL
+         */
+        void onDeviceRemoved(DiscoveredDevice dd);
     }
 
     /**
-     * Initializes an object to discover devices based on a search target (ST)
-     * @param searchTarget the search target to be discovered
-     * @param listener a DiscoveryListener to be invoked upon device detection
-     * @param reliabilty defines the discovery accuracy
+     * starts the discovery process
      */
-    public Discovery(String searchTarget, DiscoveryListener listener, DiscoveryReliability reliabilty) {
-        this(new ArrayList<>(Arrays.asList(searchTarget)), listener, reliabilty);
-    }
+    void start();
 
     /**
-     * Starts SSDP Discovery
+     * stops the discovery process
      */
-    public void start() {
-        Logger.getLogger(TAG).log(Level.INFO, "Starting discovery...");
-        if(!mRunning) {
-            mDiscovery.addListener(mDeviceInventory);
-            mDeviceInventory.refresh();
-            mDiscovery.start();
-            mRunning = true;
-        } else {
-            Logger.getLogger(TAG).log(Level.WARNING,"already running");
-        }
-    }
-
-    /**
-     * Stops SSDP Discovery
-     */
-    public void stop() {
-        Logger.getLogger(TAG).log(Level.INFO,"Stopping discovery...");
-        if(mRunning) {
-            mDiscovery.removeListener(mDeviceInventory);
-            mDiscovery.stop();
-            mRunning = false;
-        } else {
-            Logger.getLogger(TAG).log(Level.WARNING,"discovery not running");
-        }
-    }
-
-    public List<DialDevice> getDeviceDescriptions() {
-        return mDeviceInventory.getDeviceDescriptions();
-    }
+    void stop();
 }

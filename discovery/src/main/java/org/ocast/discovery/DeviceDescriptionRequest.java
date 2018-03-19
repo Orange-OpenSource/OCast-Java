@@ -20,6 +20,7 @@
 package org.ocast.discovery;
 
 import java.io.IOException;
+import java.net.URI;
 import java.text.ParseException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -53,13 +54,13 @@ public class DeviceDescriptionRequest {
          * @param location the location URL that has been fetched
          * @param dd the corresponding {@link org.ocast.discovery.DialDevice DialDevice}
          */
-        void onDeviceDescription(String location, DialDevice dd);
+        void onDeviceDescription(URI location, DialDevice dd);
 
         /**
          * called when a location could not be fetched
          * @param location the location URL that could not be fetched
          */
-        void onError(String location);
+        void onError(URI location);
     }
 
     /**
@@ -90,11 +91,11 @@ public class DeviceDescriptionRequest {
      * @param location the location URL of a device
      * @param cb the callback notifying the request result
      */
-    public void getDeviceDescription(final String location, final Callbacks cb) {
+    public void getDeviceDescription(final URI location, final Callbacks cb) {
         Logger.getLogger(TAG).log(Level.FINE,"Retrieving device description through {0}", location);
 
         Request request = new Request.Builder()
-                .url(location)
+                .url(location.toString())
                 .build();
 
         mClient.newCall(request).enqueue(new Callback() {
@@ -116,7 +117,7 @@ public class DeviceDescriptionRequest {
                     headerApplicationURL = responseHeaders.get(APP_URL_HEADER);
                 }
                 try {
-                    DialDevice dd = DialDevice.fromDeviceDescription(resultString, headerApplicationURL);
+                    DialDevice dd = DialDevice.fromDeviceDescription(resultString, headerApplicationURL, location);
                     cb.onDeviceDescription(location, dd);
                 } catch(ParseException e) {
                     Logger.getLogger(TAG).log(Level.SEVERE, "could not parse :" + resultString);

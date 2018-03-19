@@ -165,10 +165,10 @@
     <li><h2>Interfaces</h2>
       <ul>
         <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.Callbacks.html">DeviceDescriptionRequest.Callbacks</a></li>
-        <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceInventory.html">DeviceInventory</a>&lt;T&gt;</li>
-        <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryExecutor.html">DiscoveryExecutor</a>&lt;T&gt;</li>
-        <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryExecutor.ExecutorListener.html">DiscoveryExecutor.ExecutorListener</a>&lt;T&gt;</li>
-        <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryListener.html">DiscoveryListener</a></li>
+        <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></li>
+        <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.DiscoveryListener.html">Discovery.DiscoveryListener</a></li>
+        <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPManager.DiscoveryListener.html">SSDPManager.DiscoveryListener</a></li>
+        <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPSocket.Listener.html">SSDPSocket.Listener</a></li>
       </ul>
     </li>
               
@@ -176,12 +176,13 @@
       <ul>
         <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.html">DeviceDescriptionRequest</a></li>
         <li class="api apilevel-"><a href="../../../org/ocast/discovery/DialDevice.html">DialDevice</a></li>
-        <li class="api apilevel-"><a href="../../../org/ocast/discovery/DialDeviceInventory.html">DialDeviceInventory</a></li>
-        <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></li>
+        <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveredDevice.html">DiscoveredDevice</a></li>
         <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryReliability.html">DiscoveryReliability</a></li>
         <li class="api apilevel-"><a href="../../../org/ocast/discovery/LogTag.html">LogTag</a></li>
         <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPDiscovery.html">SSDPDiscovery</a></li>
+        <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPManager.html">SSDPManager</a></li>
         <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPMessage.html">SSDPMessage</a></li>
+        <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPSocket.html">SSDPSocket</a></li>
       </ul>
     </li>
               
@@ -267,21 +268,23 @@
 &nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/DeviceInventory.html">DeviceInventory</a>&lt;T&gt;</td>
-              <td class="jd-descrcol" width="100%">defines an inventory object listing devices&nbsp;</td>
+              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></td>
+              <td class="jd-descrcol" width="100%">Defines the logic of an object managing a discovery process
+&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/DiscoveryExecutor.html">DiscoveryExecutor</a>&lt;T&gt;</td>
-              <td class="jd-descrcol" width="100%">Defines the logic of an object managing a discovery process&nbsp;</td>
-          </tr>
-        <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/DiscoveryExecutor.ExecutorListener.html">DiscoveryExecutor.ExecutorListener</a>&lt;T&gt;</td>
-              <td class="jd-descrcol" width="100%">Listener interface invoked during the discovery process&nbsp;</td>
-          </tr>
-        <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/DiscoveryListener.html">DiscoveryListener</a></td>
+              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/Discovery.DiscoveryListener.html">Discovery.DiscoveryListener</a></td>
               <td class="jd-descrcol" width="100%">Defines an object listening to device add/removal
 &nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/SSDPManager.DiscoveryListener.html">SSDPManager.DiscoveryListener</a></td>
+              <td class="jd-descrcol" width="100%">Interface for listening SSDP service discovery
+&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/SSDPSocket.Listener.html">SSDPSocket.Listener</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
   </table>
     </div>
@@ -303,30 +306,29 @@
               <td class="jd-descrcol" width="100%">Defines a DialDevice as per its DIAL device description.&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/DialDeviceInventory.html">DialDeviceInventory</a></td>
-              <td class="jd-descrcol" width="100%">Defines a <code><a href="../../../org/ocast/discovery/DeviceInventory.html">DeviceInventory</a></code> for DIAL devices
-&nbsp;</td>
+              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/DiscoveredDevice.html">DiscoveredDevice</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></td>
-              <td class="jd-descrcol" width="100%">A class providing device discovery capabilities
-&nbsp;</td>
-          </tr>
-        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../org/ocast/discovery/DiscoveryReliability.html">DiscoveryReliability</a></td>
               <td class="jd-descrcol" width="100%">Defines a level a reliability for the discovery process
 
  It is based on two factors: the timeout of a discovery request and the number of attempts before
  considering a device has been lost.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../org/ocast/discovery/LogTag.html">LogTag</a></td>
               <td class="jd-descrcol" width="100%">Helper to define log tags
 &nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../org/ocast/discovery/SSDPDiscovery.html">SSDPDiscovery</a></td>
-              <td class="jd-descrcol" width="100%">defines a SSDP <code><a href="../../../org/ocast/discovery/DiscoveryExecutor.html">DiscoveryExecutor</a></code>
+              <td class="jd-descrcol" width="100%">defines a SSDP <code><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></code>
+&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/SSDPManager.html">SSDPManager</a></td>
+              <td class="jd-descrcol" width="100%">SSDPManager provides a high level API to discover services with Simple Service Discovery Protocol
 &nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
@@ -334,6 +336,10 @@
               <td class="jd-descrcol" width="100%">A basic class to build/parse SSDP messages
  Only M-SEARCH methods and location response are usefull for Dial
 &nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../org/ocast/discovery/SSDPSocket.html">SSDPSocket</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
   </table>
     </div>

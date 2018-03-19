@@ -29,21 +29,23 @@ public class PlaybackStatus {
     private static final String KEY_POSITION = "position";
     private static final String KEY_DURATION = "duration";
     private static final String KEY_STATUS = "state";
+    private static final String KEY_VOLUME = "volume";
+    private static final String KEY_MUTE = "mute";
 
-    private final float volume;
+    private final double volume;
     private final boolean mute;
     private final PlaybackState state;
     private final double position;
     private final double duration;
 
     static class Builder {
-        private float volume;
+        private double volume;
         private boolean mute;
         private PlaybackState state;
         private double position;
         private double duration;
 
-        public Builder setVolume(float volume) {
+        public Builder setVolume(double volume) {
             this.volume = volume;
             return this;
         }
@@ -73,7 +75,7 @@ public class PlaybackStatus {
         }
     }
 
-    private PlaybackStatus(float volume, boolean mute, PlaybackState state, double position, double duration) {
+    private PlaybackStatus(double volume, boolean mute, PlaybackState state, double position, double duration) {
         this.volume = volume;
         this.mute = mute;
         this.state = state;
@@ -81,7 +83,7 @@ public class PlaybackStatus {
         this.duration = duration;
     }
 
-    public float getVolume() {
+    public double getVolume() {
         return volume;
     }
 
@@ -105,8 +107,12 @@ public class PlaybackStatus {
         PlaybackStatus.Builder builder = new PlaybackStatus.Builder();
         double position = json.getDouble(KEY_POSITION);
         builder.setPosition(position);
-        double duration = json.getDouble(KEY_DURATION);
+        double duration = json.optDouble(KEY_DURATION);
         builder.setDuration(duration);
+        double volume = json.getDouble(KEY_VOLUME);
+        builder.setVolume(volume);
+        boolean mute = json.getBoolean(KEY_MUTE);
+        builder.setMute(mute);
         String state = json.getString(KEY_STATUS);
         try {
             builder.setState(PlaybackState.valueOf(state.toUpperCase()));

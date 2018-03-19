@@ -17,21 +17,29 @@
  *
  */
 
-package org.ocast.discovery;
+package org.ocast.core.media;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
- * Defines an object listening to device add/removal
+ * Describes a volume command
  */
-public interface DiscoveryListener {
-        /**
-         * A new device has been found
-         * @param dd Dial parsed from the Location URL
-         */
-        void onDeviceAdded(DialDevice dd);
+class VolumeCommand extends MediaCommand {
+    private static final String KEY_VOLUME = "volume";
+    private static final String KEY_LEVEL = "level";
 
-        /**
-         * A known device has been lost
-         * @param dd DialDevice parsed from the Location URL
-         */
-        void onDeviceRemoved(DialDevice dd);
+    private final double level;
+
+    VolumeCommand(double level) {
+        super(KEY_VOLUME);
+        this.level = level;
+    }
+
+    @Override
+    public JSONObject getParams() throws JSONException {
+        JSONObject params = new JSONObject();
+        params.put(KEY_LEVEL, level);
+        return params;
+    }
 }

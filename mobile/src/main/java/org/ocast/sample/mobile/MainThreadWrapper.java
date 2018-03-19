@@ -27,8 +27,6 @@ import org.ocast.core.function.CallbackWrapper;
 import org.ocast.core.function.Consumer;
 
 public class MainThreadWrapper implements CallbackWrapper {
-    public MainThreadWrapper() {
-    }
 
     @Override
     public  <T> Consumer<T> wrap(Consumer<T> consumer) {
@@ -42,7 +40,7 @@ public class MainThreadWrapper implements CallbackWrapper {
     public Runnable wrap(Runnable runnable) {
         return () -> {
             Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(runnable::run);
+            handler.post(runnable);
         };
     }
 }

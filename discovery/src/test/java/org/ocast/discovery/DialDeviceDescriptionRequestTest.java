@@ -27,6 +27,7 @@ import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
@@ -47,13 +48,13 @@ public class DialDeviceDescriptionRequestTest {
 
     public class TestCallback extends TestableCallback<DialDevice> implements DeviceDescriptionRequest.Callbacks {
         @Override
-        public void onDeviceDescription(String location, DialDevice dd) {
+        public void onDeviceDescription(URI location, DialDevice dd) {
             setResult(dd);
             countDown();
         }
 
         @Override
-        public void onError(String loation) {
+        public void onError(URI location) {
             countDown();
         }
     }
@@ -86,9 +87,9 @@ public class DialDeviceDescriptionRequestTest {
         HttpUrl url = server.url("/dd.xml");
         System.out.println(url);
         TestCallback callback = Mockito.spy(new TestCallback());
-        request.getDeviceDescription(url.toString(), callback);
+        request.getDeviceDescription(URI.create(url.toString()), callback);
         callback.await(5000, TimeUnit.MILLISECONDS);
-        verify(callback, times(1)).onDeviceDescription(eq(url.toString()), any(DialDevice.class));
+        verify(callback, times(1)).onDeviceDescription(eq(url.uri()), any(DialDevice.class));
         assertEquals("11111111-1111-1111-1111-111111111111", callback.getResult().getUuid());
     }
 
@@ -104,10 +105,10 @@ public class DialDeviceDescriptionRequestTest {
 
         HttpUrl url = server.url("/dd.xml");
         TestCallback callback = Mockito.spy(new TestCallback());
-        request.getDeviceDescription(url.toString(), callback);
+        request.getDeviceDescription(URI.create(url.toString()), callback);
         callback.await(5000, TimeUnit.MILLISECONDS);
-        verify(callback, times(1)).onDeviceDescription(eq(url.toString()), any(DialDevice.class));
-        assertThat(callback.getResult().getDialApplURL(), is(equalTo("http://127.0.0.1:8008/apps")));
+        verify(callback, times(1)).onDeviceDescription(eq(url.uri()), any(DialDevice.class));
+        assertThat(callback.getResult().getDialURI().toString(), is(equalTo("http://127.0.0.1:8008/apps")));
     }
 
     @Test
@@ -120,9 +121,9 @@ public class DialDeviceDescriptionRequestTest {
 
         HttpUrl url = server.url("/dd.xml");
         TestCallback callback = Mockito.spy(new TestCallback());
-        request.getDeviceDescription(url.toString(), callback);
+        request.getDeviceDescription(URI.create(url.toString()), callback);
         callback.await(5000, TimeUnit.MILLISECONDS);
-        verify(callback, times(1)).onError(eq(url.toString()));
+        verify(callback, times(1)).onError(eq(url.uri()));
     }
 
     @Test
@@ -131,9 +132,9 @@ public class DialDeviceDescriptionRequestTest {
 
         HttpUrl url = server.url("/dd.xml");
         TestCallback callback = Mockito.spy(new TestCallback());
-        request.getDeviceDescription(url.toString(), callback);
+        request.getDeviceDescription(URI.create(url.toString()), callback);
         callback.await(20000, TimeUnit.MILLISECONDS);
-        verify(callback, times(1)).onError(eq(url.toString()));
+        verify(callback, times(1)).onError(eq(url.uri()));
     }
 
     @Test
@@ -147,9 +148,9 @@ public class DialDeviceDescriptionRequestTest {
 
         HttpUrl url = server.url("/dd.xml");
         TestCallback callback = Mockito.spy(new TestCallback());
-        request.getDeviceDescription(url.toString(), callback);
+        request.getDeviceDescription(URI.create(url.toString()), callback);
         callback.await(5000, TimeUnit.MILLISECONDS);
-        verify(callback, times(1)).onError(eq(url.toString()));
+        verify(callback, times(1)).onError(eq(url.uri()));
     }
 
 }
