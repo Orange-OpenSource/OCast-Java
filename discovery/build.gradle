@@ -18,8 +18,7 @@
  */
 
 description = "Discovery module of the OCast SDK. Used to detect devices with SSDP"
-
-apply from: "$rootDir/publish.gradle"
+apply plugin: 'java'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

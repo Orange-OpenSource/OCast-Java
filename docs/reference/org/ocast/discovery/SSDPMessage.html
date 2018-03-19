@@ -165,10 +165,10 @@
     <li><h2>Interfaces</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.Callbacks.html">DeviceDescriptionRequest.Callbacks</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceInventory.html">DeviceInventory</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryExecutor.html">DiscoveryExecutor</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryExecutor.ExecutorListener.html">DiscoveryExecutor.ExecutorListener</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryListener.html">DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.DiscoveryListener.html">Discovery.DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPManager.DiscoveryListener.html">SSDPManager.DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPSocket.Listener.html">SSDPSocket.Listener</a></li>
       </ul>
     </li>
               
@@ -176,12 +176,13 @@
       <ul>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.html">DeviceDescriptionRequest</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DialDevice.html">DialDevice</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DialDeviceInventory.html">DialDeviceInventory</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveredDevice.html">DiscoveredDevice</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryReliability.html">DiscoveryReliability</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/LogTag.html">LogTag</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPDiscovery.html">SSDPDiscovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPManager.html">SSDPManager</a></li>
           <li class="selected api apilevel-"><a href="../../../org/ocast/discovery/SSDPMessage.html">SSDPMessage</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPSocket.html">SSDPSocket</a></li>
       </ul>
     </li>
               
@@ -472,78 +473,6 @@ Summary:
             
             
             
-            void
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/SSDPMessage.html#addHeader(java.lang.String, java.lang.String)">addHeader</a></span>(String key, String value)
-        
-        <div class="jd-descrdiv">Set the key header with value: value</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            static
-            
-            <a href="../../../org/ocast/discovery/SSDPMessage.html">SSDPMessage</a>
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/SSDPMessage.html#createMSearchMessage(java.lang.String, int)">createMSearchMessage</a></span>(String searchTarget, int mx)
-        
-        <div class="jd-descrdiv">Returns an SSDPMessage to send a M-SEARCH message</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            static
-            
-            <a href="../../../org/ocast/discovery/SSDPMessage.html">SSDPMessage</a>
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/SSDPMessage.html#fromText(java.lang.String)">fromText</a></span>(String txt)
-        
-        <div class="jd-descrdiv">Returns an SSDPMessage instance created according to the text parameter</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            String
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/SSDPMessage.html#getHeader(java.lang.String)">getHeader</a></span>(String name)
-        
-        <div class="jd-descrdiv">Get the corresponding header</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
             <a href="../../../org/ocast/discovery/SSDPMessage.Type.html">SSDPMessage.Type</a>
         </td>
         <td class="jd-linkcol" width="100%">
@@ -576,22 +505,6 @@ Summary:
 
 	 
     <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            static
-            
-            <a href="../../../org/ocast/discovery/SSDPMessage.html">SSDPMessage</a>
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/SSDPMessage.html#parseResponse(java.lang.String)">parseResponse</a></span>(String text)
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -948,193 +861,6 @@ From class
 
 
 
-<a id="addHeader(java.lang.String, java.lang.String)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">addHeader</span>
-      <span class="normal">(String key, String value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Set the key header with value: value</p></div>
-
-    </div>
-</div>
-
-
-<a id="createMSearchMessage(java.lang.String, int)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="../../../org/ocast/discovery/SSDPMessage.html">SSDPMessage</a>
-      </span>
-      <span class="sympad">createMSearchMessage</span>
-      <span class="normal">(String searchTarget, int mx)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Returns an SSDPMessage to send a M-SEARCH message</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>searchTarget</th>
-          <td>the urn identifying the devices targeted by the scanInternal discoverInternal
-                     eg: urn:cast-ocast-org:service:cast:1</td>
-        </tr>
-        <tr>
-          <th>mx</th>
-          <td>maximum amount of time the responder is supposed to send an answer</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>a M-SEARCH SSDP message
-</li></ul>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="fromText(java.lang.String)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="../../../org/ocast/discovery/SSDPMessage.html">SSDPMessage</a>
-      </span>
-      <span class="sympad">fromText</span>
-      <span class="normal">(String txt)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Returns an SSDPMessage instance created according to the text parameter</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>txt</th>
-          <td>a text SSDP payload, eg
-            <pre>
-            <code>HTTP/1.1 200 OK
-            LOCATION: http://192.168.1.48/dd.xml
-            CACHE-CONTROL: max-age=1800
-            BOOTID.UPNP.ORG: 1
-            </code>
-            </pre></td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an SSDPMessage
-</li></ul>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>ParseException</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="getHeader(java.lang.String)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getHeader</span>
-      <span class="normal">(String name)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Get the corresponding header</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>name</th>
-          <td>the header name</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>header value or null if header is not present
-</li></ul>
-  </div>
-
-    </div>
-</div>
-
-
 <a id="getType()"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -1161,6 +887,11 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Get SSDP message type</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the <code><a href="../../../org/ocast/discovery/SSDPMessage.Type.html">Type</a></code> of the message
+</li></ul>
+  </div>
 
     </div>
 </div>
@@ -1194,45 +925,10 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Retrieve and parse the urn provided in the USN header
  eg: if header is "uuid:c4323fee-db4b-4227-9039-fa4b71589e26::"
  the return value will be "c4323fee-db4b-4227-9039-fa4b71589e26"</p></div>
-
-    </div>
-</div>
-
-
-<a id="parseResponse(java.lang.String)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="../../../org/ocast/discovery/SSDPMessage.html">SSDPMessage</a>
-      </span>
-      <span class="sympad">parseResponse</span>
-      <span class="normal">(String text)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>ParseException</td>
-            <td></td>
-        </tr>
-      </table>
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>a unique id
+</li></ul>
   </div>
 
     </div>

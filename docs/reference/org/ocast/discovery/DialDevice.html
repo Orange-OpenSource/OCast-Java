@@ -165,10 +165,10 @@
     <li><h2>Interfaces</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.Callbacks.html">DeviceDescriptionRequest.Callbacks</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceInventory.html">DeviceInventory</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryExecutor.html">DiscoveryExecutor</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryExecutor.ExecutorListener.html">DiscoveryExecutor.ExecutorListener</a>&lt;T&gt;</li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryListener.html">DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.DiscoveryListener.html">Discovery.DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPManager.DiscoveryListener.html">SSDPManager.DiscoveryListener</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPSocket.Listener.html">SSDPSocket.Listener</a></li>
       </ul>
     </li>
               
@@ -176,12 +176,13 @@
       <ul>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DeviceDescriptionRequest.html">DeviceDescriptionRequest</a></li>
           <li class="selected api apilevel-"><a href="../../../org/ocast/discovery/DialDevice.html">DialDevice</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DialDeviceInventory.html">DialDeviceInventory</a></li>
-          <li class="api apilevel-"><a href="../../../org/ocast/discovery/Discovery.html">Discovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveredDevice.html">DiscoveredDevice</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/DiscoveryReliability.html">DiscoveryReliability</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/LogTag.html">LogTag</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPDiscovery.html">SSDPDiscovery</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPManager.html">SSDPManager</a></li>
           <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPMessage.html">SSDPMessage</a></li>
+          <li class="api apilevel-"><a href="../../../org/ocast/discovery/SSDPSocket.html">SSDPSocket</a></li>
       </ul>
     </li>
               
@@ -229,6 +230,13 @@
 <div id="api-info-block">
 
 
+
+  
+   
+  
+  
+  
+  
 
   
    
@@ -290,7 +298,11 @@ Summary:
 
 
   
-    extends Object<br/>
+  
+  
+
+  
+    extends <a href="../../../org/ocast/discovery/DiscoveredDevice.html">DiscoveredDevice</a><br/>
   
   
   
@@ -310,11 +322,21 @@ Summary:
 
     <tr>
          	
-        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
     <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+         	
+        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../org/ocast/discovery/DiscoveredDevice.html">org.ocast.discovery.DiscoveredDevice</a></td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
@@ -419,7 +441,7 @@ Summary:
             
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#DialDevice(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.net.URL)">DialDevice</a></span>(String uuid, String friendlyName, String manufacturer, String modelName, URL urlBase)
+        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#DialDevice(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.net.URI, java.net.URI)">DialDevice</a></span>(String uuid, String friendlyName, String manufacturer, String modelName, URI url, URI location)
         
   </td></tr>
 
@@ -443,28 +465,12 @@ Summary:
             
             
             
-            
-            
-            boolean
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#equals(java.lang.Object)">equals</a></span>(Object o)
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
             static
             
             <a href="../../../org/ocast/discovery/DialDevice.html">DialDevice</a>
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#fromDeviceDescription(java.lang.String, java.lang.String)">fromDeviceDescription</a></span>(String xml, String dialUrlHeader)
+        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#fromDeviceDescription(java.lang.String, java.lang.String, java.net.URI)">fromDeviceDescription</a></span>(String xml, String dialUrlHeader, URI location)
         
         <div class="jd-descrdiv">Build a DeviceDescription from an XML representation</div>
   
@@ -472,25 +478,6 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            String
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#getDialApplURL()">getDialApplURL</a></span>()
-        
-        <div class="jd-descrdiv">Retrieve the Dial application URL found in device tag URLBase or the one provided
- to fromDeviceDescription if it comes from a header.</div>
-  
-  </td></tr>
-
-
-	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
@@ -498,98 +485,10 @@ Summary:
             
             
             
-            URL
+            URI
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#getDialURL()">getDialURL</a></span>()
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            String
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#getFriendlyName()">getFriendlyName</a></span>()
-        
-        <div class="jd-descrdiv">Retrieve the device friendly name found in device tag</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            String
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#getManufacturer()">getManufacturer</a></span>()
-        
-        <div class="jd-descrdiv">Retrieve the manufacturer found in found in device tag</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            String
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#getModelName()">getModelName</a></span>()
-        
-        <div class="jd-descrdiv">Retrieve the modelName found in device tag</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            String
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#getUuid()">getUuid</a></span>()
-        
-        <div class="jd-descrdiv">Retrieve the UUID found in device tag</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            int
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#hashCode()">hashCode</a></span>()
+        <span class="sympad"><a href="../../../org/ocast/discovery/DialDevice.html#getLocation()">getLocation</a></span>()
         
   </td></tr>
 
@@ -607,6 +506,155 @@ Summary:
 <table id="inhmethods" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Methods</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.ocast.discovery.DiscoveredDevice" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.ocast.discovery.DiscoveredDevice-trigger"
+          src="../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  <a href="../../../org/ocast/discovery/DiscoveredDevice.html">org.ocast.discovery.DiscoveredDevice</a>
+
+<div id="inherited-methods-org.ocast.discovery.DiscoveredDevice">
+  <div id="inherited-methods-org.ocast.discovery.DiscoveredDevice-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.ocast.discovery.DiscoveredDevice-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            boolean
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../org/ocast/discovery/DiscoveredDevice.html#equals(java.lang.Object)">equals</a></span>(Object o)
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            URI
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../org/ocast/discovery/DiscoveredDevice.html#getDialURI()">getDialURI</a></span>()
+        
+        <div class="jd-descrdiv">Retrieve the Dial application URL found in device tag URLBase or the one provided
+ to fromDeviceDescription if it comes from a header.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            String
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../org/ocast/discovery/DiscoveredDevice.html#getFriendlyName()">getFriendlyName</a></span>()
+        
+        <div class="jd-descrdiv">Retrieve the device friendly name found in device tag</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            String
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../org/ocast/discovery/DiscoveredDevice.html#getManufacturer()">getManufacturer</a></span>()
+        
+        <div class="jd-descrdiv">Retrieve the manufacturer found in found in device tag</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            String
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../org/ocast/discovery/DiscoveredDevice.html#getModelName()">getModelName</a></span>()
+        
+        <div class="jd-descrdiv">Retrieve the modelName found in device tag</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            String
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../org/ocast/discovery/DiscoveredDevice.html#getUuid()">getUuid</a></span>()
+        
+        <div class="jd-descrdiv">Retrieve the UUID found in device tag</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            int
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../org/ocast/discovery/DiscoveredDevice.html#hashCode()">hashCode</a></span>()
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
 
 
 <tr class="api apilevel-" >
@@ -844,7 +892,7 @@ From class
 
 
 
-<a id="DialDevice(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.net.URL)"></a>
+<a id="DialDevice(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.net.URI, java.net.URI)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -857,7 +905,7 @@ From class
         
       </span>
       <span class="sympad">DialDevice</span>
-      <span class="normal">(String uuid, String friendlyName, String manufacturer, String modelName, URL urlBase)</span>
+      <span class="normal">(String uuid, String friendlyName, String manufacturer, String modelName, URI url, URI location)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -890,38 +938,7 @@ From class
 
 
 
-<a id="equals(java.lang.Object)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        boolean
-      </span>
-      <span class="sympad">equals</span>
-      <span class="normal">(Object o)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<a id="fromDeviceDescription(java.lang.String, java.lang.String)"></a>
+<a id="fromDeviceDescription(java.lang.String, java.lang.String, java.net.URI)"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -934,7 +951,7 @@ From class
         <a href="../../../org/ocast/discovery/DialDevice.html">DialDevice</a>
       </span>
       <span class="sympad">fromDeviceDescription</span>
-      <span class="normal">(String xml, String dialUrlHeader)</span>
+      <span class="normal">(String xml, String dialUrlHeader, URI location)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -979,7 +996,7 @@ From class
 </div>
 
 
-<a id="getDialApplURL()"></a>
+<a id="getLocation()"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -989,206 +1006,9 @@ From class
          
          
          
-        String
+        URI
       </span>
-      <span class="sympad">getDialApplURL</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieve the Dial application URL found in device tag URLBase or the one provided
- to fromDeviceDescription if it comes from a header.</p></div>
-
-    </div>
-</div>
-
-
-<a id="getDialURL()"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        URL
-      </span>
-      <span class="sympad">getDialURL</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<a id="getFriendlyName()"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getFriendlyName</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieve the device friendly name found in device tag</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>friendly name
-</li></ul>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="getManufacturer()"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getManufacturer</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieve the manufacturer found in found in device tag</p></div>
-
-    </div>
-</div>
-
-
-<a id="getModelName()"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getModelName</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieve the modelName found in device tag</p></div>
-
-    </div>
-</div>
-
-
-<a id="getUuid()"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getUuid</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieve the UUID found in device tag</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>the uuid value without uuid: prefix
-</li></ul>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="hashCode()"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        int
-      </span>
-      <span class="sympad">hashCode</span>
+      <span class="sympad">getLocation</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">

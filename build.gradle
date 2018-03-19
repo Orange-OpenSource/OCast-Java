@@ -59,7 +59,6 @@ project.ext {
     targetSdkVersion = 25
 
     versionSupportLibrary = '26.1.0'
-    versionName = version
 
     pomConfig = {
         licenses {
@@ -97,8 +96,64 @@ configure(exportedProjects) {
     version = "0.1.1"
 }
 
+configure(project(":mediaroute")) {
+    apply plugin: 'com.android.library'
+    apply from: "../publish.gradle"
+
+    task javadoc(type: Javadoc) {
+        failOnError false
+        title null
+        options.doclet = "com.google.doclava.Doclava"
+        options.docletpath = configurations.doclava.files.asType(List)
+        options.classpath += configurations.doclavacp.files.asType(List)
+        source = android.sourceSets.main.java.srcDirs
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    publishing.publications {
+        android.libraryVariants.all { variant ->
+            if (variant.buildType.name == "release") {
+
+                mavenJava(MavenPublication) {
+                    groupId project.group
+                    artifactId 'mediaroute'
+                    version project.version
+                    artifact variant.outputs[0].packageLibrary
+                    artifact sourcesJar
+                    artifact javadocJar
+
+                    pom.withXml {
+                        def dependenciesNode = asNode().appendNode('dependencies')
+                        def root = asNode()
+                        root.appendNode('description', 'Android MediaRouter support for OCast SDK')
+                        root.appendNode('name', 'ocast-mediaroute')
+                        root.children().last() + pomConfig
+                        configurations.implementation.allDependencies.each {
+                            if (it.group == null) return
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 configure(javaProjects) {
     apply plugin: 'java'
+    apply from: "../publish.gradle"
 
     jar {
         from "$rootDir/LICENSE"
