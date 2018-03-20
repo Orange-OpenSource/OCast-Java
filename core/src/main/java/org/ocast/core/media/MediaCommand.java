@@ -40,7 +40,7 @@ class MediaCommand {
 
     public JSONObject encode() throws JSONException {
         JSONObject output = new JSONObject();
-        JSONArray options = new JSONArray();
+        JSONArray options = getOptions();
         output.put(KEY_OPTIONS, options);
         output.put(KEY_NAME, name);
         JSONObject params = getParams();
@@ -50,6 +50,10 @@ class MediaCommand {
 
     JSONObject getParams() throws JSONException {
         return new JSONObject();
+    }
+
+    JSONArray getOptions() throws JSONException {
+        return new JSONArray();
     }
 
     public static ReplyStatus decode(JSONObject json) throws JSONException {
