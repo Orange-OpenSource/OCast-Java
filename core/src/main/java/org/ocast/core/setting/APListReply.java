@@ -1,7 +1,7 @@
 /*
  * Software Name : OCast SDK
  *
- *  Copyright (C) 2018 Orange
+ *  Copyright (C) 2017 Orange
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,5 +19,22 @@
 
 package org.ocast.core.setting;
 
-public class ScanApsReply {
+import java.util.List;
+
+public class APListReply {
+    private final int code;
+    private final List<APInfo> aps;
+
+    public APListReply(int code, List<APInfo> aps) {
+        this.code = code;
+        this.aps = aps;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public List<APInfo> getAPList() {
+        return aps;
+    }
 }

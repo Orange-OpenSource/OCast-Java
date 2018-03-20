@@ -20,7 +20,7 @@
 package org.ocast.core;
 
 import org.ocast.core.function.Consumer;
-import org.ocast.core.setting.ScanApsReply;
+import org.ocast.core.setting.APListReply;
 
 /**
  * Interface PrivateSettings is implemented by driver libraries to provide access to private
@@ -28,5 +28,7 @@ import org.ocast.core.setting.ScanApsReply;
  */
 public interface PrivateSettings {
 
-    void scanAPs(Consumer<ScanApsReply> onSuccess, Consumer<Throwable> onFailure);
+    void scanAPs(Consumer<APListReply> onSuccess, Consumer<Throwable> onFailure);
+
+    void getAPList(Consumer<APListReply> onSuccess, Consumer<Throwable> onFailure);
 }

@@ -19,24 +19,15 @@
 
 package org.ocast.core.setting;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.ocast.core.DataStream;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class DeviceSettingController extends DataStream {
 
-    private static final String SERVICE_NAME = "org.ocast.settings.device";
-    private final DeviceSettingControllerListener listener;
+    protected final DeviceSettingControllerListener listener;
 
-    /**
-     * Instanciate a DeviceSettingController
-     * @param listener the listener to be notified of update status updates
-     */
-    public DeviceSettingController(DeviceSettingControllerListener listener) {
-        super(SERVICE_NAME);
+    public DeviceSettingController(String serviceName, DeviceSettingControllerListener listener) {
+        super(serviceName);
         this.listener = listener;
     }
 
@@ -53,19 +44,5 @@ public class DeviceSettingController extends DataStream {
 
     @Override
     public void onMessage(JSONObject message) {
-        Logger.getLogger(SERVICE_NAME).log(Level.FINEST, "onMessage: {0}", message);
-        try {
-            DeviceSettingEvent deviceSettingEvent = DeviceSettingEvent.decode(message);
-            switch(deviceSettingEvent.getName()) {
-                case "updateStatus":
-                    UpdateStatus updateStatus = UpdateStatus.decode(deviceSettingEvent.getParams());
-                    listener.onUpdateStatus(updateStatus);
-                    break;
-                default:
-                    break;
-            }
-        } catch (JSONException e) {
-            Logger.getLogger(SERVICE_NAME).log(Level.WARNING, "could not parse message", e);
-        }
     }
 }

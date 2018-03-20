@@ -33,6 +33,7 @@ import org.ocast.core.function.ThrowingConsumer;
 import org.ocast.core.Device;
 
 import org.json.JSONObject;
+import org.ocast.core.setting.DeviceSettingController;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -173,6 +174,11 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
         Map<Module, Link> map = new EnumMap<>(links);
         Link link = map.remove(module);
         return !map.containsValue(link);
+    }
+
+    @Override
+    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
+        return new DeviceSettingControllerImpl(listenner);
     }
 
     private Link getLink(LinkProfile profile) {

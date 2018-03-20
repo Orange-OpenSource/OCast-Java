@@ -1,4 +1,3 @@
-
 /*
  * Software Name : OCast SDK
  *
@@ -17,18 +16,13 @@
  *  limitations under the License.
  *
  */
-package org.ocast.core.setting;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+package org.ocast.core.setting;
 
 /**
  * Provides information related to the firmware update status
  */
 public class UpdateStatus {
-    private static final String KEY_STATE = "state";
-    private static final String KEY_VERSION = "version";
-    private static final String KEY_PROGRESS = "progress";
 
     private final int code;
     private final String state;
@@ -81,18 +75,5 @@ public class UpdateStatus {
      */
     public int getProgress() {
         return progress;
-    }
-
-    /**
-     * Decodes the input json as a UpdateStatus
-     * @param json
-     * @return a UpdateStatus
-     * @throws JSONException if the json is not correctly formatted
-     */
-    static UpdateStatus decode(JSONObject json) throws JSONException {
-        String state = json.getString(KEY_STATE);
-        String version = json.getString(KEY_VERSION);
-        int progress = json.getInt(KEY_PROGRESS);
-        return new UpdateStatus(0, state, version, progress);
     }
 }

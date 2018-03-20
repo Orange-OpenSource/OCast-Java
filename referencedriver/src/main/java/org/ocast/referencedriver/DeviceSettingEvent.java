@@ -17,7 +17,7 @@
  *
  */
 
-package org.ocast.core.setting;
+package org.ocast.referencedriver;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +58,6 @@ public class DeviceSettingEvent {
     public static DeviceSettingEvent decode(JSONObject input) throws JSONException {
         String name = input.getString(KEY_NAME);
         JSONObject params = input.getJSONObject(KEY_PARAMS);
-
         return new DeviceSettingEvent(name, params);
     }
 }
