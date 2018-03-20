@@ -1,7 +1,7 @@
 /*
  * Software Name : OCast SDK
  *
- *  Copyright (C) 2017 Orange
+ *  Copyright (C) 2018 Orange
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,16 +17,7 @@
  *
  */
 
-package org.ocast.core;
+package org.ocast.core.setting;
 
-import org.ocast.core.function.Consumer;
-import org.ocast.core.setting.ScanApsReply;
-
-/**
- * Interface PrivateSettings is implemented by driver libraries to provide access to private
- * settings configuration
- */
-public interface PrivateSettings {
-
-    void scanAPs(Consumer<ScanApsReply> onSuccess, Consumer<Throwable> onFailure);
+public class ScanApsReply {
 }

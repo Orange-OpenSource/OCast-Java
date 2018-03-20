@@ -1,7 +1,7 @@
 /*
  * Software Name : OCast SDK
  *
- *  Copyright (C) 2017 Orange
+ *  Copyright (C) 2018 Orange
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,9 +19,26 @@
 
 package org.ocast.core;
 
+import org.ocast.core.function.Consumer;
+import org.ocast.core.setting.UpdateStatus;
+
 /**
  * Interface PublicSettings is implemented by driver libraries to provide access to public
  * settings configuration
  */
 public interface PublicSettings {
+
+    /**
+     * Retrieves the {@link org.ocast.core.setting.UpdateStatus UpdateStatus} of the device
+     * @param onSuccess to be called on success
+     * @param onFailure to be called when an error occured
+     */
+    void getUpdateStatus(Consumer<UpdateStatus> onSuccess, Consumer<Throwable> onFailure);
+
+    /**
+     * Retrieve the unique ID of the device (serial number)
+     * @param onSuccess to be called on success
+     * @param onFailure to be called when an error occured
+     */
+    void getDeviceID(Consumer<String> onSuccess, Consumer<Throwable> onFailure);
 }
