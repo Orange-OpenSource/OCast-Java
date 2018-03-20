@@ -34,9 +34,12 @@ import org.ocast.core.Device;
 
 import org.json.JSONObject;
 import org.ocast.core.setting.DeviceSettingController;
+import org.ocast.referencedriver.settings.PublicSettingsImpl;
 
 import java.util.EnumMap;
 import java.util.Map;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Defines a driver implementing communications layers with a remote device
@@ -162,12 +165,12 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public PublicSettings getPublicSettings() {
-        return null;
+        return new PublicSettingsImpl(links.get(Module.PUBLIC_SETTINGS));
     }
 
     @Override
     public PrivateSettings getPrivateSettings() {
-        return null;
+        throw new NotImplementedException();
     }
 
     private boolean isLinkRemovable(Module module) {
