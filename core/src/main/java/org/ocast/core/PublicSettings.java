@@ -19,9 +19,12 @@
 
 package org.ocast.core;
 
+import org.ocast.core.function.Consumer;
+
 /**
  * Interface PublicSettings is implemented by driver libraries to provide access to public
  * settings configuration
  */
 public interface PublicSettings {
+    void getVersion(Consumer<VersionInfo> onSuccess, Consumer<Throwable> onFailure);
 }

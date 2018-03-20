@@ -27,6 +27,7 @@ import org.ocast.core.LinkProfile;
 import org.ocast.core.PrivateSettings;
 import org.ocast.core.PublicSettings;
 import org.ocast.core.SSLConfig;
+import org.ocast.core.VersionInfo;
 import org.ocast.core.dial.AdditionalData;
 import org.ocast.core.function.Consumer;
 import org.ocast.core.function.ThrowingConsumer;
@@ -161,12 +162,16 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public PublicSettings getPublicSettings() {
-        return null;
+        return (onSuccess, onFailure) -> {
+            onSuccess.accept(new VersionInfo("0", "0"));
+        };
     }
 
     @Override
     public PrivateSettings getPrivateSettings() {
-        return null;
+        return (name, onSuccess, onFailure) -> {
+            onSuccess.run();
+        };
     }
 
     private boolean isLinkRemovable(Module module) {

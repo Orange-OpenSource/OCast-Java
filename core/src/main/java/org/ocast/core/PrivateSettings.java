@@ -19,9 +19,12 @@
 
 package org.ocast.core;
 
+import org.ocast.core.function.Consumer;
+
 /**
- * Interface PublicSettings is implemented by driver libraries to provide access to private
+ * Interface PrivateSettings is implemented by driver libraries to provide access to private
  * settings configuration
  */
 public interface PrivateSettings {
+    void setDeviceName(String name, Runnable onSuccess, Consumer<Throwable> onFailure);
 }
