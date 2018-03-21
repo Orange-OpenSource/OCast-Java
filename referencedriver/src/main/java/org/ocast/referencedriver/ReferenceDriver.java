@@ -40,8 +40,6 @@ import org.ocast.referencedriver.settings.PublicSettingsImpl;
 import java.util.EnumMap;
 import java.util.Map;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * Defines a driver implementing communications layers with a remote device
  */
@@ -171,7 +169,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public PrivateSettings getPrivateSettings() {
-        throw new NotImplementedException();
+        throw new RuntimeException("not implemented");
     }
 
     private boolean isLinkRemovable(Module module) {
