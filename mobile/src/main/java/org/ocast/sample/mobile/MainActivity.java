@@ -30,11 +30,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.json.JSONArray;
 import org.ocast.core.CallbackThreadHandler;
 import org.ocast.core.Device;
 import org.ocast.core.setting.DeviceSettingController;
 import org.ocast.core.setting.UpdateStatus;
-import org.ocast.referencedriver.DeviceSettingControllerImpl;
 import org.ocast.referencedriver.ReferenceDriver;
 import org.ocast.core.ApplicationController;
 import org.ocast.core.DeviceManager;
@@ -139,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
             builder.setTransferMode(TransferMode.STREAMED);
             builder.setLogo(new URL("http://www.google.com"));
             builder.setUpdateFreq(1);
+            JSONArray options = new JSONArray();
+            options.put("cookies=value");
+            builder.setOptions(options);
         } catch (MalformedURLException e) {
             Log.e(TAG, "could not play media", e);
         }
@@ -273,7 +276,6 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
                 Log.d(TAG, "unselected an OCast device");
             }
         }
-
 
         @Override
         public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo route) {
