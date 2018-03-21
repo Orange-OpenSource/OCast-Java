@@ -34,9 +34,13 @@ import org.ocast.core.function.ThrowingConsumer;
 import org.ocast.core.Device;
 
 import org.json.JSONObject;
+import org.ocast.core.setting.DeviceSettingController;
+import org.ocast.referencedriver.settings.PublicSettingsImpl;
 
 import java.util.EnumMap;
 import java.util.Map;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Defines a driver implementing communications layers with a remote device
@@ -45,7 +49,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     public static final String SEARCH_TARGET = "urn:cast-ocast-org:service:cast:1";
     private final Device device;
-    private Map<Module, Link> links = new EnumMap<>(Module.class);
+    protected Map<Module, Link> links = new EnumMap<>(Module.class);
     private final DriverListener listener;
     private BrowserListener browserListener;
 
@@ -118,7 +122,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
                 LinkProfile.Builder builder = new LinkProfile.Builder().setApp2AppUrl(
                         additionalData.getApp2AppUrl()
                 );
-                if(sslConfig != null) {
+                if (sslConfig != null) {
                     builder.setSslConfig(sslConfig);
                 }
                 profile = builder.build();
@@ -162,22 +166,23 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public PublicSettings getPublicSettings() {
-        return (onSuccess, onFailure) -> {
-            onSuccess.accept(new VersionInfo("0", "0"));
-        };
+        return new PublicSettingsImpl(links.get(Module.PUBLIC_SETTINGS));
     }
 
     @Override
     public PrivateSettings getPrivateSettings() {
-        return (name, onSuccess, onFailure) -> {
-            onSuccess.run();
-        };
+        throw new NotImplementedException();
     }
 
     private boolean isLinkRemovable(Module module) {
         Map<Module, Link> map = new EnumMap<>(links);
         Link link = map.remove(module);
         return !map.containsValue(link);
+    }
+
+    @Override
+    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
+        return new DeviceSettingControllerImpl(listenner);
     }
 
     private Link getLink(LinkProfile profile) {
