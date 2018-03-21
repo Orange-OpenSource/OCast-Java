@@ -48,7 +48,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     public static final String SEARCH_TARGET = "urn:cast-ocast-org:service:cast:1";
     private final Device device;
-    private Map<Module, Link> links = new EnumMap<>(Module.class);
+    protected Map<Module, Link> links = new EnumMap<>(Module.class);
     private final DriverListener listener;
     private BrowserListener browserListener;
 
@@ -121,7 +121,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
                 LinkProfile.Builder builder = new LinkProfile.Builder().setApp2AppUrl(
                         additionalData.getApp2AppUrl()
                 );
-                if(sslConfig != null) {
+                if (sslConfig != null) {
                     builder.setSslConfig(sslConfig);
                 }
                 profile = builder.build();

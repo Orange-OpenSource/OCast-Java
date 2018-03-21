@@ -23,7 +23,7 @@ package org.ocast.referencedriver.payload;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PayloadCommand {
+public class CommandPayload {
 
     private static final String KEY_SERVICE = "service";
     private static final String KEY_DATA = "data";

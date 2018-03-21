@@ -23,9 +23,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.ocast.core.Reply;
 import org.ocast.core.setting.UpdateStatus;
-import org.ocast.referencedriver.payload.PayloadCommand;
+import org.ocast.referencedriver.payload.CommandPayload;
 
-public class GetUpdateStatus extends PayloadCommand {
+import static org.ocast.referencedriver.settings.PublicSettingsImpl.SERVICE_SETTINGS_DEVICE;
+
+public class GetUpdateStatus extends CommandPayload {
 
     public static final String KEY_CODE = "code";
     public static final String KEY_STATE = "state";
@@ -33,15 +35,16 @@ public class GetUpdateStatus extends PayloadCommand {
     public static final String KEY_PROGRESS = "progress";
 
     public static JSONObject encode() {
-        return getPayload("org.ocast.settings.device", new JSONObject());
+        return getPayload(SERVICE_SETTINGS_DEVICE, new JSONObject());
     }
 
     public static UpdateStatus decode(Reply data) throws JSONException {
         JSONObject reply = data.getReply();
-        final int code = reply.getInt(KEY_CODE);
-        final String state = reply.getString(KEY_STATE);
-        final String version = reply.getString(KEY_VERSION);
-        final int progress = reply.getInt(KEY_PROGRESS);
+        JSONObject json = reply.getJSONObject("getUpdateStatus");
+        final int code = json.getInt(KEY_CODE);
+        final String state = json.getString(KEY_STATE);
+        final String version = json.getString(KEY_VERSION);
+        final int progress = json.getInt(KEY_PROGRESS);
         return new UpdateStatus(code, state, version, progress);
     }
 }

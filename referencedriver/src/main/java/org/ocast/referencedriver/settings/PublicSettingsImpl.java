@@ -29,6 +29,7 @@ import static org.ocast.core.CallbackThreadHandler.callback;
 public class PublicSettingsImpl implements PublicSettings {
 
     private final String DOMAIN_SETTINGS = "settings";
+    public static final String SERVICE_SETTINGS_DEVICE = "org.ocast.settings.device";
 
     private final Link link;
 
