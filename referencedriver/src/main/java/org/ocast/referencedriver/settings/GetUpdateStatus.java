@@ -35,12 +35,11 @@ public class GetUpdateStatus extends CommandPayload {
     public static final String KEY_PROGRESS = "progress";
 
     public static JSONObject encode() {
-        return getPayload(SERVICE_SETTINGS_DEVICE, new JSONObject());
+        return encodeMessage(SERVICE_SETTINGS_DEVICE, "getUpdateStatus", new JSONObject());
     }
 
     public static UpdateStatus decode(Reply data) throws JSONException {
-        JSONObject reply = data.getReply();
-        JSONObject json = reply.getJSONObject("getUpdateStatus");
+        JSONObject json = decodeMessage(data.getReply());
         final int code = json.getInt(KEY_CODE);
         final String state = json.getString(KEY_STATE);
         final String version = json.getString(KEY_VERSION);
