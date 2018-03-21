@@ -27,7 +27,6 @@ import org.ocast.core.LinkProfile;
 import org.ocast.core.PrivateSettings;
 import org.ocast.core.PublicSettings;
 import org.ocast.core.SSLConfig;
-import org.ocast.core.VersionInfo;
 import org.ocast.core.dial.AdditionalData;
 import org.ocast.core.function.Consumer;
 import org.ocast.core.function.ThrowingConsumer;
@@ -35,7 +34,6 @@ import org.ocast.core.Device;
 
 import org.json.JSONObject;
 import org.ocast.core.setting.DeviceSettingController;
-import org.ocast.referencedriver.settings.PublicSettingsImpl;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -164,7 +162,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public PublicSettings getPublicSettings() {
-        return new PublicSettingsImpl(links.get(Module.PUBLIC_SETTINGS));
+        throw new RuntimeException("not implemented");
     }
 
     @Override
@@ -180,12 +178,12 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
-        return new DeviceSettingControllerImpl(listenner);
+        throw new RuntimeException("not implemented");
     }
 
     private Link getLink(LinkProfile profile) {
         for(Link l: links.values()) {
-            if(l.getUrl().equals(profile.getApp2AppUrl())) {
+            if (l.getUrl().equals(profile.getApp2AppUrl())) {
                 return l;
             }
         }
