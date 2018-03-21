@@ -41,4 +41,7 @@ public interface PublicSettings {
      * @param onFailure to be called when an error occured
      */
     void getDeviceID(Consumer<String> onSuccess, Consumer<Throwable> onFailure);
+
+    void getVersion(Consumer<VersionInfo> onSuccess, Consumer<Throwable> onFailure);
+
 }

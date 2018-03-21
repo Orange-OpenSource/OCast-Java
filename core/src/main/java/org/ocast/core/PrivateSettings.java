@@ -26,8 +26,8 @@ import org.ocast.core.setting.DeviceInfo;
 import org.ocast.core.setting.NetworkInfo;
 import org.ocast.core.setting.SendCommandReply;
 import org.ocast.core.setting.WifiInfo;
-
 import java.util.List;
+
 
 /**
  * Interface PrivateSettings is implemented by driver libraries to provide access to private
