@@ -21,6 +21,7 @@ package org.ocast.referencedriver.settings;
 
 import org.ocast.core.Link;
 import org.ocast.core.PublicSettings;
+import org.ocast.core.VersionInfo;
 import org.ocast.core.function.Consumer;
 import org.ocast.core.setting.UpdateStatus;
 
@@ -49,5 +50,9 @@ public class PublicSettingsImpl implements PublicSettings {
         link.sendPayload(DOMAIN_SETTINGS, GetDeviceID.encode(),
                 callback(r -> onSuccess.accept(GetDeviceID.decode(r))),
                 callback(onFailure));
+    }
+
+    @Override
+    public void getVersion(Consumer<VersionInfo> onSuccess, Consumer<Throwable> onFailure) {
     }
 }
