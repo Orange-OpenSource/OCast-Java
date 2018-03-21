@@ -17,15 +17,34 @@
  *
  */
 
-description = "Core module of the OCast SDK"
-apply plugin: 'java'
+package org.ocast.core.setting;
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    compileOnly group: 'org.json', name: 'json', version: '20170516'
-    compileOnly 'net.sf.kxml:kxml2:2.3.0'
-    testCompile 'net.sf.kxml:kxml2:2.3.0'
-    compile 'com.squareup.okhttp3:okhttp:3.9.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+public class NetworkInfo {
+    private final int code;
+    private final String ip;
+    private final String mac;
+    private final int rate;
+
+    public NetworkInfo(int code, String ip, String mac, int rate) {
+        this.code = code;
+        this.ip = ip;
+        this.mac = mac;
+        this.rate = rate;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public String getMac() {
+        return mac;
+    }
+
+    public int getRate() {
+        return rate;
+    }
 }

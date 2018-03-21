@@ -58,7 +58,7 @@ project.ext {
     compileSdkVersion = 26
     targetSdkVersion = 25
 
-    versionSupportLibrary = '26.1.0'
+    versionSupportLibrary = '27.1.0'
 
     pomConfig = {
         licenses {

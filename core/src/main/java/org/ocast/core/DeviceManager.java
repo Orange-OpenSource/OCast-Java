@@ -23,6 +23,7 @@ import org.ocast.core.dial.DialServiceParser;
 import org.ocast.core.dial.DialException;
 import org.ocast.core.dial.DialService;
 import org.ocast.core.function.Consumer;
+import org.ocast.core.setting.DeviceSettingController;
 
 import java.io.Reader;
 import java.net.URI;
@@ -59,6 +60,8 @@ public class DeviceManager implements Driver.DriverListener {
     private final URI baseDialURL;
     private final OkHttpClient httpClient;
 
+    private final DeviceSettingController deviceSettingController = null;
+
     /**
      * Initializes a new DeviceManager
      * @param device the device to be managed
@@ -92,6 +95,10 @@ public class DeviceManager implements Driver.DriverListener {
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
                 .build();
+    }
+
+    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
+        return driver.getDeviceSettingController(listenner);
     }
 
     /**

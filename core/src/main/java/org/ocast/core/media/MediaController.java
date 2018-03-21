@@ -112,8 +112,9 @@ public class MediaController extends DataStream {
      * @param onSuccess
      * @param onFailure
      */
-    public void play(double position, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        //TODO
+    public void play(long position, Runnable onSuccess, Consumer<Throwable> onFailure) {
+        PlayCommand command = new PlayCommand(position);
+        sendSimpleCommand(onSuccess, onFailure, command);
     }
 
     /**
@@ -144,8 +145,8 @@ public class MediaController extends DataStream {
      * @param onSuccess
      * @param onFailure
      */
-    public void seek(double position, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        MediaCommand command = new SeekCommand((long)position);
+    public void seek(long position, Runnable onSuccess, Consumer<Throwable> onFailure) {
+        MediaCommand command = new SeekCommand(position);
         sendSimpleCommand(onSuccess, onFailure, command);
     }
 
@@ -226,8 +227,7 @@ public class MediaController extends DataStream {
                     onFailure.accept(new DriverException(String.valueOf(status.getCode())));
                 }
             };
-            Consumer<JSONObject> success = ThrowingConsumer.checked(replyHandler
-                    , onFailure);
+            Consumer<JSONObject> success = ThrowingConsumer.checked(replyHandler, onFailure);
             sendMessage(command.encode(), success, onFailure);
         } catch (JSONException e) {
             onFailure.accept(e);

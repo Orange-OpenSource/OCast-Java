@@ -17,15 +17,29 @@
  *
  */
 
-description = "Core module of the OCast SDK"
-apply plugin: 'java'
+package org.ocast.core.media;
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    compileOnly group: 'org.json', name: 'json', version: '20170516'
-    compileOnly 'net.sf.kxml:kxml2:2.3.0'
-    testCompile 'net.sf.kxml:kxml2:2.3.0'
-    compile 'com.squareup.okhttp3:okhttp:3.9.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * Describes a play command
+ */
+class PlayCommand extends MediaCommand {
+    private static final String KEY_PLAY = "play";
+    private static final String KEY_POSITION = "position";
+
+    private final long position;
+
+    PlayCommand(long position) {
+        super(KEY_PLAY);
+        this.position = position;
+    }
+
+    @Override
+    public JSONObject getParams() throws JSONException {
+        JSONObject params = new JSONObject();
+        params.put(KEY_POSITION, position);
+        return params;
+    }
 }

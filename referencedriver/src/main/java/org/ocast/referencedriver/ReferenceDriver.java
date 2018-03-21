@@ -27,12 +27,15 @@ import org.ocast.core.LinkProfile;
 import org.ocast.core.PrivateSettings;
 import org.ocast.core.PublicSettings;
 import org.ocast.core.SSLConfig;
+import org.ocast.core.VersionInfo;
 import org.ocast.core.dial.AdditionalData;
 import org.ocast.core.function.Consumer;
 import org.ocast.core.function.ThrowingConsumer;
 import org.ocast.core.Device;
 
 import org.json.JSONObject;
+import org.ocast.core.setting.DeviceSettingController;
+import org.ocast.referencedriver.settings.PublicSettingsImpl;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -44,7 +47,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     public static final String SEARCH_TARGET = "urn:cast-ocast-org:service:cast:1";
     private final Device device;
-    private Map<Module, Link> links = new EnumMap<>(Module.class);
+    protected Map<Module, Link> links = new EnumMap<>(Module.class);
     private final DriverListener listener;
     private BrowserListener browserListener;
 
@@ -117,7 +120,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
                 LinkProfile.Builder builder = new LinkProfile.Builder().setApp2AppUrl(
                         additionalData.getApp2AppUrl()
                 );
-                if(sslConfig != null) {
+                if (sslConfig != null) {
                     builder.setSslConfig(sslConfig);
                 }
                 profile = builder.build();
@@ -161,18 +164,23 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public PublicSettings getPublicSettings() {
-        return null;
+        return new PublicSettingsImpl(links.get(Module.PUBLIC_SETTINGS));
     }
 
     @Override
     public PrivateSettings getPrivateSettings() {
-        return null;
+        throw new RuntimeException("not implemented");
     }
 
     private boolean isLinkRemovable(Module module) {
         Map<Module, Link> map = new EnumMap<>(links);
         Link link = map.remove(module);
         return !map.containsValue(link);
+    }
+
+    @Override
+    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
+        return new DeviceSettingControllerImpl(listenner);
     }
 
     private Link getLink(LinkProfile profile) {

@@ -19,9 +19,48 @@
 
 package org.ocast.core;
 
+import org.ocast.core.function.Consumer;
+import org.ocast.core.setting.APListReply;
+import org.ocast.core.setting.BtDeviceList;
+import org.ocast.core.setting.DeviceInfo;
+import org.ocast.core.setting.NetworkInfo;
+import org.ocast.core.setting.SendCommandReply;
+import org.ocast.core.setting.WifiInfo;
+import java.util.List;
+
+
 /**
- * Interface PublicSettings is implemented by driver libraries to provide access to private
+ * Interface PrivateSettings is implemented by driver libraries to provide access to private
  * settings configuration
  */
 public interface PrivateSettings {
+    void setDeviceName(String name, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
+    void scanAPs(Consumer<APListReply> onSuccess, Consumer<Throwable> onFailure);
+
+    void getAPList(Consumer<APListReply> onSuccess, Consumer<Throwable> onFailure);
+
+    void remAP(String ssid, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
+    void pbWPS(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
+    void getWifiInfo(Consumer<WifiInfo> onSuccess, Consumer<Throwable> onFailure);
+
+    void getNetworkInfo(Consumer<NetworkInfo> onSuccess, Consumer<Throwable> onFailure);
+
+    void getInfo(Consumer<DeviceInfo> onSuccess, Consumer<Throwable> onFailure);
+
+    void reset(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
+    void checkFlash(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
+    void startDiscovery(List<String> profile, int timeout, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
+    void stopDiscovery(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
+    void getDevices(List<String> profile, Consumer<BtDeviceList> onSuccess, Consumer<Throwable> onFailure);
+
+    void sendCommand(String cmd, String mac, Consumer<SendCommandReply> onSuccess, Consumer<Throwable> onFailure);
+
+    void sendPinCode(String code, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 }

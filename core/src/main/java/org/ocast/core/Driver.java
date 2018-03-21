@@ -23,12 +23,12 @@ import org.ocast.core.dial.AdditionalData;
 import org.ocast.core.function.Consumer;
 
 import org.json.JSONObject;
+import org.ocast.core.setting.DeviceSettingController;
 
 /**
  * Manage the connection to a device module and the communication with its browser
  */
 public interface Driver {
-
     /**
      * Internal module accessible within the device
      */
@@ -93,6 +93,8 @@ public interface Driver {
     PublicSettings getPublicSettings();
 
     PrivateSettings getPrivateSettings();
+
+    DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner);
 
     /**
      * Callback invoked when a failure occured in the Driver

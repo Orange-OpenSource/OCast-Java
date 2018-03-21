@@ -30,8 +30,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.json.JSONArray;
 import org.ocast.core.CallbackThreadHandler;
 import org.ocast.core.Device;
+import org.ocast.core.setting.DeviceSettingController;
+import org.ocast.core.setting.UpdateStatus;
 import org.ocast.referencedriver.ReferenceDriver;
 import org.ocast.core.ApplicationController;
 import org.ocast.core.DeviceManager;
@@ -55,7 +58,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class MainActivity extends AppCompatActivity implements MediaController.MediaControllerListener, ViewModel.ViewModelListener {
+public class MainActivity extends AppCompatActivity implements MediaController.MediaControllerListener, ViewModel.ViewModelListener, DeviceSettingController.DeviceSettingControllerListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private MenuItem mediaRouteMenuItem;
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     private DeviceManager mDeviceManager;
     private ViewModel viewmodel;
     private MediaController mediaController;
+    private DeviceSettingController deviceSettingController;
     private ApplicationController mApplicationController;
     private CustomStream customController;
 
@@ -105,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     }
 
     private void pauseMedia() {
-        if(viewmodel.isPaused()) {
+        if (viewmodel.isPaused()) {
             mediaController.resume(() -> Log.d("TAG", "stop"), t -> Log.d(TAG, "failure:", t));
         } else {
             mediaController.pause(() -> Log.d("TAG", "stop"), t -> Log.d(TAG, "failure:", t));
@@ -135,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
             builder.setTransferMode(TransferMode.STREAMED);
             builder.setLogo(new URL("http://www.google.com"));
             builder.setUpdateFreq(1);
+            JSONArray options = new JSONArray();
+            options.put("cookies=value");
+            builder.setOptions(options);
         } catch (MalformedURLException e) {
             Log.e(TAG, "could not play media", e);
         }
@@ -167,6 +174,8 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         mApplicationController.manageStream(mediaController);
         customController = new CustomStream();
         mApplicationController.manageStream(customController);
+        deviceSettingController = mDeviceManager.getDeviceSettingController(this);
+        mApplicationController.manageStream(deviceSettingController);
         mediaController.getMetadata(this::onMetadata, t->Log.d(TAG,"could not get metadata"));
     }
 
@@ -197,6 +206,11 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         viewmodel.playerState.set(status.getState().toString());
         viewmodel.volumeLevel.set(status.getVolume()*1000);
         viewmodel.mute.set(status.isMute());
+    }
+
+    @Override
+    public void onUpdateStatus(UpdateStatus updateStatus) {
+        Log.d(TAG, "updateStatus:" + updateStatus.getState());
     }
 
     @Override
@@ -262,7 +276,6 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
                 Log.d(TAG, "unselected an OCast device");
             }
         }
-
 
         @Override
         public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo route) {
