@@ -30,12 +30,11 @@ public class GetDeviceID extends CommandPayload {
     public static final String KEY_ID = "id";
 
     public static JSONObject encode() {
-        return getPayload(SERVICE_SETTINGS_DEVICE, new JSONObject());
+        return encodeMessage(SERVICE_SETTINGS_DEVICE, "getDeviceID", new JSONObject());
     }
 
     public static String decode(Reply data) throws JSONException {
-        JSONObject reply = data.getReply();
-        JSONObject json = reply.getJSONObject("getDeviceID");
+        JSONObject json = decodeMessage(data.getReply());
         final String id = json.getString(KEY_ID);
         return id;
     }

@@ -27,15 +27,26 @@ public class CommandPayload {
 
     private static final String KEY_SERVICE = "service";
     private static final String KEY_DATA = "data";
+    private static final String KEY_PARAMS = "params";
+    private static final String KEY_NAME = "name";
 
-    public static JSONObject getPayload(String service, JSONObject data) {
-        JSONObject messageContent = new JSONObject();
+    public static JSONObject encodeMessage(String service, String name, JSONObject params) throws JSONException {
+        JSONObject message = new JSONObject();
         try {
-            messageContent.put(KEY_SERVICE, service);
-            messageContent.put(KEY_DATA, data);
+            JSONObject data = new JSONObject();
+            data.put(KEY_NAME, name);
+            data.put(KEY_PARAMS, params);
+            message.put(KEY_SERVICE, service);
+            message.put(KEY_DATA, data);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        return messageContent;
+        return message;
+    }
+
+    public static JSONObject decodeMessage(JSONObject message) throws JSONException {
+        JSONObject data = message.getJSONObject(KEY_DATA);
+        JSONObject params = data.getJSONObject(KEY_PARAMS);
+        return params;
     }
 }
