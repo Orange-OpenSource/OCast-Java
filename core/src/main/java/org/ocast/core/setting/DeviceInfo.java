@@ -21,30 +21,42 @@ package org.ocast.core.setting;
 
 public class DeviceInfo {
     private final int code;
-    private final String name;
-    private final String sWVersion;
-    private final String hWVersion;
+    private final String vendor;
+    private final String model;
+    private final String serialNumber;
+    private final String MACAddress;
+    private final String countryCode;
 
-    public DeviceInfo(int code, String name, String sWVersion, String hWVersion) {
+    public DeviceInfo(int code, String vendor, String model, String serialNumber, String MACAddress, String countryCode) {
         this.code = code;
-        this.name = name;
-        this.sWVersion = sWVersion;
-        this.hWVersion = hWVersion;
+        this.vendor = vendor;
+        this.model = model;
+        this.serialNumber = serialNumber;
+        this.MACAddress = MACAddress;
+        this.countryCode = countryCode;
     }
 
     public int getCode() {
         return code;
     }
 
-    public String getName() {
-        return name;
+    public String getVendor() {
+        return vendor;
     }
 
-    public String getsWVersion() {
-        return sWVersion;
+    public String getModel() {
+        return model;
     }
 
-    public String gethWVersion() {
-        return hWVersion;
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public String getMACAddress() {
+        return MACAddress;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
     }
 }
