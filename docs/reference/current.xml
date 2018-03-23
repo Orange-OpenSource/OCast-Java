@@ -1271,7 +1271,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.ocast.core.VersionInfo&gt;">
+<parameter name="onSuccess" type="org.ocast.core.function.Consumer&lt;org.ocast.core.setting.VersionInfo&gt;">
 </parameter>
 <parameter name="onFailure" type="org.ocast.core.function.Consumer&lt;java.lang.Throwable&gt;">
 </parameter>
@@ -1417,7 +1417,7 @@
  visibility="public"
 >
 <constructor name="VersionInfo"
- type="org.ocast.core.VersionInfo"
+ type="org.ocast.core.setting.VersionInfo"
  static="false"
  final="false"
  deprecated="not deprecated"

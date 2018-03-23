@@ -195,7 +195,6 @@ public class DeviceManager implements Driver.DriverListener {
             return mRegisteredDrivers.get(device.getManufacturer()).createDriver(device, this);
         } catch(Exception e) {
             throw new IllegalArgumentException("could not create driver. Did you register it properly ?");
-
         }
     }
 
@@ -204,7 +203,6 @@ public class DeviceManager implements Driver.DriverListener {
             return mRegisteredDrivers.get(device.getManufacturer()).createDriver(device, this, sslConfig);
         } catch(Exception e) {
             throw new IllegalArgumentException("could not create driver. Did you register it properly ?");
-
         }
     }
 

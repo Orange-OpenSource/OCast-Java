@@ -30,7 +30,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.json.JSONArray;
+import org.json.JSONObject;
 import org.ocast.core.CallbackThreadHandler;
 import org.ocast.core.Device;
 import org.ocast.referencedriver.ReferenceDriver;
@@ -51,7 +51,6 @@ import org.ocast.sample.mobile.databinding.ActivityMainBinding;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -69,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     private MediaController mediaController;
     private ApplicationController mApplicationController;
     private CustomStream customController;
+    private boolean webAppRunning = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,10 +106,12 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     }
 
     private void pauseMedia() {
-        if (viewmodel.isPaused()) {
-            mediaController.resume(() -> Log.d("TAG", "stop"), t -> Log.d(TAG, "failure:", t));
-        } else {
-            mediaController.pause(() -> Log.d("TAG", "stop"), t -> Log.d(TAG, "failure:", t));
+        if (mediaController != null) {
+            if (viewmodel.isPaused()) {
+                mediaController.resume(() -> Log.d("TAG", "stop"), t -> Log.d(TAG, "failure:", t));
+            } else {
+                mediaController.pause(() -> Log.d("TAG", "stop"), t -> Log.d(TAG, "failure:", t));
+            }
         }
     }
 
@@ -122,7 +124,9 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     }
 
     private void stopMedia() {
-        mediaController.stop(() -> Log.d("TAG", "stop"), t -> Log.d(TAG, "failure:",t));
+        if (mediaController != null) {
+            mediaController.stop(() -> Log.d("TAG", "stop"), t -> Log.d(TAG, "failure:", t));
+        }
     }
 
     private void playMedia() {
@@ -134,16 +138,16 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
             builder.setTitle("Planète interdite");
             builder.setSubtitle("");
             builder.setTransferMode(TransferMode.STREAMED);
-            builder.setLogo(new URL("http://www.google.com"));
+            builder.setLogo(new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/240px-Orange_logo.svg.png"));
             builder.setUpdateFreq(1);
-            JSONArray options = new JSONArray();
-            options.put("cookies=value");
+            JSONObject options = new JSONObject();
+            options.put("optional_key", "optional_value");
             builder.setOptions(options);
-        } catch (MalformedURLException e) {
+            PrepareCommand prepareParams = builder.build();
+            mediaController.prepare(prepareParams, () -> mediaController.getMetadata(m -> onMetadata(m), t -> Log.d(TAG, "failure",t)), t -> Log.d(TAG, "failure:",t));
+        } catch (Exception e) {
             Log.e(TAG, "could not play media", e);
         }
-        PrepareCommand prepareParams = builder.build();
-        mediaController.prepare(prepareParams, () -> mediaController.getMetadata(m -> onMetadata(m), t -> Log.d(TAG, "failure",t)), t -> Log.d(TAG, "failure:",t));
     }
 
     private void startWebApp() {
@@ -154,15 +158,20 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     }
 
     private void joinWebApp() {
-        mApplicationController.join(
-                () -> webAppRunning("join-OK"),
-                t -> viewmodel.setWebAppStatus("join-NOK", t));
+        if (mApplicationController != null) {
+            mApplicationController.join(
+                    () -> webAppRunning("join-OK"),
+                    t -> viewmodel.setWebAppStatus("join-NOK", t));
+        }
     }
 
     private void stopWebApp() {
-        mApplicationController.stop(
-                () -> viewmodel.setWebAppStatus("stop-OK"),
-                t-> viewmodel.setWebAppStatus("stop-NOK", t));
+        if (mApplicationController != null && webAppRunning) {
+            webAppRunning = false;
+            mApplicationController.stop(
+                    () -> viewmodel.setWebAppStatus("stop-OK"),
+                    t -> viewmodel.setWebAppStatus("stop-NOK", t));
+        }
     }
 
     private void webAppRunning(String status) {
@@ -172,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         customController = new CustomStream();
         mApplicationController.manageStream(customController);
         mediaController.getMetadata(this::onMetadata, t->Log.d(TAG,"could not get metadata"));
+        webAppRunning = true;
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -191,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     @Override
     public void onPlaybackStatus(PlaybackStatus status) {
         Log.d(TAG, "playbackStatus:" + status.getPosition());
-        if(status.getState() == PlaybackState.PAUSED) {
+        if (status.getState() == PlaybackState.PAUSED) {
             viewmodel.setPaused(true);
         } else if(status.getState() == PlaybackState.PLAYING){
             viewmodel.setPaused(false);
@@ -210,32 +220,44 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
 
     @Override
     public void onAudioTrackChanged(Track track) {
-        mediaController.track(track, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+        if (mediaController != null) {
+            mediaController.track(track, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+        }
     }
 
     @Override
     public void onSubtitleTrackChanged(Track track) {
-        mediaController.track(track, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+        if (mediaController != null) {
+            mediaController.track(track, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+        }
     }
 
     @Override
     public void onVolumeChanged(double volumeLevel) {
-        mediaController.volume(volumeLevel, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+        if (mediaController != null) {
+            mediaController.volume(volumeLevel, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+        }
     }
 
     @Override
     public void onCheckedChanged(boolean isMuted) {
-        mediaController.mute(isMuted, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+        if (mediaController != null) {
+            mediaController.mute(isMuted, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+        }
     }
 
     @Override
     public void onSeek(long position) {
-        mediaController.seek(position, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+        if (mediaController != null) {
+            mediaController.seek(position, () -> Log.d(TAG, "success"), t -> Log.d(TAG, "error: ", t));
+        }
     }
 
     @Override
     public void onCustomDataClicked() {
-        customController.sendCustomData( j -> Log.d(TAG,"custom:"+j), t -> Log.d(TAG, "failure:", t));
+        if (customController != null) {
+            customController.sendCustomData(j -> Log.d(TAG, "custom:" + j), t -> Log.d(TAG, "failure:", t));
+        }
     }
 
     public class MediaRouterCallBackImpl extends MediaRouter.Callback {
@@ -246,8 +268,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
             if (route.matchesSelector(orangeSelector)) {
                 Log.d(TAG, "selected a OCast device");
                 Bundle extras = route.getExtras();
-                if(extras.containsKey(MediaRouteDevice.EXTRA_DEVICE)) {
-
+                if (extras.containsKey(MediaRouteDevice.EXTRA_DEVICE)) {
                     MediaRouteDevice d = extras.getParcelable(MediaRouteDevice.EXTRA_DEVICE);
                     Device device = new Device(d.getUuid(),d.getFriendlyName(), d.getManufacturer(), d.getModelName(), d.getDialURI());
                     mDeviceManager = new DeviceManager(device, MainActivity.this::onDeviceStateChanged);
@@ -277,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
 
     private void onDeviceStateChanged(DeviceManager.Failure s) {
         Log.d(TAG, "device state changed:" + s);
-        if(s.equals(DeviceManager.Failure.DEVICE_LOST)) {
+        if (s.equals(DeviceManager.Failure.DEVICE_LOST)) {
             viewmodel.setConnected(false);
         }
     }

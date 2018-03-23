@@ -17,7 +17,7 @@
  *
  */
 
-package org.ocast.core;
+package org.ocast.core.setting;
 
 /**
  * Provides information related to the device version
