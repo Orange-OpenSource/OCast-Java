@@ -19,23 +19,32 @@
 
 package org.ocast.core.setting;
 
-import java.util.List;
-
-public class BtDeviceList {
-
+public class VersionInfo {
     private final int code;
-    private final List<BtDevice> devices;
+    private final String name;
+    private final String sWVersion;
+    private final String hWVersion;
 
-    public BtDeviceList(int code, List<BtDevice> devices) {
+    public VersionInfo(int code, String name, String sWVersion, String hWVersion) {
         this.code = code;
-        this.devices = devices;
+        this.name = name;
+        this.sWVersion = sWVersion;
+        this.hWVersion = hWVersion;
     }
 
     public int getCode() {
         return code;
     }
 
-    public List<BtDevice> getDevices() {
-        return devices;
+    public String getName() {
+        return name;
+    }
+
+    public String getsWVersion() {
+        return sWVersion;
+    }
+
+    public String gethWVersion() {
+        return hWVersion;
     }
 }
