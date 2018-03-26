@@ -25,6 +25,13 @@ public class VersionInfo {
     private final String sWVersion;
     private final String hWVersion;
 
+    /**
+     * Initializes a new VersionInfo object using the provided values
+     * @param code an int as return code
+     * @param name a String identifying thedongle name
+     * @param sWVersion a String identifying the software version
+     * @param hWVersion a String identifying the hardware version
+     */
     public VersionInfo(int code, String name, String sWVersion, String hWVersion) {
         this.code = code;
         this.name = name;
