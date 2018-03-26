@@ -31,8 +31,8 @@ class MuteCommand extends MediaCommand {
 
     private final boolean mute;
 
-    MuteCommand(boolean mute) {
-        super(KEY_MUTE);
+    MuteCommand(boolean mute, JSONObject options) {
+        super(KEY_MUTE, options);
         this.mute = mute;
     }
 

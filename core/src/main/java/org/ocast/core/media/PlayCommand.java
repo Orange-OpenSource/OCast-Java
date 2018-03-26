@@ -31,8 +31,8 @@ class PlayCommand extends MediaCommand {
 
     private final long position;
 
-    PlayCommand(long position) {
-        super(KEY_PLAY);
+    PlayCommand(long position, JSONObject options) {
+        super(KEY_PLAY, options);
         this.position = position;
     }
 

@@ -31,8 +31,8 @@ class TrackCommand extends MediaCommand {
     private final String trackId;
     private final boolean enable;
 
-    TrackCommand(Track.Type type, String trackId, boolean enable) {
-        super("track");
+    TrackCommand(Track.Type type, String trackId, boolean enable, JSONObject options) {
+        super("track", options);
         this.type = type;
         this.trackId = trackId;
         this.enable = enable;
