@@ -26,7 +26,7 @@ public class BtDeviceList {
     private final int code;
     private final List<BtDevice> devices;
 
-    BtDeviceList(int code, List<BtDevice> devices) {
+    public BtDeviceList(int code, List<BtDevice> devices) {
         this.code = code;
         this.devices = devices;
     }

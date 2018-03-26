@@ -19,40 +19,39 @@
 
 package org.ocast.core.setting;
 
-/**
- * Provides information related to the device version
- */
 public class VersionInfo {
-    private final String softwareVersion;
-    private final String hardwareVersion;
+    private final int code;
+    private final String name;
+    private final String sWVersion;
+    private final String hWVersion;
 
     /**
      * Initializes a new VersionInfo object using the provided values
-     * @param softwareVersion a String identifying the software version
-     * @param hardwareVersion a String identifying the hardware version
+     * @param code an int as return code
+     * @param name a String identifying thedongle name
+     * @param sWVersion a String identifying the software version
+     * @param hWVersion a String identifying the hardware version
      */
-    public VersionInfo(String softwareVersion, String hardwareVersion)
-    {
-        this.softwareVersion = softwareVersion;
-        this.hardwareVersion = hardwareVersion;
+    public VersionInfo(int code, String name, String sWVersion, String hWVersion) {
+        this.code = code;
+        this.name = name;
+        this.sWVersion = sWVersion;
+        this.hWVersion = hWVersion;
     }
 
-    /**
-     * Returns the software version
-     * @return
-     */
-    public String getSoftwareVersion()
-    {
-        return softwareVersion;
+    public int getCode() {
+        return code;
     }
 
-    /**
-     * Returns the hardware version
-     * @return
-     */
-    public String getHardwareVersion()
-    {
-        return hardwareVersion;
+    public String getName() {
+        return name;
     }
 
+    public String getsWVersion() {
+        return sWVersion;
+    }
+
+    public String gethWVersion() {
+        return hWVersion;
+    }
 }
