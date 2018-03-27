@@ -31,8 +31,8 @@ class SeekCommand extends MediaCommand {
 
     private final long position;
 
-    SeekCommand(long position) {
-        super(KEY_SEEK);
+    SeekCommand(long position, JSONObject options) {
+        super(KEY_SEEK, options);
         this.position = position;
     }
 

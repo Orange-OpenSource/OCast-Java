@@ -44,7 +44,6 @@ public class PrepareCommand extends MediaCommand {
     private final MediaType mediaType;
     private final TransferMode transferMode;
     private final boolean autoplay;
-    private final JSONObject options;
 
     /**
      * Builder to initialize and instanciate a PrepareCommand
@@ -95,23 +94,23 @@ public class PrepareCommand extends MediaCommand {
             return this;
         }
 
-        public Builder setOptions(JSONObject options) {
-            this.options = options;
-            return this;
-        }
-
         public Builder setAutoplay(boolean autoplay) {
             this.autoplay = autoplay;
             return this;
         }
 
+        public Builder setOptions(JSONObject options) {
+            this.options = options;
+            return this;
+        }
+
         public PrepareCommand build() {
-            return new PrepareCommand(url, updateFreq, title, subtitle, logo, mediaType, transferMode, options, autoplay);
+            return new PrepareCommand(url, updateFreq, title, subtitle, logo, mediaType, transferMode, autoplay, options);
         }
     }
 
-    private PrepareCommand(URL url, int updateFreq, String title, String subtitle, URL logo, MediaType mediaType, TransferMode transferMode, JSONObject options, boolean autoplay) {
-        super("prepare");
+    private PrepareCommand(URL url, int updateFreq, String title, String subtitle, URL logo, MediaType mediaType, TransferMode transferMode, boolean autoplay, JSONObject options) {
+        super("prepare", options);
         this.url = url;
         this.updateFreq = updateFreq;
         this.title = title;
@@ -119,7 +118,6 @@ public class PrepareCommand extends MediaCommand {
         this.logo = logo;
         this.mediaType = mediaType;
         this.transferMode = transferMode;
-        this.options = options;
         this.autoplay = autoplay;
     }
 
@@ -130,17 +128,12 @@ public class PrepareCommand extends MediaCommand {
         params.put(KEY_FREQUENCY, updateFreq);
         params.put(KEY_TITLE, title);
         params.put(KEY_SUBTITLE, subtitle);
-        if(logo != null) {
+        if (logo != null) {
             params.put(KEY_LOGO, logo.toString());
         }
         params.put(KEY_MEDIA_TYPE, mediaType.name().toLowerCase());
         params.put(KEY_TRANSFER_MODE, transferMode.name().toLowerCase());
         params.put(KEY_AUTOPLAY, autoplay);
         return params;
-    }
-
-    @Override
-    public JSONObject getOptions() throws JSONException {
-        return options;
     }
 }

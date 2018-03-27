@@ -32,14 +32,15 @@ class MediaCommand {
     private static final String KEY_CODE = "code";
 
     private final String name;
+    private final JSONObject options;
 
-    MediaCommand(String name) {
+    MediaCommand(String name, JSONObject options) {
         this.name = name;
+        this.options = options;
     }
 
     public JSONObject encode() throws JSONException {
         JSONObject output = new JSONObject();
-        JSONObject options = getOptions();
         output.put(KEY_OPTIONS, options);
         output.put(KEY_NAME, name);
         JSONObject params = getParams();
@@ -48,10 +49,6 @@ class MediaCommand {
     }
 
     JSONObject getParams() throws JSONException {
-        return new JSONObject();
-    }
-
-    JSONObject getOptions() throws JSONException {
         return new JSONObject();
     }
 

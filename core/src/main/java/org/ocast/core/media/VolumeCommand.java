@@ -31,8 +31,8 @@ class VolumeCommand extends MediaCommand {
 
     private final double level;
 
-    VolumeCommand(double level) {
-        super(KEY_VOLUME);
+    VolumeCommand(double level, JSONObject options) {
+        super(KEY_VOLUME, options);
         this.level = level;
     }
 
