@@ -33,7 +33,9 @@ import org.ocast.core.function.ThrowingConsumer;
 import org.ocast.core.Device;
 
 import org.json.JSONObject;
+import org.ocast.core.setting.BluetoothSettingController;
 import org.ocast.core.setting.DeviceSettingController;
+import org.ocast.core.setting.NetworkSettingController;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -47,7 +49,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     private final Device device;
     protected Map<Module, Link> links = new EnumMap<>(Module.class);
     private final DriverListener listener;
-    private BrowserListener browserListener;
+    protected BrowserListener browserListener;
 
     private final SSLConfig sslConfig;
 
@@ -58,7 +60,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public void onEvent(DriverEvent driverEvent) {
-        if("browser".equals(driverEvent.getDomain())) {
+        if ("browser".equals(driverEvent.getDomain())) {
             browserListener.onData(driverEvent.getData());
         }
     }
@@ -170,15 +172,25 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
         throw new RuntimeException("not implemented");
     }
 
+    @Override
+    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
+        throw new RuntimeException("not implemented");
+    }
+
+    @Override
+    public BluetoothSettingController getBluetoothSettingController(BluetoothSettingController.BluetoothSettingControllerListener listenner) {
+        throw new RuntimeException("not implemented");
+    }
+
+    @Override
+    public NetworkSettingController getNetworkSettingController(NetworkSettingController.NetworkSettingControllerListener listenner) {
+        throw new RuntimeException("not implemented");
+    }
+
     private boolean isLinkRemovable(Module module) {
         Map<Module, Link> map = new EnumMap<>(links);
         Link link = map.remove(module);
         return !map.containsValue(link);
-    }
-
-    @Override
-    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
-        throw new RuntimeException("not implemented");
     }
 
     private Link getLink(LinkProfile profile) {
