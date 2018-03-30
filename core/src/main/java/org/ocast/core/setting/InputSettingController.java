@@ -22,27 +22,27 @@ package org.ocast.core.setting;
 import org.json.JSONObject;
 import org.ocast.core.DataStream;
 
-public class BluetoothSettingController extends DataStream {
+import java.util.List;
 
-    protected final BluetoothSettingControllerListener listener;
+public class InputSettingController extends DataStream {
 
-    public BluetoothSettingController(String serviceName, BluetoothSettingControllerListener listener) {
+    protected final InputSettingControllerListener listener;
+
+    public InputSettingController(String serviceName, InputSettingControllerListener listener) {
         super(serviceName);
         this.listener = listener;
     }
 
     /**
-     * Provides informations on bluetooth status (discover, mouse, keyboard...)
+     * Provides informations on input (keyboard, mouse...)
      */
-    public interface BluetoothSettingControllerListener {
+    public interface InputSettingControllerListener {
 
-        void onBtDevice(BtDevice btDevice);
+        void onKeyPressed(String key, String code, boolean ctrl, boolean alt, boolean shift, boolean meta, int location);
 
-        void onKeyPressed(String key);
+        void onMouseEvent(int x, int y, int buttons);
 
-        void onMouseMoved(int x, int y);
-
-        void onMouseClicked(String key);
+        void onGamepadEvent(List<AxeInfo> axes, int buttons);
     }
 
     @Override

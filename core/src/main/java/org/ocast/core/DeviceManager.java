@@ -25,6 +25,7 @@ import org.ocast.core.dial.DialService;
 import org.ocast.core.function.Consumer;
 import org.ocast.core.setting.BluetoothSettingController;
 import org.ocast.core.setting.DeviceSettingController;
+import org.ocast.core.setting.InputSettingController;
 import org.ocast.core.setting.NetworkSettingController;
 
 import java.io.Reader;
@@ -61,8 +62,6 @@ public class DeviceManager implements Driver.DriverListener {
     private final Consumer<Failure> listener;
     private final URI baseDialURL;
     private final OkHttpClient httpClient;
-
-    private final DeviceSettingController deviceSettingController = null;
 
     /**
      * Initializes a new DeviceManager
@@ -109,6 +108,10 @@ public class DeviceManager implements Driver.DriverListener {
 
     public NetworkSettingController getNetworkSettingController(NetworkSettingController.NetworkSettingControllerListener listenner) {
         return driver.getNetworkSettingController(listenner);
+    }
+
+    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner) {
+        return driver.getInputSettingController(listenner);
     }
 
     /**

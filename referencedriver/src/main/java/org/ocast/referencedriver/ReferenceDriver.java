@@ -35,6 +35,7 @@ import org.ocast.core.Device;
 import org.json.JSONObject;
 import org.ocast.core.setting.BluetoothSettingController;
 import org.ocast.core.setting.DeviceSettingController;
+import org.ocast.core.setting.InputSettingController;
 import org.ocast.core.setting.NetworkSettingController;
 
 import java.util.EnumMap;
@@ -184,6 +185,11 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public NetworkSettingController getNetworkSettingController(NetworkSettingController.NetworkSettingControllerListener listenner) {
+        throw new RuntimeException("not implemented");
+    }
+
+    @Override
+    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner) {
         throw new RuntimeException("not implemented");
     }
 

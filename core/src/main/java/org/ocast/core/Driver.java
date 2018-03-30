@@ -25,6 +25,7 @@ import org.ocast.core.function.Consumer;
 import org.json.JSONObject;
 import org.ocast.core.setting.BluetoothSettingController;
 import org.ocast.core.setting.DeviceSettingController;
+import org.ocast.core.setting.InputSettingController;
 import org.ocast.core.setting.NetworkSettingController;
 
 /**
@@ -101,6 +102,8 @@ public interface Driver {
     BluetoothSettingController getBluetoothSettingController(BluetoothSettingController.BluetoothSettingControllerListener listenner);
 
     NetworkSettingController getNetworkSettingController(NetworkSettingController.NetworkSettingControllerListener listenner);
+
+    InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner);
 
     /**
      * Callback invoked when a failure occured in the Driver

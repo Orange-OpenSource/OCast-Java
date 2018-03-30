@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     private MediaController mediaController;
     private ApplicationController mApplicationController;
     private CustomStream customController;
-    private boolean webAppRunning = true;
+    private boolean webAppRunning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,8 +153,8 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
     private void startWebApp() {
         viewmodel.setWebAppStatus("start-pending");
         mApplicationController.start(
-                () -> webAppRunning("start-OK :" ),
-                t -> viewmodel.setWebAppStatus("join-NOK", t));
+                () -> webAppRunning("start-OK" ),
+                t -> viewmodel.setWebAppStatus("start-NOK", t));
     }
 
     private void joinWebApp() {
