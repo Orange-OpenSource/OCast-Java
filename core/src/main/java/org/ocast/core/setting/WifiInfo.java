@@ -21,10 +21,6 @@ package org.ocast.core.setting;
 
 public class WifiInfo {
 
-    public enum WifiModeEnum {
-        AP, STA
-    }
-
     private final int code;
     private final String ssid;
     private final String bssid;
@@ -32,9 +28,9 @@ public class WifiInfo {
     private final int rssi;
     private final String ip;
     private final String mac;
-    private final WifiModeEnum mode;
+    private final String mode;
 
-    public WifiInfo(int code, String ssid, String bssid, float frequency, int rssi, String ip, String mac, WifiModeEnum mode) {
+    public WifiInfo(int code, String ssid, String bssid, float frequency, int rssi, String ip, String mac, String mode) {
         this.code = code;
         this.ssid = ssid;
         this.bssid = bssid;
@@ -73,7 +69,7 @@ public class WifiInfo {
         return mac;
     }
 
-    public WifiModeEnum getMode() {
+    public String getMode() {
         return mode;
     }
 }
