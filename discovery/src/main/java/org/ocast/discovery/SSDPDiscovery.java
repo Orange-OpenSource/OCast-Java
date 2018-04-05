@@ -21,7 +21,9 @@ package org.ocast.discovery;
 
 import java.net.URI;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,8 +37,8 @@ public class SSDPDiscovery implements Discovery {
     SSDPManager manager;
     DiscoveryListener listener;
     private boolean mRunning = false;
-    private Set<DialDevice> devices = new HashSet<>();
-    private SSDPManager.DiscoveryListener ssdpListener = new SSDPManager.DiscoveryListener() {
+    private Set<DialDevice> devices = Collections.synchronizedSet(new HashSet<>());
+    private final SSDPManager.DiscoveryListener ssdpListener = new SSDPManager.DiscoveryListener() {
 
         @Override
         public void onServiceFound(URI location) {
@@ -45,9 +47,10 @@ public class SSDPDiscovery implements Discovery {
 
         @Override
         public void onServiceLost(URI location) {
-            for(DialDevice d:devices) {
-                if(d.getLocation().equals(location)) {
-                    devices.remove(d);
+            for (Iterator<DialDevice> iterator = devices.iterator(); iterator.hasNext(); ) {
+                DialDevice d = iterator.next();
+                if (d.getLocation().equals(location)) {
+                    iterator.remove();
                     listener.onDeviceRemoved(d);
                 }
             }
