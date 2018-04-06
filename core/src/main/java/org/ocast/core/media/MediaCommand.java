@@ -61,4 +61,8 @@ class MediaCommand {
     public static JSONObject getReplyParams(JSONObject json) throws JSONException {
         return json.getJSONObject(KEY_PARAMS);
     }
+
+    public static JSONObject getReplyOptions(JSONObject json) throws JSONException {
+        return json.getJSONObject(KEY_OPTIONS);
+    }
 }
