@@ -165,7 +165,7 @@ public class MediaController extends DataStream {
      * @param onFailure
      */
     public void volume(double level, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        volume(level, onSuccess, onFailure);
+        volume(level, null, onSuccess, onFailure);
     }
 
     /**
@@ -265,7 +265,7 @@ public class MediaController extends DataStream {
     public void getPlaybackStatus(JSONObject options, Consumer<PlaybackStatus> onSuccess, Consumer<Throwable> onFailure) {
         MediaCommand command = new MediaCommand("getPlaybackStatus", options);
         ThrowingConsumer<JSONObject,Exception> jsonProcessing = json -> {
-            PlaybackStatus s = PlaybackStatus.decode(MediaCommand.getReplyParams(json));
+            PlaybackStatus s = PlaybackStatus.decode(MediaCommand.getReplyParams(json), MediaCommand.getReplyOptions(json));
             onSuccess.accept(s);
         };
         sendCommand(command, jsonProcessing, onFailure);
@@ -289,7 +289,7 @@ public class MediaController extends DataStream {
     public void getMetadata(JSONObject options, Consumer<Metadata> onSuccess, Consumer<Throwable> onFailure) {
         MediaCommand command = new MediaCommand("getMetadata", options);
         ThrowingConsumer<JSONObject,Exception> jsonProcessing = json -> {
-            Metadata m = Metadata.decode(MediaCommand.getReplyParams(json));
+            Metadata m = Metadata.decode(MediaCommand.getReplyParams(json), MediaCommand.getReplyOptions(json));
             onSuccess.accept(m);
         };
         sendCommand(command, jsonProcessing, onFailure);
@@ -302,11 +302,11 @@ public class MediaController extends DataStream {
             MediaEvent mediaEvent = MediaEvent.decode(message);
             switch(mediaEvent.getName()) {
                 case "playbackStatus":
-                    PlaybackStatus playbackStatus = PlaybackStatus.decode(mediaEvent.getParams());
+                    PlaybackStatus playbackStatus = PlaybackStatus.decode(mediaEvent.getParams(), mediaEvent.getOptions());
                     listener.onPlaybackStatus(playbackStatus);
                     break;
                 case "metadataChanged":
-                    Metadata metadata = Metadata.decode(mediaEvent.getParams());
+                    Metadata metadata = Metadata.decode(mediaEvent.getParams(), mediaEvent.getOptions());
                     listener.onMetadataChanged(metadata);
                     break;
                 default:
