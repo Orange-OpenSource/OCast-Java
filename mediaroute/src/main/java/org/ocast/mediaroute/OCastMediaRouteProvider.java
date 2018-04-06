@@ -43,7 +43,9 @@ import org.ocast.discovery.Discovery;
 import org.ocast.discovery.SSDPDiscovery;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -63,7 +65,7 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
     private final SSDPDiscovery mSSDPDiscovery;
     private final ConnectivityManager mConnectivityManager;
     private WifiMonitor mWifiMonitorReceiver = new WifiMonitor(this);
-    private Map<String, MediaRouteDescriptor> mRoutes = new HashMap<>();
+    private Map<String, MediaRouteDescriptor> mRoutes = Collections.synchronizedMap(new HashMap<>());
 
     private Discovery.DiscoveryListener listener = new Discovery.DiscoveryListener() {
         @Override
@@ -75,7 +77,13 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
 
         @Override
         public void onDeviceRemoved(DiscoveredDevice dd) {
-            mRoutes.remove(dd.getFriendlyName());
+            for (Iterator<Map.Entry<String, MediaRouteDescriptor>> iterator = mRoutes.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<String, MediaRouteDescriptor> entry = iterator.next();
+                String friendlyName = entry.getKey();
+                if (friendlyName.equals(dd.getFriendlyName())) {
+                    iterator.remove();
+                }
+            }
             publishRoutes();
         }
 
