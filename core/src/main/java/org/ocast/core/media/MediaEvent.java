@@ -75,7 +75,7 @@ public class MediaEvent {
     public static MediaEvent decode(JSONObject input) throws JSONException {
         String name = input.getString(KEY_NAME);
         JSONObject params = input.getJSONObject(KEY_PARAMS);
-        JSONObject options = input.getJSONObject(KEY_OPTIONS);
+        JSONObject options = input.optJSONObject(KEY_OPTIONS);
         return new MediaEvent(name, params, options);
     }
 }
