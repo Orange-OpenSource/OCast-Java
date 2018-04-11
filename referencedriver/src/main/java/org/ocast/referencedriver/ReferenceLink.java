@@ -151,9 +151,11 @@ public class ReferenceLink implements Link {
         @Override
         public void onClosed(WebSocket webSocket, int code, String reason) {
             Logger.getLogger(TAG).log(Level.FINE, "onClosed");
-            if(state == State.DISCONNECTING && onDisconnected != null) {
+            if (state == State.DISCONNECTING) {
                 state = State.DISCONNECTED;
-                onDisconnected.run();
+                if (onDisconnected != null) {
+                    onDisconnected.run();
+                }
             }
         }
 
@@ -174,8 +176,10 @@ public class ReferenceLink implements Link {
 
         @Override
         public void onFailure(WebSocket webSocket, Throwable t, Response response) {
-            Logger.getLogger(TAG).log(Level.SEVERE, "failure: ",t);
-            linkListener.onFailure(t);
+            if (state == State.CONNECTED || state == State.CONNECTING) {
+                Logger.getLogger(TAG).log(Level.SEVERE, "failure: ", t);
+                linkListener.onFailure(t);
+            }
         }
 
         private void handleReply(Payload payload) {
