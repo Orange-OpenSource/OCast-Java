@@ -27,7 +27,7 @@ import org.json.JSONObject;
  */
 class VolumeCommand extends MediaCommand {
     private static final String KEY_VOLUME = "volume";
-    private static final String KEY_LEVEL = "level";
+    private static final String KEY_LEVEL = "volume";
 
     private final double level;
 

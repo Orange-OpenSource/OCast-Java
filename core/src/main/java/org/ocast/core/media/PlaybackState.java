@@ -19,13 +19,38 @@
 
 package org.ocast.core.media;
 
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Defines the different Playback states
  */
 public enum PlaybackState {
-    IDLE,
-    BUFFERING,
-    PLAYING,
-    PAUSED,
-    STOPPED,
+    UNKNOWN(0),
+    IDLE(1),
+    PLAYING(2),
+    PAUSED(3),
+    BUFFERING(4);
+
+    private final int code;
+    private static final Map<Integer,PlaybackState> lookup = new HashMap<>();
+
+    static {
+        for(PlaybackState s : EnumSet.allOf(PlaybackState.class))
+            lookup.put(s.getCode(), s);
+    }
+
+    PlaybackState(int code) {
+        this.code = code;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public static PlaybackState get(int code) {
+        PlaybackState result = lookup.get(code);
+        return result != null ? result : UNKNOWN;
+    }
 }

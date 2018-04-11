@@ -87,6 +87,7 @@ public class Track {
     public Type getType() {
         return type;
     }
+
     public String getLanguage() {
         return language;
     }
