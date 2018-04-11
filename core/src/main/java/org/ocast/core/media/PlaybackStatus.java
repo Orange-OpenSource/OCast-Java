@@ -113,12 +113,8 @@ public class PlaybackStatus {
         builder.setVolume(volume);
         boolean mute = params.getBoolean(KEY_MUTE);
         builder.setMute(mute);
-        String state = params.getString(KEY_STATUS);
-        try {
-            builder.setState(PlaybackState.valueOf(state.toUpperCase()));
-        } catch(IllegalArgumentException e) {
-            throw new JSONException("invalid status:" + state);
-        }
+        int state = params.getInt(KEY_STATUS);
+        builder.setState(PlaybackState.get(state));
         return builder.build();
     }
 }

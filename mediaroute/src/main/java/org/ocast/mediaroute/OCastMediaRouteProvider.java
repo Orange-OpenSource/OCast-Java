@@ -108,8 +108,9 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
 
     private void publishRoutes() {
         final MediaRouteProviderDescriptor.Builder providerDescriptorBuilder = new MediaRouteProviderDescriptor.Builder();
-        for(MediaRouteDescriptor d: mRoutes.values()) {
-            providerDescriptorBuilder.addRoute(d);
+        for (Iterator<Map.Entry<String, MediaRouteDescriptor>> iterator = mRoutes.entrySet().iterator(); iterator.hasNext(); ) {
+            Map.Entry<String, MediaRouteDescriptor> entry = iterator.next();
+            providerDescriptorBuilder.addRoute(entry.getValue());
         }
         final MediaRouteProviderDescriptor providerDescriptor = providerDescriptorBuilder.build();
         mHandler.post(() -> setDescriptor(providerDescriptor));
