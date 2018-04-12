@@ -264,6 +264,17 @@ public class SSDPManager {
             if (delta >= threshold) {
                 iterator.remove();
                 discoveryListener.onServiceLost(location);
+                removeKnownDevice(location);
+            }
+        }
+    }
+
+    private void removeKnownDevice(URI location) {
+        for (Iterator<Map.Entry<URI, DialDevice>> iterator = knownDevices.entrySet().iterator(); iterator.hasNext(); ) {
+            Map.Entry<URI, DialDevice> entry = iterator.next();
+            URI uri = entry.getKey();
+            if (location.equals(uri)) {
+                iterator.remove();
             }
         }
     }
