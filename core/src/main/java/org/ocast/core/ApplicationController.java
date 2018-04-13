@@ -60,7 +60,7 @@ public class ApplicationController extends DataStream {
     private static final String SERVICE_WEBAPP = "org.ocast.webapp";
     private static final int CONNECTED_TIMEOUT = 10;
     private static final String KEY_NAME = "name";
-    private static final String KEY_CONNECTION_STATUS = "connectionStatus";
+    private static final String KEY_CONNECTION_STATUS = "connectedStatus";
     private static final String KEY_PARAMS = "params";
     private static final String KEY_STATUS = "status";
     private static final String STATE_CONNECTED = "connected";

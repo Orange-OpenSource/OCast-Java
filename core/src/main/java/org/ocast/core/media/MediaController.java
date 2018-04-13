@@ -82,7 +82,17 @@ public class MediaController extends DataStream {
      * @param onFailure
      */
     public void stop(Runnable onSuccess, Consumer<Throwable> onFailure) {
-        MediaCommand command = new MediaCommand("stop");
+        stop(null, onSuccess, onFailure);
+    }
+
+    /**
+     * Stops the current media playback
+     * @param onSuccess
+     * @param onFailure
+     * @param options
+     */
+    public void stop(JSONObject options, Runnable onSuccess, Consumer<Throwable> onFailure) {
+        MediaCommand command = new MediaCommand("stop", options);
         sendSimpleCommand(onSuccess, onFailure, command);
     }
 
@@ -92,7 +102,17 @@ public class MediaController extends DataStream {
      * @param onFailure
      */
     public void pause(Runnable onSuccess, Consumer<Throwable> onFailure) {
-        MediaCommand command = new MediaCommand("pause");
+        pause(null, onSuccess, onFailure);
+    }
+
+    /**
+     * Pauses the current media playback
+     * @param onSuccess
+     * @param onFailure
+     * @param options
+     */
+    public void pause(JSONObject options, Runnable onSuccess, Consumer<Throwable> onFailure) {
+        MediaCommand command = new MediaCommand("pause", options);
         sendSimpleCommand(onSuccess, onFailure, command);
     }
 
@@ -102,7 +122,17 @@ public class MediaController extends DataStream {
      * @param onFailure
      */
     public void resume(Runnable onSuccess, Consumer<Throwable> onFailure) {
-        MediaCommand command = new MediaCommand("resume");
+        resume(null, onSuccess, onFailure);
+    }
+
+    /**
+     * Resumes the current media playback
+     * @param onSuccess
+     * @param onFailure
+     * @param options
+     */
+    public void resume(JSONObject options, Runnable onSuccess, Consumer<Throwable> onFailure) {
+        MediaCommand command = new MediaCommand("resume", options);
         sendSimpleCommand(onSuccess, onFailure, command);
     }
 
@@ -113,7 +143,18 @@ public class MediaController extends DataStream {
      * @param onFailure
      */
     public void play(long position, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        PlayCommand command = new PlayCommand(position);
+        play(position, null, onSuccess, onFailure);
+    }
+
+    /**
+     * Plays the current media from a given position
+     * @param position the position expressed as seconds since start
+     * @param onSuccess
+     * @param onFailure
+     * @param options
+     */
+    public void play(long position, JSONObject options, Runnable onSuccess, Consumer<Throwable> onFailure) {
+        PlayCommand command = new PlayCommand(position, options);
         sendSimpleCommand(onSuccess, onFailure, command);
     }
 
@@ -124,7 +165,18 @@ public class MediaController extends DataStream {
      * @param onFailure
      */
     public void volume(double level, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        VolumeCommand command = new VolumeCommand(level);
+        volume(level, null, onSuccess, onFailure);
+    }
+
+    /**
+     * Sets the volume level
+     * @param level a value in a [0..1] interval
+     * @param onSuccess
+     * @param onFailure
+     * @param options
+     */
+    public void volume(double level, JSONObject options, Runnable onSuccess, Consumer<Throwable> onFailure) {
+        VolumeCommand command = new VolumeCommand(level, options);
         sendSimpleCommand(onSuccess, onFailure, command);
     }
 
@@ -135,7 +187,18 @@ public class MediaController extends DataStream {
      * @param onFailure
      */
     public void mute(boolean enable, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        MuteCommand command = new MuteCommand(enable);
+        mute(enable, null, onSuccess, onFailure);
+    }
+
+    /**
+     * Mute the current playback
+     * @param enable true to mute, false to unmute
+     * @param onSuccess
+     * @param onFailure
+     * @param options
+     */
+    public void mute(boolean enable, JSONObject options, Runnable onSuccess, Consumer<Throwable> onFailure) {
+        MuteCommand command = new MuteCommand(enable, options);
         sendSimpleCommand(onSuccess, onFailure, command);
     }
 
@@ -146,7 +209,18 @@ public class MediaController extends DataStream {
      * @param onFailure
      */
     public void seek(long position, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        MediaCommand command = new SeekCommand(position);
+        seek(position, null, onSuccess, onFailure);
+    }
+
+    /**
+     * Seeks the current media to a given position
+     * @param position the position expressed as seconds since start
+     * @param onSuccess
+     * @param onFailure
+     * @param options
+     */
+    public void seek(long position, JSONObject options, Runnable onSuccess, Consumer<Throwable> onFailure) {
+        MediaCommand command = new SeekCommand(position, options);
         sendSimpleCommand(onSuccess, onFailure, command);
     }
 
@@ -157,7 +231,18 @@ public class MediaController extends DataStream {
      * @param onFailure
      */
     public void track(Track track, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        MediaCommand command = new TrackCommand(track.getType(), track.getTrackId(), track.isEnable());
+        track(track, null, onSuccess, onFailure);
+    }
+
+    /**
+     * enable or disable media {@link org.ocast.core.media.Track} track
+     * @param track the track information
+     * @param onSuccess
+     * @param onFailure
+     * @param options
+     */
+    public void track(Track track, JSONObject options, Runnable onSuccess, Consumer<Throwable> onFailure) {
+        MediaCommand command = new TrackCommand(track.getType(), track.getTrackId(), track.isEnable(), options);
         sendSimpleCommand(onSuccess, onFailure, command);
 
     }
@@ -168,9 +253,19 @@ public class MediaController extends DataStream {
      * @param onFailure
      */
     public void getPlaybackStatus(Consumer<PlaybackStatus> onSuccess, Consumer<Throwable> onFailure) {
-        MediaCommand command = new MediaCommand("getPlaybackStatus");
+        getPlaybackStatus(null, onSuccess, onFailure);
+    }
+
+    /**
+     * Gets current media status.
+     * @param onSuccess to be called on success with the PlaybackStatus
+     * @param onFailure
+     * @param options
+     */
+    public void getPlaybackStatus(JSONObject options, Consumer<PlaybackStatus> onSuccess, Consumer<Throwable> onFailure) {
+        MediaCommand command = new MediaCommand("getPlaybackStatus", options);
         ThrowingConsumer<JSONObject,Exception> jsonProcessing = json -> {
-            PlaybackStatus s = PlaybackStatus.decode(MediaCommand.getReplyParams(json));
+            PlaybackStatus s = PlaybackStatus.decode(MediaCommand.getReplyParams(json), MediaCommand.getReplyOptions(json));
             onSuccess.accept(s);
         };
         sendCommand(command, jsonProcessing, onFailure);
@@ -182,9 +277,19 @@ public class MediaController extends DataStream {
      * @param onFailure to be called on error
      */
     public void getMetadata(Consumer<Metadata> onSuccess, Consumer<Throwable> onFailure) {
-        MediaCommand command = new MediaCommand("getMetadata");
+        getMetadata(null, onSuccess, onFailure);
+    }
+
+    /**
+     * Gets current media metadata.
+     * @param onSuccess to be called on success with the Metadata
+     * @param onFailure to be called on error
+     * @param options
+     */
+    public void getMetadata(JSONObject options, Consumer<Metadata> onSuccess, Consumer<Throwable> onFailure) {
+        MediaCommand command = new MediaCommand("getMetadata", options);
         ThrowingConsumer<JSONObject,Exception> jsonProcessing = json -> {
-            Metadata m = Metadata.decode(MediaCommand.getReplyParams(json));
+            Metadata m = Metadata.decode(MediaCommand.getReplyParams(json), MediaCommand.getReplyOptions(json));
             onSuccess.accept(m);
         };
         sendCommand(command, jsonProcessing, onFailure);
@@ -197,11 +302,11 @@ public class MediaController extends DataStream {
             MediaEvent mediaEvent = MediaEvent.decode(message);
             switch(mediaEvent.getName()) {
                 case "playbackStatus":
-                    PlaybackStatus playbackStatus = PlaybackStatus.decode(mediaEvent.getParams());
+                    PlaybackStatus playbackStatus = PlaybackStatus.decode(mediaEvent.getParams(), mediaEvent.getOptions());
                     listener.onPlaybackStatus(playbackStatus);
                     break;
                 case "metadataChanged":
-                    Metadata metadata = Metadata.decode(mediaEvent.getParams());
+                    Metadata metadata = Metadata.decode(mediaEvent.getParams(), mediaEvent.getOptions());
                     listener.onMetadataChanged(metadata);
                     break;
                 default:

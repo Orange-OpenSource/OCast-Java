@@ -31,12 +31,15 @@ public class MediaEvent {
 
     private static final String KEY_NAME = "name";
     private static final String KEY_PARAMS = "params";
+    private static final String KEY_OPTIONS = "options";
     private final String name;
     private final JSONObject params;
+    private final JSONObject options;
 
-    public MediaEvent(String name, JSONObject params) {
+    public MediaEvent(String name, JSONObject params, JSONObject options) {
         this.name = name;
         this.params = params;
+        this.options = options;
     }
 
     /**
@@ -56,6 +59,14 @@ public class MediaEvent {
     }
 
     /**
+     * Retrieves the options associated with the event
+     * @return a JSONObject holding the event specific options
+     */
+    public JSONObject getOptions() {
+        return options;
+    }
+
+    /**
      * Decodes the input json as a MediaEvent
      * @param input
      * @return a MediaEvent
@@ -64,7 +75,7 @@ public class MediaEvent {
     public static MediaEvent decode(JSONObject input) throws JSONException {
         String name = input.getString(KEY_NAME);
         JSONObject params = input.getJSONObject(KEY_PARAMS);
-
-        return new MediaEvent(name, params);
+        JSONObject options = input.optJSONObject(KEY_OPTIONS);
+        return new MediaEvent(name, params, options);
     }
 }

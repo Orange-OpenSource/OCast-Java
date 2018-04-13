@@ -17,31 +17,34 @@
  *
  */
 
-package org.ocast.core.media;
+package org.ocast.core.setting;
 
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Defines the different Playback states
- */
-public enum PlaybackState {
-    UNKNOWN(0),
-    IDLE(1),
-    PLAYING(2),
-    PAUSED(3),
-    BUFFERING(4);
+public enum SettingReplyCode {
+    SUCCESS(0),
+    NOT_IMPLEMENTED(1200),
+    WIFI_PINCODE_NOT_CORRECT(1201),
+    WIFI_FAILED_TO_RETRIEVE_PINCODE(1202),
+    BT_PINCODE_IS_REQUIRED(1401),
+    BT_DISCONNECT_OR_PAIR_ON_UNAVAILABLE_DEVICE(1402),
+    BT_START_DISCOVERY_IN_PROGRESS(1403),
+    BT_STOP_DISCOVERY_FAILED(1404),
+    BT_DEVICE_AUTHENTICATION_FAILURE(1405),
+    BT_UNKNOWN_ERROR(1407),
+    UNKNOWN_ERROR(5000);
 
     private final int code;
-    private static final Map<Integer,PlaybackState> lookup = new HashMap<>();
+    private static final Map<Integer,SettingReplyCode> lookup = new HashMap<>();
 
     static {
-        for(PlaybackState s : EnumSet.allOf(PlaybackState.class))
+        for(SettingReplyCode s : EnumSet.allOf(SettingReplyCode.class))
             lookup.put(s.getCode(), s);
     }
 
-    PlaybackState(int code) {
+    SettingReplyCode(int code) {
         this.code = code;
     }
 
@@ -49,8 +52,8 @@ public enum PlaybackState {
         return code;
     }
 
-    public static PlaybackState get(int code) {
-        PlaybackState result = lookup.get(code);
-        return result != null ? result : UNKNOWN;
+    public static SettingReplyCode get(int code) {
+        SettingReplyCode result = lookup.get(code);
+        return result != null ? result : UNKNOWN_ERROR;
     }
 }

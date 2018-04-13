@@ -103,22 +103,18 @@ public class PlaybackStatus {
         return duration;
     }
 
-    static PlaybackStatus decode(JSONObject json) throws JSONException {
+    static PlaybackStatus decode(JSONObject params, JSONObject options) throws JSONException {
         PlaybackStatus.Builder builder = new PlaybackStatus.Builder();
-        double position = json.getDouble(KEY_POSITION);
+        double position = params.getDouble(KEY_POSITION);
         builder.setPosition(position);
-        double duration = json.optDouble(KEY_DURATION);
+        double duration = params.optDouble(KEY_DURATION);
         builder.setDuration(duration);
-        double volume = json.getDouble(KEY_VOLUME);
+        double volume = params.getDouble(KEY_VOLUME);
         builder.setVolume(volume);
-        boolean mute = json.getBoolean(KEY_MUTE);
+        boolean mute = params.getBoolean(KEY_MUTE);
         builder.setMute(mute);
-        String state = json.getString(KEY_STATUS);
-        try {
-            builder.setState(PlaybackState.valueOf(state.toUpperCase()));
-        } catch(IllegalArgumentException e) {
-            throw new JSONException("invalid status:" + state);
-        }
+        int state = params.getInt(KEY_STATUS);
+        builder.setState(PlaybackState.get(state));
         return builder.build();
     }
 }

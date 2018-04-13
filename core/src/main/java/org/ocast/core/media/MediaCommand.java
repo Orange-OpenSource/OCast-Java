@@ -19,7 +19,6 @@
 
 package org.ocast.core.media;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,14 +32,15 @@ class MediaCommand {
     private static final String KEY_CODE = "code";
 
     private final String name;
+    private final JSONObject options;
 
-    MediaCommand(String name) {
+    MediaCommand(String name, JSONObject options) {
         this.name = name;
+        this.options = options;
     }
 
     public JSONObject encode() throws JSONException {
         JSONObject output = new JSONObject();
-        JSONArray options = getOptions();
         output.put(KEY_OPTIONS, options);
         output.put(KEY_NAME, name);
         JSONObject params = getParams();
@@ -52,10 +52,6 @@ class MediaCommand {
         return new JSONObject();
     }
 
-    JSONArray getOptions() throws JSONException {
-        return new JSONArray();
-    }
-
     public static ReplyStatus decode(JSONObject json) throws JSONException {
         JSONObject params = json.getJSONObject(KEY_PARAMS);
         int code = params.getInt(KEY_CODE);
@@ -64,5 +60,9 @@ class MediaCommand {
 
     public static JSONObject getReplyParams(JSONObject json) throws JSONException {
         return json.getJSONObject(KEY_PARAMS);
+    }
+
+    public static JSONObject getReplyOptions(JSONObject json) throws JSONException {
+        return json.optJSONObject(KEY_OPTIONS);
     }
 }

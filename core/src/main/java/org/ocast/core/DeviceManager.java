@@ -23,7 +23,10 @@ import org.ocast.core.dial.DialServiceParser;
 import org.ocast.core.dial.DialException;
 import org.ocast.core.dial.DialService;
 import org.ocast.core.function.Consumer;
+import org.ocast.core.setting.BluetoothSettingController;
 import org.ocast.core.setting.DeviceSettingController;
+import org.ocast.core.setting.InputSettingController;
+import org.ocast.core.setting.NetworkSettingController;
 
 import java.io.Reader;
 import java.net.URI;
@@ -59,8 +62,6 @@ public class DeviceManager implements Driver.DriverListener {
     private final Consumer<Failure> listener;
     private final URI baseDialURL;
     private final OkHttpClient httpClient;
-
-    private final DeviceSettingController deviceSettingController = null;
 
     /**
      * Initializes a new DeviceManager
@@ -99,6 +100,18 @@ public class DeviceManager implements Driver.DriverListener {
 
     public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
         return driver.getDeviceSettingController(listenner);
+    }
+
+    public BluetoothSettingController getBluetoothSettingController(BluetoothSettingController.BluetoothSettingControllerListener listenner) {
+        return driver.getBluetoothSettingController(listenner);
+    }
+
+    public NetworkSettingController getNetworkSettingController(NetworkSettingController.NetworkSettingControllerListener listenner) {
+        return driver.getNetworkSettingController(listenner);
+    }
+
+    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner) {
+        return driver.getInputSettingController(listenner);
     }
 
     /**
@@ -195,7 +208,6 @@ public class DeviceManager implements Driver.DriverListener {
             return mRegisteredDrivers.get(device.getManufacturer()).createDriver(device, this);
         } catch(Exception e) {
             throw new IllegalArgumentException("could not create driver. Did you register it properly ?");
-
         }
     }
 
@@ -204,7 +216,6 @@ public class DeviceManager implements Driver.DriverListener {
             return mRegisteredDrivers.get(device.getManufacturer()).createDriver(device, this, sslConfig);
         } catch(Exception e) {
             throw new IllegalArgumentException("could not create driver. Did you register it properly ?");
-
         }
     }
 

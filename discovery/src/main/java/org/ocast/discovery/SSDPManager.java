@@ -24,7 +24,10 @@ import java.net.SocketException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,9 +45,9 @@ public class SSDPManager {
     private static final int IMMEDIATE = 0;
 
     private final DeviceDescriptionRequest deviceDescriptionRequest;
-    private final Map<URI, DialDevice> knownDevices = new ConcurrentHashMap<>();
-    private final Map<URI, Long> latestResponseForLocation = new ConcurrentHashMap<>();
-    private Set<String> searchTargets = new HashSet<>();
+    private final Map<URI, DialDevice> knownDevices = Collections.synchronizedMap(new HashMap<>());
+    private final Map<URI, Long> latestResponseForLocation = Collections.synchronizedMap(new HashMap<>());
+    private Set<String> searchTargets = Collections.synchronizedSet(new HashSet<>());
 
     private final DiscoveryListener discoveryListener;
     private SSDPSocket socket;
@@ -252,14 +255,26 @@ public class SSDPManager {
     }
 
     private void pruneDevices(int threshold) {
-        for (Map.Entry<URI, Long> entry : latestResponseForLocation.entrySet()) {
+        for (Iterator<Map.Entry<URI, Long>> iterator = latestResponseForLocation.entrySet().iterator(); iterator.hasNext(); ) {
+            Map.Entry<URI, Long> entry = iterator.next();
             URI location = entry.getKey();
             long lastScan = entry.getValue();
             long delta = currentScan - lastScan;
             Logger.getLogger(TAG).log(Level.FINE,  " {0} / delta {1} ({2})", new Object[]{location, delta, currentScan});
             if (delta >= threshold) {
-                latestResponseForLocation.remove(location);
+                iterator.remove();
                 discoveryListener.onServiceLost(location);
+                removeKnownDevice(location);
+            }
+        }
+    }
+
+    private void removeKnownDevice(URI location) {
+        for (Iterator<Map.Entry<URI, DialDevice>> iterator = knownDevices.entrySet().iterator(); iterator.hasNext(); ) {
+            Map.Entry<URI, DialDevice> entry = iterator.next();
+            URI uri = entry.getKey();
+            if (location.equals(uri)) {
+                iterator.remove();
             }
         }
     }

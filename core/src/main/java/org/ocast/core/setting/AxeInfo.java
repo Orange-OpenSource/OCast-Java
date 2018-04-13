@@ -17,29 +17,28 @@
  *
  */
 
-package org.ocast.core.media;
+package org.ocast.core.setting;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+public class AxeInfo {
+    private final double x;
+    private final double y;
+    private final int buttons;
 
-/**
- * Describes a play command
- */
-class PlayCommand extends MediaCommand {
-    private static final String KEY_PLAY = "play";
-    private static final String KEY_POSITION = "position";
-
-    private final long position;
-
-    PlayCommand(long position, JSONObject options) {
-        super(KEY_PLAY, options);
-        this.position = position;
+    public AxeInfo(double x, double y, int buttons) {
+        this.x = x;
+        this.y = y;
+        this.buttons = buttons;
     }
 
-    @Override
-    public JSONObject getParams() throws JSONException {
-        JSONObject params = new JSONObject();
-        params.put(KEY_POSITION, position);
-        return params;
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public int getButtons() {
+        return buttons;
     }
 }

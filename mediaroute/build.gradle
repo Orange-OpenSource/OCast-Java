@@ -17,12 +17,12 @@
  *
  */
 
-description = "Mediroute module f the OCast SDK. Provides integration with the Android MediaRouter"
+description = "Mediaroute module for the OCast SDK. Provides integration with the Android MediaRouter"
 
 apply plugin: 'com.android.library'
 
 android {
-    buildToolsVersion "26.0.2"
+    buildToolsVersion "27.0.3"
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {

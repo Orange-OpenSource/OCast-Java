@@ -141,30 +141,30 @@ public class Metadata {
         return videoTracks;
     }
 
-    static Metadata decode(JSONObject json) throws JSONException {
+    static Metadata decode(JSONObject params, JSONObject options) throws JSONException {
         Metadata.Builder builder = new Metadata.Builder();
-        builder.setTitle(json.getString(KEY_TITLE));
-        builder.setSubtitle(json.getString(KEY_SUBTITLE));
+        builder.setTitle(params.getString(KEY_TITLE));
+        builder.setSubtitle(params.getString(KEY_SUBTITLE));
         try {
-            builder.setLogo(new URI(json.getString(KEY_LOGO)));
+            builder.setLogo(new URI(params.getString(KEY_LOGO)));
         } catch (URISyntaxException e) {
             throw new JSONException(("invalid logo url"));
         }
-        String mediaType = json.getString(KEY_MEDIA_TYPE);
+        String mediaType = params.getString(KEY_MEDIA_TYPE);
         try {
             builder.setMediaType(MediaType.valueOf(mediaType.toUpperCase()));
         } catch(IllegalArgumentException e) {
             throw new JSONException("invalid mediaType:" + mediaType);
         }
-        JSONArray opt = json.optJSONArray(KEY_SUBTITLE_TRACKS);
+        JSONArray opt = params.optJSONArray(KEY_SUBTITLE_TRACKS);
         if(opt != null) {
             builder.setSubtitleTracks(parseTrackList(opt));
         }
-        opt = json.optJSONArray(KEY_AUDIO_TRACKS);
+        opt = params.optJSONArray(KEY_AUDIO_TRACKS);
         if(opt != null) {
             builder.setAudioTracks(parseTrackList(opt));
         }
-        opt = json.optJSONArray(KEY_VIDEO_TRACKS);
+        opt = params.optJSONArray(KEY_VIDEO_TRACKS);
         if(opt != null) {
             builder.setVideoTracks(parseTrackList(opt));
         }

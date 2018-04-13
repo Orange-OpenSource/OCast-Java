@@ -23,6 +23,7 @@ import org.ocast.core.function.Consumer;
 import org.ocast.core.setting.APListReply;
 import org.ocast.core.setting.BtDeviceList;
 import org.ocast.core.setting.DeviceInfo;
+import org.ocast.core.setting.VersionInfo;
 import org.ocast.core.setting.NetworkInfo;
 import org.ocast.core.setting.SendCommandReply;
 import org.ocast.core.setting.WifiInfo;
@@ -42,13 +43,19 @@ public interface PrivateSettings {
 
     void remAP(String ssid, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
+    void setAP(String ssid, String password, String bssid, int security, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
     void pbWPS(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
     void getWifiInfo(Consumer<WifiInfo> onSuccess, Consumer<Throwable> onFailure);
 
     void getNetworkInfo(Consumer<NetworkInfo> onSuccess, Consumer<Throwable> onFailure);
 
-    void getInfo(Consumer<DeviceInfo> onSuccess, Consumer<Throwable> onFailure);
+    void getInfo(Consumer<VersionInfo> onSuccess, Consumer<Throwable> onFailure);
+
+    void reboot(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
+    void getDeviceInfo(Consumer<DeviceInfo> onSuccess, Consumer<Throwable> onFailure);
 
     void reset(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 

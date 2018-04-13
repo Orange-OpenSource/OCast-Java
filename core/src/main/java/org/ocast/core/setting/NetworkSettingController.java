@@ -17,25 +17,29 @@
  *
  */
 
-package org.ocast.referencedriver.settings;
+package org.ocast.core.setting;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.ocast.core.Reply;
-import org.ocast.referencedriver.payload.CommandPayload;
+import org.ocast.core.DataStream;
 
-import static org.ocast.referencedriver.settings.PublicSettingsImpl.SERVICE_SETTINGS_DEVICE;
+public class NetworkSettingController extends DataStream {
 
-public class GetDeviceID extends CommandPayload {
-    public static final String KEY_ID = "id";
+    protected final NetworkSettingControllerListener listener;
 
-    public static JSONObject encode() {
-        return encodeMessage(SERVICE_SETTINGS_DEVICE, "getDeviceID", new JSONObject());
+    public NetworkSettingController(String serviceName, NetworkSettingControllerListener listener) {
+        super(serviceName);
+        this.listener = listener;
     }
 
-    public static String decode(Reply data) throws JSONException {
-        JSONObject json = decodeMessage(data.getReply());
-        final String id = json.getString(KEY_ID);
-        return id;
+    /**
+     * Provides informations on network status
+     */
+    public interface NetworkSettingControllerListener {
+
+        void onWifiConnectionStatus(String status);
+    }
+
+    @Override
+    public void onMessage(JSONObject message) {
     }
 }

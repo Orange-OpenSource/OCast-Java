@@ -20,7 +20,7 @@
 package org.ocast.core;
 
 import org.ocast.core.function.Consumer;
-import org.ocast.core.setting.UpdateStatus;
+import org.ocast.core.setting.*;
 
 /**
  * Interface PublicSettings is implemented by driver libraries to provide access to public
@@ -43,5 +43,4 @@ public interface PublicSettings {
     void getDeviceID(Consumer<String> onSuccess, Consumer<Throwable> onFailure);
 
     void getVersion(Consumer<VersionInfo> onSuccess, Consumer<Throwable> onFailure);
-
 }
