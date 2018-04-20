@@ -23,6 +23,7 @@ import org.ocast.core.function.Consumer;
 import org.ocast.core.setting.APListReply;
 import org.ocast.core.setting.BtDeviceList;
 import org.ocast.core.setting.DeviceInfo;
+import org.ocast.core.setting.PinCode;
 import org.ocast.core.setting.VersionInfo;
 import org.ocast.core.setting.NetworkInfo;
 import org.ocast.core.setting.SendCommandReply;
@@ -49,6 +50,8 @@ public interface PrivateSettings {
     void getWifiInfo(Consumer<WifiInfo> onSuccess, Consumer<Throwable> onFailure);
 
     void getNetworkInfo(Consumer<NetworkInfo> onSuccess, Consumer<Throwable> onFailure);
+
+    void getAPPinCode(Consumer<PinCode> onSuccess, Consumer<Throwable> onFailure);
 
     void getInfo(Consumer<VersionInfo> onSuccess, Consumer<Throwable> onFailure);
 
