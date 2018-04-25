@@ -176,6 +176,14 @@ public class ApplicationController extends DataStream {
         stream.setBrowser(browser);
     }
 
+    /**
+     * Used to release control of user's specific stream
+     * @param stream custom stream to be unmanaged
+     */
+    public void unmanageStream(DataStream stream) {
+        stream.unsetBrowser(browser);
+    }
+
     @Override
     public void onMessage(JSONObject message) {
         try {
