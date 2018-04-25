@@ -86,6 +86,14 @@ public class Browser implements Driver.BrowserListener {
         registeredStreams.put(dataStream.getServiceName(), dataStream);
     }
 
+    /**
+     * Unregisters a {@link org.ocast.core.DataStream DataStream}
+     * @param dataStream a {@link org.ocast.core.DataStream DataStream} object that will be unmanaged by this Browser
+     */
+    public void unregisterStream(DataStream dataStream) {
+        registeredStreams.remove(dataStream.getServiceName());
+    }
+
     @Override
     public void onData(JSONObject browserData) {
         try {
