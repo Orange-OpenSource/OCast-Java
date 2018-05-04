@@ -26,6 +26,6 @@ dependencies {
     compileOnly group: 'org.json', name: 'json', version: '20170516'
     compileOnly 'net.sf.kxml:kxml2:2.3.0'
     testCompile 'net.sf.kxml:kxml2:2.3.0'
-    compile 'com.squareup.okhttp3:okhttp:3.9.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
 }

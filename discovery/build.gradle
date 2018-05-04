@@ -30,7 +30,7 @@ dependencies {
     testImplementation 'org.powermock:powermock-module-junit4:1.7.0RC2',
             'org.powermock:powermock-api-mockito2:1.7.0RC2'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     compileOnly 'net.sf.kxml:kxml2:2.3.0'
 }

@@ -27,8 +27,8 @@ dependencies {
     testCompile group: 'commons-io', name: 'commons-io', version: '2.5'
     testCompile group: 'org.json', name: 'json', version: '20170516'
 
-    compile 'com.squareup.okhttp3:okhttp:3.9.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     compileOnly group: 'org.json', name: 'json', version: '20170516'
     compileOnly 'net.sf.kxml:kxml2:2.3.0'
     implementation project(':core')
