@@ -204,7 +204,9 @@ public class SSDPManager {
      */
     public void stopDiscovery() {
         Logger.getLogger(TAG).log(Level.INFO, "Stopping discovery...");
-        socket.close();
+        if(socket != null) {
+            socket.close();
+        }
     }
 
     /**
