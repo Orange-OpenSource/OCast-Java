@@ -111,7 +111,9 @@ public class SSDPManager {
         }
 
         private DialDevice getDeviceDescriptionByUudi(String uuid) {
-            for (DialDevice dd : knownDevices.values()) {
+            for (Iterator<Map.Entry<URI, DialDevice>> iterator = knownDevices.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<URI, DialDevice> entry = iterator.next();
+                DialDevice dd = entry.getValue();
                 if (uuid.equals(dd.getUuid())) {
                     return dd;
                 }
@@ -204,7 +206,9 @@ public class SSDPManager {
      */
     public void stopDiscovery() {
         Logger.getLogger(TAG).log(Level.INFO, "Stopping discovery...");
-        socket.close();
+        if(socket != null) {
+            socket.close();
+        }
     }
 
     /**

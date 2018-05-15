@@ -23,12 +23,12 @@ import org.ocast.core.function.Consumer;
 import org.ocast.core.setting.APListReply;
 import org.ocast.core.setting.BtDeviceList;
 import org.ocast.core.setting.DeviceInfo;
+import org.ocast.core.setting.PinCode;
 import org.ocast.core.setting.VersionInfo;
 import org.ocast.core.setting.NetworkInfo;
 import org.ocast.core.setting.SendCommandReply;
 import org.ocast.core.setting.WifiInfo;
 import java.util.List;
-
 
 /**
  * Interface PrivateSettings is implemented by driver libraries to provide access to private
@@ -37,19 +37,21 @@ import java.util.List;
 public interface PrivateSettings {
     void setDeviceName(String name, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
-    void scanAPs(Consumer<APListReply> onSuccess, Consumer<Throwable> onFailure);
+    void scanAPs(int pinCode, Consumer<APListReply> onSuccess, Consumer<Throwable> onFailure);
 
     void getAPList(Consumer<APListReply> onSuccess, Consumer<Throwable> onFailure);
 
     void remAP(String ssid, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
-    void setAP(String ssid, String password, String bssid, int security, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+    void setAP(String ssid, String password, String bssid, int security, int pinCode, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
     void pbWPS(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
     void getWifiInfo(Consumer<WifiInfo> onSuccess, Consumer<Throwable> onFailure);
 
     void getNetworkInfo(Consumer<NetworkInfo> onSuccess, Consumer<Throwable> onFailure);
+
+    void getAPPinCode(Consumer<PinCode> onSuccess, Consumer<Throwable> onFailure);
 
     void getInfo(Consumer<VersionInfo> onSuccess, Consumer<Throwable> onFailure);
 

@@ -50,13 +50,24 @@ public abstract class DataStream {
     }
 
     /**
+     * Remove the stream to the provided {@link org.ocast.core.Browser Browser}
+     * @param browser the
+     */
+    public void unsetBrowser(Browser browser) {
+        this.browser.unregisterStream(this);
+        this.browser = null;
+    }
+
+    /**
      * Send a message on the DataStream
      * @param message the message to be sent
      * @param onSuccess to be called on success
      * @param onFailure to be called if an error occured
      */
     public void sendMessage(JSONObject message, Consumer<JSONObject> onSuccess, Consumer<Throwable> onFailure) {
-        browser.sendData(serviceName, message, onSuccess, onFailure);
+        if (browser != null) {
+            browser.sendData(serviceName, message, onSuccess, onFailure);
+        }
     }
 
     /**

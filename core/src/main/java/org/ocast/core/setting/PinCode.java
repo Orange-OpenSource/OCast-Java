@@ -17,15 +17,23 @@
  *
  */
 
-description = "Core module of the OCast SDK"
-apply plugin: 'java'
+package org.ocast.core.setting;
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    compileOnly group: 'org.json', name: 'json', version: '20170516'
-    compileOnly 'net.sf.kxml:kxml2:2.3.0'
-    testCompile 'net.sf.kxml:kxml2:2.3.0'
-    compile 'com.squareup.okhttp3:okhttp:3.10.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+public class PinCode {
+
+    private final int code;
+    private final int pinCode;
+
+    public PinCode(int code, int pinCode) {
+        this.code = code;
+        this.pinCode = pinCode;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public int getPinCode() {
+        return pinCode;
+    }
 }
