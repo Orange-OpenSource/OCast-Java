@@ -21,7 +21,6 @@ description = "Core module of the OCast SDK"
 apply plugin: 'java'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
     compileOnly group: 'org.json', name: 'json', version: '20170516'
     compileOnly 'net.sf.kxml:kxml2:2.3.0'
