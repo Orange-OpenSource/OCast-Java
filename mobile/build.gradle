@@ -23,10 +23,9 @@ android {
 
     buildToolsVersion '27.0.3'
     compileSdkVersion rootProject.ext.compile_sdk_version
-
     defaultConfig {
         applicationId "org.ocast.sample.mobile"
-        versionCode 101
+        versionCode 102
 
         minSdkVersion rootProject.ext.min_sdk_version
         targetSdkVersion rootProject.ext.target_sdk_version
@@ -49,11 +48,12 @@ android {
         }
     }
 
-    dataBinding.enabled = true
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

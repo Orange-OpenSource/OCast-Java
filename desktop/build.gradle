@@ -33,7 +33,6 @@ tasks.withType(JavaExec) {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':discovery')
     implementation project(':referencedriver')
     implementation project(':core')
