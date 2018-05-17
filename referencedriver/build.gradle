@@ -21,12 +21,9 @@ description = "Reference driver module for the OCast SDK"
 apply plugin: 'java'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     testImplementation 'junit:junit:4.12'
     testCompile group: 'commons-io', name: 'commons-io', version: '2.5'
     testCompile group: 'org.json', name: 'json', version: '20170516'
-
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     compileOnly group: 'org.json', name: 'json', version: '20170516'
