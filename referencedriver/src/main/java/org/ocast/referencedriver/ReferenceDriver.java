@@ -37,6 +37,9 @@ import org.ocast.core.setting.BluetoothSettingController;
 import org.ocast.core.setting.DeviceSettingController;
 import org.ocast.core.setting.InputSettingController;
 import org.ocast.core.setting.NetworkSettingController;
+import org.ocast.referencedriver.controller.DeviceSettingControllerImpl;
+import org.ocast.referencedriver.controller.InputSettingControllerImpl;
+import org.ocast.referencedriver.setting.PublicSettingsImpl;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -61,7 +64,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public void onEvent(DriverEvent driverEvent) {
-        if ("browser".equals(driverEvent.getDomain())) {
+        if ("browser".equals(driverEvent.getDomain()) || "settings".equals(driverEvent.getDomain())) {
             browserListener.onData(driverEvent.getData());
         }
     }
@@ -118,9 +121,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
         LinkProfile profile;
         switch(module) {
             case APPLICATION:
-                LinkProfile.Builder builder = new LinkProfile.Builder().setApp2AppUrl(
-                        additionalData.getApp2AppUrl()
-                );
+                LinkProfile.Builder builder = new LinkProfile.Builder().setApp2AppUrl(additionalData.getApp2AppUrl());
                 if (sslConfig != null) {
                     builder.setSslConfig(sslConfig);
                 }
@@ -165,7 +166,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public PublicSettings getPublicSettings() {
-        throw new RuntimeException("not implemented");
+        return new PublicSettingsImpl(links.get(Module.PUBLIC_SETTINGS));
     }
 
     @Override
@@ -175,7 +176,12 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
-        throw new RuntimeException("not implemented");
+        return new DeviceSettingControllerImpl(listenner);
+    }
+
+    @Override
+    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner) {
+        return new InputSettingControllerImpl(listenner);
     }
 
     @Override
@@ -185,11 +191,6 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public NetworkSettingController getNetworkSettingController(NetworkSettingController.NetworkSettingControllerListener listenner) {
-        throw new RuntimeException("not implemented");
-    }
-
-    @Override
-    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner) {
         throw new RuntimeException("not implemented");
     }
 

@@ -26,11 +26,6 @@ public class DeviceSettingController extends DataStream {
 
     protected final DeviceSettingControllerListener listener;
 
-    public DeviceSettingController(String serviceName, DeviceSettingControllerListener listener) {
-        super(serviceName);
-        this.listener = listener;
-    }
-
     /**
      * Provides informations on update status (progress, status,...)
      */
@@ -40,6 +35,15 @@ public class DeviceSettingController extends DataStream {
          * @param updateStatus the updated update status
          */
         void onUpdateStatus(UpdateStatus updateStatus);
+    }
+
+    /**
+     * Instanciate a DeviceSettingController
+     * @param listener the listener to be notified of status updates
+     */
+    public DeviceSettingController(String serviceName, DeviceSettingControllerListener listener) {
+        super(serviceName);
+        this.listener = listener;
     }
 
     @Override
