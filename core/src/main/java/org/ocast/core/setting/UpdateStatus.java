@@ -1,7 +1,7 @@
 /*
  * Software Name : OCast SDK
  *
- *  Copyright (C) 2017 Orange
+ *  Copyright (C) 2018 Orange
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ public class UpdateStatus {
     /**
      * Returns the result code
      * 0 for success, 11xx for other errors where xx refers to error codes that the component must describe
-     * @return
+     * @return result code
      */
     public int getCode() {
         return code;
@@ -55,7 +55,7 @@ public class UpdateStatus {
     /**
      * Returns the firmware state
      * "notChecked", "upToDate", "newVersionFound" ,"newVersionReady", "downloading", "error", "success"
-     * @return
+     * @return firmware state
      */
     public String getState() {
         return state;
@@ -63,7 +63,7 @@ public class UpdateStatus {
 
     /**
      * Returns the version of the image to update
-     * @return
+     * @return version
      */
     public String getVersion() {
         return version;
@@ -71,7 +71,7 @@ public class UpdateStatus {
 
     /**
      * Returns the percentage downloaded firmware (only for "downloading")
-     * @return
+     * @return percentage downloaded
      */
     public int getProgress() {
         return progress;

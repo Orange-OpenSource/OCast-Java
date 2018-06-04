@@ -31,8 +31,7 @@ import org.ocast.core.setting.WifiInfo;
 import java.util.List;
 
 /**
- * Interface PrivateSettings is implemented by driver libraries to provide access to private
- * settings configuration
+ * Interface PrivateSettings is implemented by driver libraries to provide access to private settings configuration
  */
 public interface PrivateSettings {
     void setDeviceName(String name, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
@@ -45,7 +44,7 @@ public interface PrivateSettings {
 
     void setAP(String ssid, String password, String bssid, int security, int pinCode, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
-    void pbWPS(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+    void pbWPS(int pinCode, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
     void getWifiInfo(Consumer<WifiInfo> onSuccess, Consumer<Throwable> onFailure);
 
