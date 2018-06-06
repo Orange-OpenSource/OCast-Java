@@ -60,7 +60,7 @@ public interface PrivateSettings {
 
     void reset(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
-    void checkFlash(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+    void checkStick(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
     void startDiscovery(List<String> profile, int timeout, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
