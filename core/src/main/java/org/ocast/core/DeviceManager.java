@@ -23,10 +23,11 @@ import org.ocast.core.dial.DialServiceParser;
 import org.ocast.core.dial.DialException;
 import org.ocast.core.dial.DialService;
 import org.ocast.core.function.Consumer;
-import org.ocast.core.setting.BluetoothSettingController;
+import org.ocast.core.setting.BluetoothSecureSettingController;
+import org.ocast.core.setting.DeviceSecureSettingController;
 import org.ocast.core.setting.DeviceSettingController;
 import org.ocast.core.setting.InputSettingController;
-import org.ocast.core.setting.NetworkSettingController;
+import org.ocast.core.setting.NetworkSecureSettingController;
 
 import java.io.Reader;
 import java.net.URI;
@@ -102,16 +103,20 @@ public class DeviceManager implements Driver.DriverListener {
         return driver.getDeviceSettingController(listenner);
     }
 
-    public BluetoothSettingController getBluetoothSettingController(BluetoothSettingController.BluetoothSettingControllerListener listenner) {
-        return driver.getBluetoothSettingController(listenner);
-    }
-
-    public NetworkSettingController getNetworkSettingController(NetworkSettingController.NetworkSettingControllerListener listenner) {
-        return driver.getNetworkSettingController(listenner);
-    }
-
     public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner) {
         return driver.getInputSettingController(listenner);
+    }
+
+    public BluetoothSecureSettingController getBluetoothSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listenner) {
+        return driver.getBluetoothSecureSettingController(listenner);
+    }
+
+    public NetworkSecureSettingController getSecureNetworkSettingController(NetworkSecureSettingController.NetworkSecureSettingControllerListener listenner) {
+        return driver.getNetworkSecureSettingController(listenner);
+    }
+
+    public DeviceSecureSettingController getDeviceSecureSettingController(DeviceSecureSettingController.DeviceSecureSettingControllerListener listenner) {
+        return driver.getDeviceSecureSettingController(listenner);
     }
 
     /**

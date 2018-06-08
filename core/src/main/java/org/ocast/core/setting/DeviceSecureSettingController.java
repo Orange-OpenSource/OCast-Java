@@ -22,27 +22,18 @@ package org.ocast.core.setting;
 import org.json.JSONObject;
 import org.ocast.core.DataStream;
 
-public class BluetoothSettingController extends DataStream {
+public class DeviceSecureSettingController extends DataStream {
 
-    protected final BluetoothSettingControllerListener listener;
+    protected final DeviceSecureSettingControllerListener listener;
 
-    public BluetoothSettingController(String serviceName, BluetoothSettingControllerListener listener) {
+    public DeviceSecureSettingController(String serviceName, DeviceSecureSettingController.DeviceSecureSettingControllerListener listener) {
         super(serviceName);
         this.listener = listener;
     }
 
-    /**
-     * Provides informations on bluetooth status (discover, mouse, keyboard...)
-     */
-    public interface BluetoothSettingControllerListener {
+    public interface DeviceSecureSettingControllerListener {
 
-        void onBtDevice(BtDevice btDevice);
-
-        void onKeyPressed(String key);
-
-        void onMouseMoved(int x, int y);
-
-        void onMouseClicked(String key);
+        void powerAlert();
     }
 
     @Override
