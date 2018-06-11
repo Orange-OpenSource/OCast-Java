@@ -176,27 +176,27 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     }
 
     @Override
-    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
-        return new DeviceSettingControllerImpl(listenner);
+    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listener) {
+        return new DeviceSettingControllerImpl(listener);
     }
 
     @Override
-    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner) {
-        return new InputSettingControllerImpl(listenner);
+    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listener) {
+        return new InputSettingControllerImpl(listener);
     }
 
     @Override
-    public BluetoothSecureSettingController getBluetoothSecureSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listenner) {
+    public BluetoothSecureSettingController getBluetoothSecureSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listener) {
         throw new RuntimeException("not implemented");
     }
 
     @Override
-    public NetworkSecureSettingController getNetworkSecureSettingController(NetworkSecureSettingController.NetworkSecureSettingControllerListener listenner) {
+    public NetworkSecureSettingController getNetworkSecureSettingController(NetworkSecureSettingController.NetworkSecureSettingControllerListener listener) {
         throw new RuntimeException("not implemented");
     }
 
     @Override
-    public DeviceSecureSettingController getDeviceSecureSettingController(DeviceSecureSettingController.DeviceSecureSettingControllerListener listenner) {
+    public DeviceSecureSettingController getDeviceSecureSettingController(DeviceSecureSettingController.DeviceSecureSettingControllerListener listener) {
         throw new RuntimeException("not implemented");
     }
 

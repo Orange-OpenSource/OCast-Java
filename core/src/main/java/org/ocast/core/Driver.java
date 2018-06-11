@@ -96,17 +96,17 @@ public interface Driver {
 
     PublicSettings getPublicSettings();
 
-    DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner);
+    DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listener);
 
-    InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner);
+    InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listener);
 
     PrivateSettings getPrivateSettings();
 
-    BluetoothSecureSettingController getBluetoothSecureSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listenner);
+    BluetoothSecureSettingController getBluetoothSecureSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listener);
 
-    NetworkSecureSettingController getNetworkSecureSettingController(NetworkSecureSettingController.NetworkSecureSettingControllerListener listenner);
+    NetworkSecureSettingController getNetworkSecureSettingController(NetworkSecureSettingController.NetworkSecureSettingControllerListener listener);
 
-    DeviceSecureSettingController getDeviceSecureSettingController(DeviceSecureSettingController.DeviceSecureSettingControllerListener listenner);
+    DeviceSecureSettingController getDeviceSecureSettingController(DeviceSecureSettingController.DeviceSecureSettingControllerListener listener);
 
     /**
      * Callback invoked when a failure occured in the Driver
