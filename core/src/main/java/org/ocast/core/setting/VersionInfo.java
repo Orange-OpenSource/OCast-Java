@@ -24,6 +24,7 @@ public class VersionInfo {
     private final String name;
     private final String sWVersion;
     private final String hWVersion;
+    private final boolean powerAlert;
 
     /**
      * Initializes a new VersionInfo object using the provided values
@@ -31,12 +32,14 @@ public class VersionInfo {
      * @param name a String identifying thedongle name
      * @param sWVersion a String identifying the software version
      * @param hWVersion a String identifying the hardware version
+     * @param powerAlert a boolean identifying the power alert flag
      */
-    public VersionInfo(int code, String name, String sWVersion, String hWVersion) {
+    public VersionInfo(int code, String name, String sWVersion, String hWVersion, boolean powerAlert) {
         this.code = code;
         this.name = name;
         this.sWVersion = sWVersion;
         this.hWVersion = hWVersion;
+        this.powerAlert = powerAlert;
     }
 
     public int getCode() {
@@ -53,5 +56,9 @@ public class VersionInfo {
 
     public String gethWVersion() {
         return hWVersion;
+    }
+
+    public boolean havePowerAlert() {
+        return powerAlert;
     }
 }

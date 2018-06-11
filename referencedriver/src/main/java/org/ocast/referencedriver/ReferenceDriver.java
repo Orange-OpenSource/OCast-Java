@@ -33,10 +33,11 @@ import org.ocast.core.function.ThrowingConsumer;
 import org.ocast.core.Device;
 
 import org.json.JSONObject;
-import org.ocast.core.setting.BluetoothSettingController;
+import org.ocast.core.setting.BluetoothSecureSettingController;
+import org.ocast.core.setting.DeviceSecureSettingController;
 import org.ocast.core.setting.DeviceSettingController;
 import org.ocast.core.setting.InputSettingController;
-import org.ocast.core.setting.NetworkSettingController;
+import org.ocast.core.setting.NetworkSecureSettingController;
 import org.ocast.referencedriver.controller.DeviceSettingControllerImpl;
 import org.ocast.referencedriver.controller.InputSettingControllerImpl;
 import org.ocast.referencedriver.setting.PublicSettingsImpl;
@@ -185,12 +186,17 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     }
 
     @Override
-    public BluetoothSettingController getBluetoothSettingController(BluetoothSettingController.BluetoothSettingControllerListener listenner) {
+    public BluetoothSecureSettingController getBluetoothSecureSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listenner) {
         throw new RuntimeException("not implemented");
     }
 
     @Override
-    public NetworkSettingController getNetworkSettingController(NetworkSettingController.NetworkSettingControllerListener listenner) {
+    public NetworkSecureSettingController getNetworkSecureSettingController(NetworkSecureSettingController.NetworkSecureSettingControllerListener listenner) {
+        throw new RuntimeException("not implemented");
+    }
+
+    @Override
+    public DeviceSecureSettingController getDeviceSecureSettingController(DeviceSecureSettingController.DeviceSecureSettingControllerListener listenner) {
         throw new RuntimeException("not implemented");
     }
 
