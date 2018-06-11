@@ -99,24 +99,24 @@ public class DeviceManager implements Driver.DriverListener {
                 .build();
     }
 
-    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
-        return driver.getDeviceSettingController(listenner);
+    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listener) {
+        return driver.getDeviceSettingController(listener);
     }
 
-    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner) {
-        return driver.getInputSettingController(listenner);
+    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listener) {
+        return driver.getInputSettingController(listener);
     }
 
-    public BluetoothSecureSettingController getBluetoothSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listenner) {
-        return driver.getBluetoothSecureSettingController(listenner);
+    public BluetoothSecureSettingController getBluetoothSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listener) {
+        return driver.getBluetoothSecureSettingController(listener);
     }
 
-    public NetworkSecureSettingController getSecureNetworkSettingController(NetworkSecureSettingController.NetworkSecureSettingControllerListener listenner) {
-        return driver.getNetworkSecureSettingController(listenner);
+    public NetworkSecureSettingController getSecureNetworkSettingController(NetworkSecureSettingController.NetworkSecureSettingControllerListener listener) {
+        return driver.getNetworkSecureSettingController(listener);
     }
 
-    public DeviceSecureSettingController getDeviceSecureSettingController(DeviceSecureSettingController.DeviceSecureSettingControllerListener listenner) {
-        return driver.getDeviceSecureSettingController(listenner);
+    public DeviceSecureSettingController getDeviceSecureSettingController(DeviceSecureSettingController.DeviceSecureSettingControllerListener listener) {
+        return driver.getDeviceSecureSettingController(listener);
     }
 
     /**
