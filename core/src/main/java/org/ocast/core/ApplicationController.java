@@ -84,12 +84,22 @@ public class ApplicationController extends DataStream {
     }
 
     /**
-     *Starts the web application on the device. Will restart the web application if it is already running
+     * Starts or Join the web application on the device.
      * on the device.
      * @param onSuccess to be called in case of success.
      * @param onFailure to be called in case of error
      */
     public void start(Runnable onSuccess, Consumer<Throwable> onFailure) {
+        tryJoin(onSuccess, (t) -> tryStart(onSuccess, onFailure));
+    }
+
+    /**
+     * Starts the web application on the device. Will restart the web application if it is already running
+     * on the device.
+     * @param onSuccess to be called in case of success.
+     * @param onFailure to be called in case of error
+     */
+    private void tryStart(Runnable onSuccess, Consumer<Throwable> onFailure) {
         AdditionalData additionalData = dialService.getAdditionalData();
         manageStream(this);
         try {
@@ -122,7 +132,7 @@ public class ApplicationController extends DataStream {
      * @param onSuccess to be called in case of success.
      * @param onFailure to be called in case of error
      */
-    public void join(Runnable onSuccess, Consumer<Throwable> onFailure) {
+    private void tryJoin(Runnable onSuccess, Consumer<Throwable> onFailure) {
         AdditionalData additionalData = dialService.getAdditionalData();
         manageStream(this);
         try {
@@ -150,7 +160,7 @@ public class ApplicationController extends DataStream {
     }
 
     /**
-     *  Stops the web application on the device
+     * Stops the web application on the device
      * @param onSuccess to be called in case of success.
      * @param onFailure to be called in case of error
      */
