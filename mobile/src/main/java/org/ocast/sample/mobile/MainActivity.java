@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         setSupportActionBar(binding.myToolbar);
         binding.buttonStart.setOnClickListener(v->startWebApp());
         binding.buttonStop.setOnClickListener(v-> stopWebApp());
-        binding.buttonJoin.setOnClickListener(v-> joinWebApp());
         binding.buttonPlayMedia.setOnClickListener(v -> playMedia());
         binding.buttonPauseMedia.setOnClickListener(v-> pauseMedia());
         binding.buttonStopMedia.setOnClickListener(v -> stopMedia());
@@ -140,9 +139,12 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
             builder.setTransferMode(TransferMode.STREAMED);
             builder.setLogo(new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/240px-Orange_logo.svg.png"));
             builder.setUpdateFreq(1);
+            /*
+            Sample code to add custom options
             JSONObject options = new JSONObject();
             options.put("optional_key", "optional_value");
             builder.setOptions(options);
+            */
             PrepareCommand prepareParams = builder.build();
             mediaController.prepare(prepareParams, () -> mediaController.getMetadata(m -> onMetadata(m), t -> Log.d(TAG, "failure",t)), t -> Log.d(TAG, "failure:",t));
         } catch (Exception e) {
@@ -155,14 +157,6 @@ public class MainActivity extends AppCompatActivity implements MediaController.M
         mApplicationController.start(
                 () -> webAppRunning("start-OK" ),
                 t -> viewmodel.setWebAppStatus("start-NOK", t));
-    }
-
-    private void joinWebApp() {
-        if (mApplicationController != null) {
-            mApplicationController.join(
-                    () -> webAppRunning("join-OK"),
-                    t -> viewmodel.setWebAppStatus("join-NOK", t));
-        }
     }
 
     private void stopWebApp() {

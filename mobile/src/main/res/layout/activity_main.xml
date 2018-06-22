@@ -108,20 +108,10 @@
                     android:text="@string/btn_start" />
 
                 <Button
-                    android:id="@+id/buttonJoin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/buttonStart"
-                    android:layout_alignBottom="@+id/buttonStart"
-                    android:layout_centerHorizontal="true"
-                    android:enabled="@{viewmodel.isConnected}"
-                    android:text="@string/btn_join" />
-
-                <Button
                     android:id="@+id/buttonStop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/buttonJoin"
+                    android:layout_alignBottom="@+id/buttonStart"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:enabled="@{viewmodel.isConnected}"
