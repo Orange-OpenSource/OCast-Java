@@ -23,10 +23,11 @@ import org.ocast.core.dial.DialServiceParser;
 import org.ocast.core.dial.DialException;
 import org.ocast.core.dial.DialService;
 import org.ocast.core.function.Consumer;
-import org.ocast.core.setting.BluetoothSettingController;
+import org.ocast.core.setting.BluetoothSecureSettingController;
+import org.ocast.core.setting.DeviceSecureSettingController;
 import org.ocast.core.setting.DeviceSettingController;
 import org.ocast.core.setting.InputSettingController;
-import org.ocast.core.setting.NetworkSettingController;
+import org.ocast.core.setting.NetworkSecureSettingController;
 
 import java.io.Reader;
 import java.net.URI;
@@ -98,20 +99,24 @@ public class DeviceManager implements Driver.DriverListener {
                 .build();
     }
 
-    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner) {
-        return driver.getDeviceSettingController(listenner);
+    public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listener) {
+        return driver.getDeviceSettingController(listener);
     }
 
-    public BluetoothSettingController getBluetoothSettingController(BluetoothSettingController.BluetoothSettingControllerListener listenner) {
-        return driver.getBluetoothSettingController(listenner);
+    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listener) {
+        return driver.getInputSettingController(listener);
     }
 
-    public NetworkSettingController getNetworkSettingController(NetworkSettingController.NetworkSettingControllerListener listenner) {
-        return driver.getNetworkSettingController(listenner);
+    public BluetoothSecureSettingController getBluetoothSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listener) {
+        return driver.getBluetoothSecureSettingController(listener);
     }
 
-    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner) {
-        return driver.getInputSettingController(listenner);
+    public NetworkSecureSettingController getSecureNetworkSettingController(NetworkSecureSettingController.NetworkSecureSettingControllerListener listener) {
+        return driver.getNetworkSecureSettingController(listener);
+    }
+
+    public DeviceSecureSettingController getDeviceSecureSettingController(DeviceSecureSettingController.DeviceSecureSettingControllerListener listener) {
+        return driver.getDeviceSecureSettingController(listener);
     }
 
     /**

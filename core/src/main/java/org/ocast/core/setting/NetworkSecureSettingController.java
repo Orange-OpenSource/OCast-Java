@@ -22,11 +22,11 @@ package org.ocast.core.setting;
 import org.json.JSONObject;
 import org.ocast.core.DataStream;
 
-public class NetworkSettingController extends DataStream {
+public class NetworkSecureSettingController extends DataStream {
 
-    protected final NetworkSettingControllerListener listener;
+    protected final NetworkSecureSettingControllerListener listener;
 
-    public NetworkSettingController(String serviceName, NetworkSettingControllerListener listener) {
+    public NetworkSecureSettingController(String serviceName, NetworkSecureSettingControllerListener listener) {
         super(serviceName);
         this.listener = listener;
     }
@@ -34,7 +34,7 @@ public class NetworkSettingController extends DataStream {
     /**
      * Provides informations on network status
      */
-    public interface NetworkSettingControllerListener {
+    public interface NetworkSecureSettingControllerListener {
 
         void onWifiConnectionStatus(String status);
     }

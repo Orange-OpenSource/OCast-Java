@@ -23,10 +23,11 @@ import org.ocast.core.dial.AdditionalData;
 import org.ocast.core.function.Consumer;
 
 import org.json.JSONObject;
-import org.ocast.core.setting.BluetoothSettingController;
+import org.ocast.core.setting.BluetoothSecureSettingController;
+import org.ocast.core.setting.DeviceSecureSettingController;
 import org.ocast.core.setting.DeviceSettingController;
 import org.ocast.core.setting.InputSettingController;
-import org.ocast.core.setting.NetworkSettingController;
+import org.ocast.core.setting.NetworkSecureSettingController;
 
 /**
  * Manage the connection to a device module and the communication with its browser
@@ -95,15 +96,17 @@ public interface Driver {
 
     PublicSettings getPublicSettings();
 
+    DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listener);
+
+    InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listener);
+
     PrivateSettings getPrivateSettings();
 
-    DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listenner);
+    BluetoothSecureSettingController getBluetoothSecureSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listener);
 
-    BluetoothSettingController getBluetoothSettingController(BluetoothSettingController.BluetoothSettingControllerListener listenner);
+    NetworkSecureSettingController getNetworkSecureSettingController(NetworkSecureSettingController.NetworkSecureSettingControllerListener listener);
 
-    NetworkSettingController getNetworkSettingController(NetworkSettingController.NetworkSettingControllerListener listenner);
-
-    InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listenner);
+    DeviceSecureSettingController getDeviceSecureSettingController(DeviceSecureSettingController.DeviceSecureSettingControllerListener listener);
 
     /**
      * Callback invoked when a failure occured in the Driver

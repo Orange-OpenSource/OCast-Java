@@ -23,7 +23,6 @@
     <string name="webapp_desc">WebApp tests</string>
     <string name="webapp_id">Orange-DefaultReceiver-DEV</string>
     <string name="btn_start">Start</string>
-    <string name="btn_join">Join</string>
     <string name="btn_stop">Stop</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
