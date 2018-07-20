@@ -111,11 +111,12 @@ public class SSDPManager {
         }
 
         private DialDevice getDeviceDescriptionByUudi(String uuid) {
-            for (Iterator<Map.Entry<URI, DialDevice>> iterator = knownDevices.entrySet().iterator(); iterator.hasNext(); ) {
-                Map.Entry<URI, DialDevice> entry = iterator.next();
-                DialDevice dd = entry.getValue();
-                if (uuid.equals(dd.getUuid())) {
-                    return dd;
+            synchronized (knownDevices) {
+                for (Map.Entry<URI, DialDevice> entry : knownDevices.entrySet()) {
+                    DialDevice dd = entry.getValue();
+                    if (uuid.equals(dd.getUuid())) {
+                        return dd;
+                    }
                 }
             }
             return null;
@@ -259,26 +260,30 @@ public class SSDPManager {
     }
 
     private void pruneDevices(int threshold) {
-        for (Iterator<Map.Entry<URI, Long>> iterator = latestResponseForLocation.entrySet().iterator(); iterator.hasNext(); ) {
-            Map.Entry<URI, Long> entry = iterator.next();
-            URI location = entry.getKey();
-            long lastScan = entry.getValue();
-            long delta = currentScan - lastScan;
-            Logger.getLogger(TAG).log(Level.FINE,  " {0} / delta {1} ({2})", new Object[]{location, delta, currentScan});
-            if (delta >= threshold) {
-                iterator.remove();
-                discoveryListener.onServiceLost(location);
-                removeKnownDevice(location);
+        synchronized (latestResponseForLocation) {
+            for (Iterator<Map.Entry<URI, Long>> iterator = latestResponseForLocation.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<URI, Long> entry = iterator.next();
+                URI location = entry.getKey();
+                long lastScan = entry.getValue();
+                long delta = currentScan - lastScan;
+                Logger.getLogger(TAG).log(Level.FINE, " {0} / delta {1} ({2})", new Object[]{location, delta, currentScan});
+                if (delta >= threshold) {
+                    iterator.remove();
+                    discoveryListener.onServiceLost(location);
+                    removeKnownDevice(location);
+                }
             }
         }
     }
 
     private void removeKnownDevice(URI location) {
-        for (Iterator<Map.Entry<URI, DialDevice>> iterator = knownDevices.entrySet().iterator(); iterator.hasNext(); ) {
-            Map.Entry<URI, DialDevice> entry = iterator.next();
-            URI uri = entry.getKey();
-            if (location.equals(uri)) {
-                iterator.remove();
+        synchronized (knownDevices) {
+            for (Iterator<Map.Entry<URI, DialDevice>> iterator = knownDevices.entrySet().iterator(); iterator.hasNext(); ) {
+                Map.Entry<URI, DialDevice> entry = iterator.next();
+                URI uri = entry.getKey();
+                if (location.equals(uri)) {
+                    iterator.remove();
+                }
             }
         }
     }
@@ -310,9 +315,11 @@ public class SSDPManager {
      */
     private List<SSDPMessage> buildMSearchPacket(Set<String> searchTargets, int mx) {
         List<SSDPMessage> mSearchPacketList = new ArrayList<>();
-        for (String searchTarget : searchTargets) {
-            SSDPMessage mSearch = SSDPMessage.createMSearchMessage(searchTarget, mx);
-            mSearchPacketList.add(mSearch);
+        synchronized (searchTargets) {
+            for (String searchTarget : searchTargets) {
+                SSDPMessage mSearch = SSDPMessage.createMSearchMessage(searchTarget, mx);
+                mSearchPacketList.add(mSearch);
+            }
         }
         return mSearchPacketList;
     }
