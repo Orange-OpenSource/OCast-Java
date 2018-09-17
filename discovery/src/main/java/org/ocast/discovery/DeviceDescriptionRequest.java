@@ -25,8 +25,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -102,7 +100,7 @@ public class DeviceDescriptionRequest {
         Logger.getLogger(TAG).log(Level.FINE,"Retrieving device description through {0}", location);
 
         DateFormat formatter = new SimpleDateFormat("E, d MMM yyyy HH:mm:ss", Locale.US);
-        GregorianCalendar calendar = new GregorianCalendar();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
         calendar.setTimeInMillis(System.currentTimeMillis());
         formatter.setCalendar(calendar);
