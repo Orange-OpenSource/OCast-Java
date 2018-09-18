@@ -21,7 +21,12 @@ package org.ocast.discovery;
 
 import java.io.IOException;
 import java.net.URI;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,8 +99,15 @@ public class DeviceDescriptionRequest {
     public void getDeviceDescription(final URI location, final Callbacks cb) {
         Logger.getLogger(TAG).log(Level.FINE,"Retrieving device description through {0}", location);
 
+        DateFormat formatter = new SimpleDateFormat("E, d MMM yyyy HH:mm:ss", Locale.US);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        formatter.setCalendar(calendar);
+
         Request request = new Request.Builder()
                 .url(location.toString())
+                .header("Date", String.format("%s GMT",formatter.format(calendar.getTime())))
                 .build();
 
         mClient.newCall(request).enqueue(new Callback() {
