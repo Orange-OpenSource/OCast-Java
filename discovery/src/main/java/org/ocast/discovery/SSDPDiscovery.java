@@ -37,7 +37,7 @@ public class SSDPDiscovery implements Discovery {
     SSDPManager manager;
     DiscoveryListener listener;
     private boolean mRunning = false;
-    private Set<DialDevice> devices = Collections.synchronizedSet(new HashSet<>());
+    private final Set<DialDevice> devices = Collections.synchronizedSet(new HashSet<>());
     private final SSDPManager.DiscoveryListener ssdpListener = new SSDPManager.DiscoveryListener() {
 
         @Override
@@ -47,11 +47,13 @@ public class SSDPDiscovery implements Discovery {
 
         @Override
         public void onServiceLost(URI location) {
-            for (Iterator<DialDevice> iterator = devices.iterator(); iterator.hasNext(); ) {
-                DialDevice d = iterator.next();
-                if (d.getLocation().equals(location)) {
-                    iterator.remove();
-                    listener.onDeviceRemoved(d);
+            synchronized (devices) {
+                for (Iterator<DialDevice> iterator = devices.iterator(); iterator.hasNext(); ) {
+                    DialDevice d = iterator.next();
+                    if (d.getLocation().equals(location)) {
+                        iterator.remove();
+                        listener.onDeviceRemoved(d);
+                    }
                 }
             }
         }
@@ -73,7 +75,7 @@ public class SSDPDiscovery implements Discovery {
      * @param searchTarget the scanInternal target corresponding to devices of interest
      */
     public SSDPDiscovery(final String searchTarget, DiscoveryListener listener) {
-        this(new HashSet<>(Arrays.asList(searchTarget)), listener);
+        this(new HashSet<>(Collections.singletonList(searchTarget)), listener);
     }
 
 

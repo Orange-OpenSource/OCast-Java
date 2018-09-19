@@ -21,6 +21,7 @@ package org.ocast.discovery;
 
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -137,7 +138,7 @@ public class SSDPMessage {
      */
     static SSDPMessage createMSearchMessage(String searchTarget, int mx) {
         SSDPMessage mSearchMessage = new SSDPMessage(Type.M_SEARCH);
-        mSearchMessage.addHeader(HOST, String.format("%s:%d", SSDPMessage.SSDP_MULTICAT_ADDRESS, SSDPMessage.SSDP_PORT));
+        mSearchMessage.addHeader(HOST, String.format(Locale.US, "%s:%d", SSDPMessage.SSDP_MULTICAT_ADDRESS, SSDPMessage.SSDP_PORT));
         mSearchMessage.addHeader(MAN, SSDP_DISCOVER_EXTENSION);
         mSearchMessage.addHeader(MX, String.valueOf(mx));
         mSearchMessage.addHeader(ST, searchTarget);

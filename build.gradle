@@ -93,7 +93,7 @@ configure(exportedProjects) {
     }
 
     group = "org.ocast"
-    version = "1.0.3"
+    version = "1.0.4"
 }
 
 configure(project(":mediaroute")) {

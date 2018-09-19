@@ -25,7 +25,7 @@ android {
     compileSdkVersion rootProject.ext.compile_sdk_version
     defaultConfig {
         applicationId "org.ocast.sample.mobile"
-        versionCode 103
+        versionCode 104
 
         minSdkVersion rootProject.ext.min_sdk_version
         targetSdkVersion rootProject.ext.target_sdk_version

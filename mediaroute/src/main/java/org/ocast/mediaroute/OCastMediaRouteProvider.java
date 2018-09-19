@@ -65,13 +65,13 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
     private final SSDPDiscovery mSSDPDiscovery;
     private final ConnectivityManager mConnectivityManager;
     private WifiMonitor mWifiMonitorReceiver = new WifiMonitor(this);
-    private Map<String, MediaRouteDescriptor> mRoutes = Collections.synchronizedMap(new HashMap<>());
+    private final Map<String, MediaRouteDescriptor> mRoutes = Collections.synchronizedMap(new HashMap<>());
 
     private Discovery.DiscoveryListener listener = new Discovery.DiscoveryListener() {
         @Override
         public void onDeviceAdded(DiscoveredDevice dd) {
             MediaRouteDescriptor routeDescriptor = createMediaRouteDescriptor(dd);
-            mRoutes.put(dd.getFriendlyName(),routeDescriptor);
+            mRoutes.put(dd.getFriendlyName(), routeDescriptor);
             publishRoutes();
         }
 
@@ -108,9 +108,10 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
 
     private void publishRoutes() {
         final MediaRouteProviderDescriptor.Builder providerDescriptorBuilder = new MediaRouteProviderDescriptor.Builder();
-        for (Iterator<Map.Entry<String, MediaRouteDescriptor>> iterator = mRoutes.entrySet().iterator(); iterator.hasNext(); ) {
-            Map.Entry<String, MediaRouteDescriptor> entry = iterator.next();
-            providerDescriptorBuilder.addRoute(entry.getValue());
+        synchronized (mRoutes) {
+            for (Map.Entry<String, MediaRouteDescriptor> entry : mRoutes.entrySet()) {
+                providerDescriptorBuilder.addRoute(entry.getValue());
+            }
         }
         final MediaRouteProviderDescriptor providerDescriptor = providerDescriptorBuilder.build();
         mHandler.post(() -> setDescriptor(providerDescriptor));
