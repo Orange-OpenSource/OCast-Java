@@ -31,7 +31,7 @@ import java.util.Map;
 public class SSDPMessage {
 
     private static final String SSDP_DISCOVER_EXTENSION = "\"ssdp:discover\"";
-    public static final String SSDP_MAX_WAIT_TIME = "10";
+    private static final String SSDP_MAX_WAIT_TIME = "5";
 
     // Multicast channel and port reserved for SSDP by IANA
     static final String SSDP_MULTICAT_ADDRESS = "239.255.255.250";
@@ -133,14 +133,13 @@ public class SSDPMessage {
      * Returns an SSDPMessage to send a M-SEARCH message
      * @param searchTarget the urn identifying the devices targeted by the scanInternal discoverInternal
      *                     eg: urn:cast-ocast-org:service:cast:1
-     * @param mx maximum amount of time the responder is supposed to send an answer
      * @return a M-SEARCH SSDP message
      */
-    static SSDPMessage createMSearchMessage(String searchTarget, int mx) {
+    static SSDPMessage createMSearchMessage(String searchTarget) {
         SSDPMessage mSearchMessage = new SSDPMessage(Type.M_SEARCH);
         mSearchMessage.addHeader(HOST, String.format(Locale.US, "%s:%d", SSDPMessage.SSDP_MULTICAT_ADDRESS, SSDPMessage.SSDP_PORT));
         mSearchMessage.addHeader(MAN, SSDP_DISCOVER_EXTENSION);
-        mSearchMessage.addHeader(MX, String.valueOf(mx));
+        mSearchMessage.addHeader(MX, SSDP_MAX_WAIT_TIME);
         mSearchMessage.addHeader(ST, searchTarget);
         return mSearchMessage;
     }

@@ -290,7 +290,7 @@ public class SSDPManager {
 
     private List<SSDPMessage> discoverInternal(SSDPSocket socket, int timeout, int retry) throws IOException {
         pruneDevices(retry);
-        for (SSDPMessage mSearch : buildMSearchPacket(searchTargets, timeout)) {
+        for (SSDPMessage mSearch : buildMSearchPacket(searchTargets)) {
             socket.send(mSearch);
         }
         currentScan++;
@@ -310,14 +310,13 @@ public class SSDPManager {
 
     /**
      * Build a list of M-SEARCH packet to be sent on the multicast address
-     * @param mx Max wait time indicated in the packet
      * @return a List of SSDPMessage
      */
-    private List<SSDPMessage> buildMSearchPacket(Set<String> searchTargets, int mx) {
+    private List<SSDPMessage> buildMSearchPacket(Set<String> searchTargets) {
         List<SSDPMessage> mSearchPacketList = new ArrayList<>();
         synchronized (searchTargets) {
             for (String searchTarget : searchTargets) {
-                SSDPMessage mSearch = SSDPMessage.createMSearchMessage(searchTarget, mx);
+                SSDPMessage mSearch = SSDPMessage.createMSearchMessage(searchTarget);
                 mSearchPacketList.add(mSearch);
             }
         }
