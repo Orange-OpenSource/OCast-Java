@@ -33,17 +33,17 @@ public class DiscoveryReliability {
      * defines a discovery request to be sent every 3 seconds, consider a device lost if it didn't
      * respond 2 consecutive times.
      */
-    public static final DiscoveryReliability HIGH = new DiscoveryReliability(3, 2);
+    public static final DiscoveryReliability HIGH = new DiscoveryReliability(20, 2);
     /**
      * defines a discovery request to be sent every 6 seconds, consider a device lost if it didn't
      * respond 3 consecutive times.
      */
-    public static final DiscoveryReliability MEDIUM = new DiscoveryReliability(6, 3);
+    public static final DiscoveryReliability MEDIUM = new DiscoveryReliability(30, 3);
     /**
      * defines a discovery request to be sent every 10 seconds, consider a device lost if it didn't
      * respond 5 consecutive times.
      */
-    public static final DiscoveryReliability LOW = new DiscoveryReliability(10, 5);
+    public static final DiscoveryReliability LOW = new DiscoveryReliability(60, 5);
 
     /**
      * Constructs an object and initializes it with the provided values
