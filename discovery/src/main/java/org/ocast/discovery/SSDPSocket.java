@@ -48,7 +48,7 @@ public class SSDPSocket {
      * @throws IOException
      */
     protected MulticastSocket createSocket() throws IOException {
-        return new MulticastSocket(SSDPMessage.SSDP_PORT);
+        return new MulticastSocket();
     }
 
     /**
