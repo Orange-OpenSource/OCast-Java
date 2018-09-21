@@ -85,7 +85,9 @@ public class SSDPSocket {
     public void send(SSDPMessage message) throws IOException {
         byte[] payload = message.toString().getBytes();
         DatagramPacket packet = new DatagramPacket(payload, payload.length, multicastAddress, SSDPMessage.SSDP_PORT);
-        socket.send(packet);
+        for (int i = 0 ; i < 3 ; i++) {
+            socket.send(packet);
+        }
     }
 
     /**
