@@ -145,8 +145,8 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     @Override
     public void disconnect(Module module, Runnable onSuccess) {
         final Link link = links.get(module);
-        if(isLinkRemovable(module)) {
-            link.disconnect( () -> {
+        if (link != null && isLinkRemovable(module)) {
+            link.disconnect(() -> {
                 links.remove(module);
                 onSuccess.run();
             });
@@ -155,9 +155,12 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public void sendBrowserData(JSONObject data, Consumer<JSONObject> onSuccess, Consumer<Throwable> onFailure) {
-        links.get(Module.APPLICATION).sendPayload("browser", data,
-                ThrowingConsumer.checked(j -> onSuccess.accept(j.getReply()), onFailure),
-                onFailure);
+        final Link link = links.get(Module.APPLICATION);
+        if (link != null) {
+            link.sendPayload("browser", data,
+                    ThrowingConsumer.checked(j -> onSuccess.accept(j.getReply()), onFailure),
+                    onFailure);
+        }
     }
 
     @Override
