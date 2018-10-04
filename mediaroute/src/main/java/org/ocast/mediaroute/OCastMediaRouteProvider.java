@@ -71,7 +71,7 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
         @Override
         public void onDeviceAdded(DiscoveredDevice dd) {
             MediaRouteDescriptor routeDescriptor = createMediaRouteDescriptor(dd);
-            mRoutes.put(dd.getFriendlyName(), routeDescriptor);
+            mRoutes.put(dd.getUuid(), routeDescriptor);
             publishRoutes();
         }
 
@@ -79,8 +79,8 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
         public void onDeviceRemoved(DiscoveredDevice dd) {
             for (Iterator<Map.Entry<String, MediaRouteDescriptor>> iterator = mRoutes.entrySet().iterator(); iterator.hasNext(); ) {
                 Map.Entry<String, MediaRouteDescriptor> entry = iterator.next();
-                String friendlyName = entry.getKey();
-                if (friendlyName.equals(dd.getFriendlyName())) {
+                String uuid = entry.getKey();
+                if (uuid.equals(dd.getUuid())) {
                     iterator.remove();
                 }
             }
