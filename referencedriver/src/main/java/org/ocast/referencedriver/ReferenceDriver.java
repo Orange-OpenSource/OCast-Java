@@ -64,7 +64,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     }
 
     @Override
-    public void onEvent(DriverEvent driverEvent) {
+    public void onEvent(Link link, DriverEvent driverEvent) {
         if ("browser".equals(driverEvent.getDomain()) || "settings".equals(driverEvent.getDomain())) {
             browserListener.onData(driverEvent.getData());
         }
@@ -135,7 +135,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     }
 
     private void connect(Module module, LinkProfile profile, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        final Link refLink = getLink(profile);
+        final Link refLink = new ReferenceLink(profile, this);
         refLink.connect(() -> {
             links.put(module, refLink);
             onSuccess.run();
@@ -207,14 +207,5 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
         Map<Module, Link> map = new EnumMap<>(links);
         Link link = map.remove(module);
         return !map.containsValue(link);
-    }
-
-    private Link getLink(LinkProfile profile) {
-        for(Link l: links.values()) {
-            if (l.getUrl().equals(profile.getApp2AppUrl())) {
-                return l;
-            }
-        }
-        return new ReferenceLink(profile, this);
     }
 }

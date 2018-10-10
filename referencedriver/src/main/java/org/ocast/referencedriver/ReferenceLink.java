@@ -207,7 +207,7 @@ public class ReferenceLink implements Link {
         private void handleEvent(Payload payload) {
             DriverEvent driverEvent = new EventPayload(payload.getSrc(), payload.getMessage());
             if (payload.getDst().equals(Payload.DST_BROADCAST) || payload.getSrc().equals("settings")) {
-                linkListener.onEvent(driverEvent);
+                linkListener.onEvent(ReferenceLink.this, driverEvent);
             }
         }
     }
