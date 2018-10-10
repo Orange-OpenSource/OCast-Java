@@ -24,6 +24,9 @@ import org.ocast.core.PublicSettings;
 import org.ocast.core.function.Consumer;
 import org.ocast.core.setting.UpdateStatus;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.ocast.core.CallbackThreadHandler.callback;
 
 public class PublicSettingsImpl implements PublicSettings {
@@ -35,6 +38,14 @@ public class PublicSettingsImpl implements PublicSettings {
 
     public PublicSettingsImpl(Link link) {
         this.link = link;
+    }
+
+    /**
+     * Returns a list of all the services handled by private settings
+     * @return All services
+     */
+    public static List<String> getAllServices() {
+        return Arrays.asList(SERVICE_SETTINGS_DEVICE);
     }
 
     @Override

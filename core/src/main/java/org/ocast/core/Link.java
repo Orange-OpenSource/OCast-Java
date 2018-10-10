@@ -68,8 +68,9 @@ public interface Link {
 
         /**
          * an unsollicited event has been reported on the Link (could be a playback status update)
+         * @param link
          * @param driverEvent
          */
-        void onEvent(DriverEvent driverEvent);
+        void onEvent(Link link, DriverEvent driverEvent);
     }
 }
