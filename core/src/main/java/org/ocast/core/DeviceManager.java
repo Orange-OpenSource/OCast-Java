@@ -26,7 +26,6 @@ import org.ocast.core.function.Consumer;
 import org.ocast.core.setting.BluetoothSecureSettingController;
 import org.ocast.core.setting.DeviceSecureSettingController;
 import org.ocast.core.setting.DeviceSettingController;
-import org.ocast.core.setting.InputSettingController;
 import org.ocast.core.setting.NetworkSecureSettingController;
 
 import java.io.Reader;
@@ -101,10 +100,6 @@ public class DeviceManager implements Driver.DriverListener {
 
     public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listener) {
         return driver.getDeviceSettingController(listener);
-    }
-
-    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listener) {
-        return driver.getInputSettingController(listener);
     }
 
     public BluetoothSecureSettingController getBluetoothSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listener) {

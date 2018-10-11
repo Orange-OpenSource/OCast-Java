@@ -21,7 +21,7 @@ apply plugin: 'com.android.application'
 
 android {
 
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.2'
     compileSdkVersion rootProject.ext.compile_sdk_version
     defaultConfig {
         applicationId "org.ocast.sample.mobile"

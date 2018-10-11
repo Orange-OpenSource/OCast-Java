@@ -36,10 +36,8 @@ import org.json.JSONObject;
 import org.ocast.core.setting.BluetoothSecureSettingController;
 import org.ocast.core.setting.DeviceSecureSettingController;
 import org.ocast.core.setting.DeviceSettingController;
-import org.ocast.core.setting.InputSettingController;
 import org.ocast.core.setting.NetworkSecureSettingController;
 import org.ocast.referencedriver.controller.DeviceSettingControllerImpl;
-import org.ocast.referencedriver.controller.InputSettingControllerImpl;
 import org.ocast.referencedriver.setting.PublicSettingsImpl;
 
 import java.util.EnumMap;
@@ -49,6 +47,9 @@ import java.util.Map;
  * Defines a driver implementing communications layers with a remote device
  */
 public class ReferenceDriver implements Driver, Link.LinkListener {
+
+    public static final String DOMAIN_BROWSER = "browser";
+    public static final String DOMAIN_SETTINGS = "settings";
 
     public static final String SEARCH_TARGET = "urn:cast-ocast-org:service:cast:1";
     private final Device device;
@@ -65,7 +66,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public void onEvent(Link link, DriverEvent driverEvent) {
-        if ("browser".equals(driverEvent.getDomain()) || "settings".equals(driverEvent.getDomain())) {
+        if (DOMAIN_BROWSER.equals(driverEvent.getDomain()) || DOMAIN_SETTINGS.equals(driverEvent.getDomain())) {
             browserListener.onData(driverEvent.getData());
         }
     }
@@ -102,9 +103,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
             case PUBLIC_SETTINGS:
             case PRIVATE_SETTINGS:
                 LinkProfile.Builder builder = new LinkProfile.Builder().setApp2AppUrl(
-                        String.format("wss://%s:4433/%s",
-                                device.getDialURI().getHost(),
-                                "/ocast")
+                        String.format("wss://%s:4433/%s", device.getDialURI().getHost(), "/ocast")
                 );
                 if(sslConfig != null) {
                     builder.setSslConfig(sslConfig);
@@ -157,7 +156,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     public void sendBrowserData(JSONObject data, Consumer<JSONObject> onSuccess, Consumer<Throwable> onFailure) {
         final Link link = links.get(Module.APPLICATION);
         if (link != null) {
-            link.sendPayload("browser", data,
+            link.sendPayload(DOMAIN_BROWSER, data,
                     ThrowingConsumer.checked(j -> onSuccess.accept(j.getReply()), onFailure),
                     onFailure);
         }
@@ -181,11 +180,6 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     @Override
     public DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listener) {
         return new DeviceSettingControllerImpl(listener);
-    }
-
-    @Override
-    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listener) {
-        return new InputSettingControllerImpl(listener);
     }
 
     @Override

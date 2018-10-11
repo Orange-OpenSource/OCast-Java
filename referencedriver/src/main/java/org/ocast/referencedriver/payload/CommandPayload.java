@@ -46,7 +46,6 @@ public class CommandPayload {
 
     public static JSONObject decodeMessage(JSONObject message) throws JSONException {
         JSONObject data = message.getJSONObject(KEY_DATA);
-        JSONObject params = data.getJSONObject(KEY_PARAMS);
-        return params;
+        return data.getJSONObject(KEY_PARAMS);
     }
 }
