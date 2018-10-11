@@ -30,6 +30,7 @@ import org.ocast.referencedriver.payload.CommandPayload;
 public class SendGamepadEvent extends CommandPayload {
 
     private static final String KEY_BUTTONS = "buttons";
+    private static final String KEY_NUM = "num";
     private static final String KEY_AXES = "axes";
     private static final String KEY_X = "x";
     private static final String KEY_Y = "y";
@@ -47,7 +48,7 @@ public class SendGamepadEvent extends CommandPayload {
             axes.put(jAxe);
         }
         json.put(KEY_AXES, axes);
-        json.put(KEY_BUTTONS, gamepadEvent.getButtons());
+        json.put(KEY_NUM, gamepadEvent.getNum());
 
         return encodeMessage(PublicSettingsImpl.SERVICE_SETTINGS_DEVICE, "gamepadEvent", json);
     }

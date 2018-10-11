@@ -61,7 +61,7 @@ public interface PublicSettings {
 
     /**
      * Send Virtual gamepad event
-     * @param gamepadEvent the game event
+     * @param gamepadEvent the gamepad event
      * @param onSuccess to be called on success
      * @param onFailure to be called when an error occured
      */

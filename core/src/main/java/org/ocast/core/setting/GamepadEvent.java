@@ -24,7 +24,7 @@ import java.util.List;
 public class GamepadEvent {
 
     private final List<AxeInfo> axes;
-    private final int buttons;
+    private final int num;
 
     /**
      * Virtual gamepad event, matching the
@@ -34,18 +34,18 @@ public class GamepadEvent {
      * (Less than 100ms between 2 clicks on the same button number).
      *
      * @param axes AxeInfo
-     * @param buttons bitmask representation of each button
+     * @param num gamepad number
      */
-    public GamepadEvent(List<AxeInfo> axes, int buttons) {
+    public GamepadEvent(List<AxeInfo> axes, int num) {
         this.axes = axes;
-        this.buttons = buttons;
+        this.num = num;
     }
 
     public List<AxeInfo> getAxes() {
         return axes;
     }
 
-    public int getButtons() {
-        return buttons;
+    public int getNum() {
+        return num;
     }
 }
