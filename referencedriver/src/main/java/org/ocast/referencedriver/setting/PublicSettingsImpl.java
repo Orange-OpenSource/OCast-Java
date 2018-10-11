@@ -22,6 +22,9 @@ package org.ocast.referencedriver.setting;
 import org.ocast.core.Link;
 import org.ocast.core.PublicSettings;
 import org.ocast.core.function.Consumer;
+import org.ocast.core.setting.GamepadEvent;
+import org.ocast.core.setting.KeyPressed;
+import org.ocast.core.setting.MouseEvent;
 import org.ocast.core.setting.UpdateStatus;
 
 import static org.ocast.core.CallbackThreadHandler.callback;
@@ -48,6 +51,27 @@ public class PublicSettingsImpl implements PublicSettings {
     public void getDeviceID(Consumer<String> onSuccess, Consumer<Throwable> onFailure) {
         link.sendPayload(DOMAIN_SETTINGS, GetDeviceID.encode(),
                 callback(r -> onSuccess.accept(GetDeviceID.decode(r))),
+                callback(onFailure));
+    }
+
+    @Override
+    public void sendKeyPressed(KeyPressed keyPressed, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure) {
+        link.sendPayload(DOMAIN_SETTINGS, SendKeyPressed.encode(keyPressed),
+                callback(r -> onSuccess.accept(SendKeyPressed.decode(r))),
+                callback(onFailure));
+    }
+
+    @Override
+    public void sendMouseEvent(MouseEvent mouseEvent, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure) {
+        link.sendPayload(DOMAIN_SETTINGS, SendMouseEvents.encode(mouseEvent),
+                callback(r -> onSuccess.accept(SendMouseEvents.decode(r))),
+                callback(onFailure));
+    }
+
+    @Override
+    public void sendGamepadEvent(GamepadEvent gamepadEvent, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure) {
+        link.sendPayload(DOMAIN_SETTINGS, SendGamepadEvent.encode(gamepadEvent),
+                callback(r -> onSuccess.accept(SendGamepadEvent.decode(r))),
                 callback(onFailure));
     }
 }
