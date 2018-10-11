@@ -28,6 +28,7 @@ import org.json.JSONObject;
  */
 public class EventPayload implements DriverEvent {
     private String domain;
+    private static final String KEY_SERVICE = "service";
 
     public EventPayload(String domain, JSONObject message) {
         this.domain = domain;
@@ -44,5 +45,9 @@ public class EventPayload implements DriverEvent {
     @Override
     public JSONObject getData() {
         return message;
+    }
+
+    public String getService() {
+        return message.getString(KEY_SERVICE);
     }
 }
