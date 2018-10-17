@@ -20,9 +20,11 @@
 package org.ocast.core;
 
 import org.ocast.core.function.Consumer;
-import org.ocast.core.setting.*;
-
-import java.util.List;
+import org.ocast.core.setting.DeviceId;
+import org.ocast.core.setting.GamepadEvent;
+import org.ocast.core.setting.KeyPressed;
+import org.ocast.core.setting.MouseEvent;
+import org.ocast.core.setting.UpdateStatus;
 
 /**
  * Interface PublicSettings is implemented by driver libraries to provide access to public settings configuration
@@ -41,7 +43,7 @@ public interface PublicSettings {
      * @param onSuccess to be called on success
      * @param onFailure to be called when an error occured
      */
-    void getDeviceID(Consumer<String> onSuccess, Consumer<Throwable> onFailure);
+    void getDeviceID(Consumer<DeviceId> onSuccess, Consumer<Throwable> onFailure);
 
     /**
      * Send Virtual key event
