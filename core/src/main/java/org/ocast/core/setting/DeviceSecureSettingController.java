@@ -34,6 +34,8 @@ public class DeviceSecureSettingController extends DataStream {
     public interface DeviceSecureSettingControllerListener {
 
         void powerAlert();
+
+        void nameChanged(String name);
     }
 
     @Override
