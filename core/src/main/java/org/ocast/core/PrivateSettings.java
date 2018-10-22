@@ -66,7 +66,7 @@ public interface PrivateSettings {
 
     void checkStick(int op, Consumer<CheckStickReply> onSuccess, Consumer<Throwable> onFailure);
 
-    void checkHDMI(Consumer<HdmiInfo> onSuccess, Consumer<Throwable> onFailure);
+    void checkHdmi(Consumer<HdmiInfo> onSuccess, Consumer<Throwable> onFailure);
 
     void getDebugData(Consumer<DebugData> onSuccess, Consumer<Throwable> onFailure);
 
