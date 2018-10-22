@@ -22,18 +22,22 @@ package org.ocast.referencedriver.setting;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ocast.core.Reply;
+import org.ocast.core.setting.DeviceId;
 import org.ocast.referencedriver.payload.CommandPayload;
 
 public class GetDeviceID extends CommandPayload {
 
+    private static final String KEY_CODE = "code";
     private static final String KEY_ID = "id";
 
     public static JSONObject encode() {
         return encodeMessage(PublicSettingsImpl.SERVICE_SETTINGS_DEVICE, "getDeviceID", new JSONObject());
     }
 
-    public static String decode(Reply data) throws JSONException {
+    public static DeviceId decode(Reply data) throws JSONException {
         JSONObject json = decodeMessage(data.getReply());
-        return json.getString(KEY_ID);
+        int code = json.getInt(KEY_CODE);
+        String id = json.getString(KEY_ID);
+        return new DeviceId(code, id);
     }
 }

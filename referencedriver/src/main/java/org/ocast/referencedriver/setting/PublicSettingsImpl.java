@@ -22,6 +22,7 @@ package org.ocast.referencedriver.setting;
 import org.ocast.core.Link;
 import org.ocast.core.PublicSettings;
 import org.ocast.core.function.Consumer;
+import org.ocast.core.setting.DeviceId;
 import org.ocast.core.setting.GamepadEvent;
 import org.ocast.core.setting.KeyPressed;
 import org.ocast.core.setting.MouseEvent;
@@ -36,6 +37,7 @@ public class PublicSettingsImpl implements PublicSettings {
 
     private static final String DOMAIN_SETTINGS = "settings";
     static final String SERVICE_SETTINGS_DEVICE = "org.ocast.settings.device";
+    static final String SERVICE_SETTINGS_INPUT = "org.ocast.settings.input";
 
     private final Link link;
 
@@ -48,7 +50,7 @@ public class PublicSettingsImpl implements PublicSettings {
      * @return All services
      */
     public static List<String> getAllServices() {
-        return Arrays.asList(SERVICE_SETTINGS_DEVICE);
+        return Arrays.asList(SERVICE_SETTINGS_DEVICE, SERVICE_SETTINGS_INPUT);
     }
 
     @Override
@@ -59,7 +61,7 @@ public class PublicSettingsImpl implements PublicSettings {
     }
 
     @Override
-    public void getDeviceID(Consumer<String> onSuccess, Consumer<Throwable> onFailure) {
+    public void getDeviceID(Consumer<DeviceId> onSuccess, Consumer<Throwable> onFailure) {
         link.sendPayload(DOMAIN_SETTINGS, GetDeviceID.encode(),
                 callback(r -> onSuccess.accept(GetDeviceID.decode(r))),
                 callback(onFailure));

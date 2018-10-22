@@ -22,12 +22,16 @@ package org.ocast.core;
 import org.ocast.core.function.Consumer;
 import org.ocast.core.setting.APListReply;
 import org.ocast.core.setting.BtDeviceList;
+import org.ocast.core.setting.CheckStickReply;
+import org.ocast.core.setting.DebugData;
 import org.ocast.core.setting.DeviceInfo;
-import org.ocast.core.setting.PinCode;
-import org.ocast.core.setting.VersionInfo;
+import org.ocast.core.setting.HdmiInfo;
 import org.ocast.core.setting.NetworkInfo;
+import org.ocast.core.setting.PinCode;
 import org.ocast.core.setting.SendCommandReply;
+import org.ocast.core.setting.VersionInfo;
 import org.ocast.core.setting.WifiInfo;
+
 import java.util.List;
 
 /**
@@ -60,7 +64,11 @@ public interface PrivateSettings {
 
     void reset(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 
-    void checkStick(Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+    void checkStick(int op, Consumer<CheckStickReply> onSuccess, Consumer<Throwable> onFailure);
+
+    void checkHDMI(Consumer<HdmiInfo> onSuccess, Consumer<Throwable> onFailure);
+
+    void getDebugData(Consumer<DebugData> onSuccess, Consumer<Throwable> onFailure);
 
     void startDiscovery(List<String> profile, int timeout, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 

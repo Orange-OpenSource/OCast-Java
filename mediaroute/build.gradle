@@ -22,7 +22,7 @@ description = "Mediaroute module for the OCast SDK. Provides integration with th
 apply plugin: 'com.android.library'
 
 android {
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
     compileSdkVersion rootProject.ext.compile_sdk_version
 
     defaultConfig {
