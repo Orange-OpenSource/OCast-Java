@@ -44,7 +44,7 @@ public class SendKeyPressed extends CommandPayload {
         json.put(KEY_SHIFT, keyPressed.isShift());
         json.put(KEY_META, keyPressed.isMeta());
         json.put(KEY_LOCATION, keyPressed.getLocation());
-        return encodeMessage(PublicSettingsImpl.SERVICE_SETTINGS_DEVICE, "keyPressed", json);
+        return encodeMessage(PublicSettingsImpl.SERVICE_SETTINGS_INPUT, "keyPressed", json);
     }
 
     public static Integer decode(Reply data) throws JSONException {

@@ -37,7 +37,7 @@ public class SendMouseEvents extends CommandPayload {
         json.put(KEY_X, mouseEvent.getX());
         json.put(KEY_Y, mouseEvent.getY());
         json.put(KEY_BUTTONS, mouseEvent.getButtons());
-        return encodeMessage(PublicSettingsImpl.SERVICE_SETTINGS_DEVICE, "mouseEvent", json);
+        return encodeMessage(PublicSettingsImpl.SERVICE_SETTINGS_INPUT, "mouseEvent", json);
     }
 
     public static Integer decode(Reply data) throws JSONException {
