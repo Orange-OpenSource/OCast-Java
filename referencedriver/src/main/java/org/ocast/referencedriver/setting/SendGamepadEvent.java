@@ -50,7 +50,7 @@ public class SendGamepadEvent extends CommandPayload {
         json.put(KEY_AXES, axes);
         json.put(KEY_NUM, gamepadEvent.getNum());
 
-        return encodeMessage(PublicSettingsImpl.SERVICE_SETTINGS_DEVICE, "gamepadEvent", json);
+        return encodeMessage(PublicSettingsImpl.SERVICE_SETTINGS_INPUT, "gamepadEvent", json);
     }
 
     public static Integer decode(Reply data) throws JSONException {
