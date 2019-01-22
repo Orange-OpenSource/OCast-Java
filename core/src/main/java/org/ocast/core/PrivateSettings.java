@@ -79,4 +79,6 @@ public interface PrivateSettings {
     void sendCommand(String cmd, String mac, Consumer<SendCommandReply> onSuccess, Consumer<Throwable> onFailure);
 
     void sendPinCode(String code, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
+    void filterServices(Boolean enable, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 }
