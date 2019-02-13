@@ -126,8 +126,16 @@ public class ReferenceLink implements Link {
             return sent;
         } catch (JSONException e) {
             callbacks.get(sequenceNumber).failure.accept(e);
+            callbacks.remove(sequenceNumber);
         }
         return false;
+    }
+
+    private void consumeAllCallbacks(Throwable t) {
+        for (CallbackRecord callback : callbacks.values()) {
+            callback.failure.accept(t);
+        }
+        callbacks.clear();
     }
 
     private final class InternalWebSocketListener extends okhttp3.WebSocketListener {
@@ -157,6 +165,7 @@ public class ReferenceLink implements Link {
                     onDisconnected.run();
                 }
             }
+            consumeAllCallbacks(new Exception(reason));
         }
 
         @Override
@@ -180,6 +189,7 @@ public class ReferenceLink implements Link {
                 Logger.getLogger(TAG).log(Level.SEVERE, "failure: ", t);
                 linkListener.onFailure(t);
             }
+            consumeAllCallbacks(t);
         }
 
         private void handleReply(Payload payload) {
@@ -202,6 +212,8 @@ public class ReferenceLink implements Link {
             } else {
                 record.failure.accept(new DriverException("error "));
             }
+
+            callbacks.remove(payload.getId());
         }
 
         private void handleEvent(Payload payload) {
