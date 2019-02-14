@@ -165,10 +165,12 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
     @Override
     public void onConnectionStateChanged(boolean isConnected) {
         if(isConnected) {
+            // onConnectionStateChanged(false) is not necessarily called when changing WiFi network
+            // This is why stopDiscovery is called here
+            // Otherwise the list of devices is not cleared
+            stopDiscovery();
             startDiscovery(mCurrentRequest);
-            publishRoutes();
         } else {
-            setDescriptor(null);
             stopDiscovery();
         }
     }
