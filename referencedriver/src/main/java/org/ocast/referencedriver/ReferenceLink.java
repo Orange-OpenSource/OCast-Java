@@ -131,13 +131,6 @@ public class ReferenceLink implements Link {
         return false;
     }
 
-    private void consumeAllCallbacks(Throwable t) {
-        for (CallbackRecord callback : callbacks.values()) {
-            callback.failure.accept(t);
-        }
-        callbacks.clear();
-    }
-
     private final class InternalWebSocketListener extends okhttp3.WebSocketListener {
         Runnable onConnectSuccess;
         Consumer<Throwable> onConnectFailure;
@@ -165,7 +158,13 @@ public class ReferenceLink implements Link {
                     onDisconnected.run();
                 }
             }
-            consumeAllCallbacks(new Exception(reason));
+            // Code 1000 is normal websocket closure
+            if (code != 1000) {
+                for (CallbackRecord callback : callbacks.values()) {
+                    callback.failure.accept(new Exception(reason));
+                }
+            }
+            callbacks.clear();
         }
 
         @Override
@@ -189,7 +188,10 @@ public class ReferenceLink implements Link {
                 Logger.getLogger(TAG).log(Level.SEVERE, "failure: ", t);
                 linkListener.onFailure(t);
             }
-            consumeAllCallbacks(t);
+            for (CallbackRecord callback : callbacks.values()) {
+                callback.failure.accept(t);
+            }
+            callbacks.clear();
         }
 
         private void handleReply(Payload payload) {
