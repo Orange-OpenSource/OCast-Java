@@ -158,12 +158,6 @@ public class ReferenceLink implements Link {
                     onDisconnected.run();
                 }
             }
-            // Code 1000 is normal websocket closure
-            if (code != 1000) {
-                for (CallbackRecord callback : callbacks.values()) {
-                    callback.failure.accept(new Exception(reason));
-                }
-            }
             callbacks.clear();
         }
 
@@ -187,9 +181,6 @@ public class ReferenceLink implements Link {
             if (state == State.CONNECTED || state == State.CONNECTING) {
                 Logger.getLogger(TAG).log(Level.SEVERE, "failure: ", t);
                 linkListener.onFailure(t);
-            }
-            for (CallbackRecord callback : callbacks.values()) {
-                callback.failure.accept(t);
             }
             callbacks.clear();
         }
