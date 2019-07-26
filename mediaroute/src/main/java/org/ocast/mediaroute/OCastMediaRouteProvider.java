@@ -132,22 +132,29 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
 
     @Override
     public void onDiscoveryRequestChanged(@Nullable MediaRouteDiscoveryRequest request) {
-        if(request != null) {
-            if(mCurrentRequest == null) {
-                mContext.registerReceiver(mWifiMonitorReceiver, mWifiMonitorIntentFilter);
+        if (request != null) {
+            if (mCurrentRequest == null) {
+                try {
+                    mContext.registerReceiver(mWifiMonitorReceiver, mWifiMonitorIntentFilter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 mRoutes.clear();
                 publishRoutes();
             }
             Log.d(TAG, "onDiscoveryRequest "+request.toString());
             NetworkInfo activeNetwork = mConnectivityManager.getActiveNetworkInfo();
-            boolean isConnected = activeNetwork != null &&
-                    activeNetwork.isConnectedOrConnecting();
+            boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
             boolean isWiFi = isConnected && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
-            if(isWiFi || isEmulator()) {
+            if (isWiFi || isEmulator()) {
                 startDiscovery(request);
             }
         } else {
-            mContext.unregisterReceiver(mWifiMonitorReceiver);
+            try {
+                mContext.unregisterReceiver(mWifiMonitorReceiver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             stopDiscovery();
         }
         mCurrentRequest = request;
