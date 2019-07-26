@@ -31,7 +31,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -180,10 +179,9 @@ public class SSDPManager {
      * @param reliability timeout/retries after we consider no device responded
      */
     public void discoverServices(DiscoveryReliability reliability) {
+        stopDiscovery();
         Logger.getLogger(TAG).log(Level.INFO, "Starting discovery...");
         currentScan = 0;
-        knownDevices.clear();
-        latestResponseForLocation.clear();
         Thread discoveryThread = new Thread(getPeriodicDiscoveryTask(reliability));
         discoveryThread.start();
     }
@@ -209,6 +207,8 @@ public class SSDPManager {
         Logger.getLogger(TAG).log(Level.INFO, "Stopping discovery...");
         if(socket != null) {
             socket.close();
+            // We cannot use SocketException to clear known devices because it will be triggered a few seconds later
+            pruneDevices(IMMEDIATE);
         }
     }
 

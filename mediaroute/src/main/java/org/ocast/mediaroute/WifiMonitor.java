@@ -49,20 +49,21 @@ public class WifiMonitor extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(!isInitialStickyBroadcast() && intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
-            NetworkInfo networkInfo =
-                    intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-            if(networkInfo.isConnected()) {
-                if(!mIsConnected) {
-                    Log.d(TAG, "Wifi is connected: " + String.valueOf(networkInfo));
-                    mListener.onConnectionStateChanged(true);
-                    mIsConnected = true;
-                }
-            } else {
-                if(mIsConnected) {
-                    Log.d(TAG, "Wifi is disconnected: " + String.valueOf(networkInfo));
-                    mIsConnected = false;
-                    mListener.onConnectionStateChanged(false);
+        if (!isInitialStickyBroadcast() && intent != null && intent.getAction() != null && intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
+            NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+            if (networkInfo != null) {
+                if (networkInfo.isConnected()) {
+                    if (!mIsConnected) {
+                        Log.d(TAG, "Wifi is connected: " + String.valueOf(networkInfo));
+                        mListener.onConnectionStateChanged(true);
+                        mIsConnected = true;
+                    }
+                } else {
+                    if (mIsConnected) {
+                        Log.d(TAG, "Wifi is disconnected: " + String.valueOf(networkInfo));
+                        mIsConnected = false;
+                        mListener.onConnectionStateChanged(false);
+                    }
                 }
             }
         }

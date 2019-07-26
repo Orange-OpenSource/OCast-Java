@@ -1,7 +1,7 @@
 /*
  * Software Name : OCast SDK
  *
- *  Copyright (C) 2017 Orange
+ *  Copyright (C) 2018 Orange
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -22,22 +22,26 @@ package org.ocast.referencedriver.setting;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ocast.core.Reply;
-import org.ocast.core.setting.DeviceId;
+import org.ocast.core.setting.MouseEvent;
 import org.ocast.referencedriver.payload.CommandPayload;
 
-public class GetDeviceID extends CommandPayload {
+public class SendMouseEvents extends CommandPayload {
 
+    private static final String KEY_BUTTONS = "buttons";
+    private static final String KEY_X = "x";
+    private static final String KEY_Y = "y";
     private static final String KEY_CODE = "code";
-    private static final String KEY_ID = "id";
 
-    public static JSONObject encode() {
-        return encodeMessage(PublicSettingsImpl.SERVICE_SETTINGS_DEVICE, "getDeviceID", new JSONObject());
+    public static JSONObject encode(MouseEvent mouseEvent) {
+        JSONObject json = new JSONObject();
+        json.put(KEY_X, mouseEvent.getX());
+        json.put(KEY_Y, mouseEvent.getY());
+        json.put(KEY_BUTTONS, mouseEvent.getButtons());
+        return encodeMessage(PublicSettingsImpl.SERVICE_SETTINGS_INPUT, "mouseEvent", json);
     }
 
-    public static DeviceId decode(Reply data) throws JSONException {
+    public static Integer decode(Reply data) throws JSONException {
         JSONObject json = decodeMessage(data.getReply());
-        int code = json.getInt(KEY_CODE);
-        String id = json.getString(KEY_ID);
-        return new DeviceId(code, id);
+        return json.getInt(KEY_CODE);
     }
 }

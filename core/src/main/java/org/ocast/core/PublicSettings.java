@@ -20,11 +20,14 @@
 package org.ocast.core;
 
 import org.ocast.core.function.Consumer;
-import org.ocast.core.setting.*;
+import org.ocast.core.setting.DeviceId;
+import org.ocast.core.setting.GamepadEvent;
+import org.ocast.core.setting.KeyPressed;
+import org.ocast.core.setting.MouseEvent;
+import org.ocast.core.setting.UpdateStatus;
 
 /**
- * Interface PublicSettings is implemented by driver libraries to provide access to public
- * settings configuration
+ * Interface PublicSettings is implemented by driver libraries to provide access to public settings configuration
  */
 public interface PublicSettings {
 
@@ -40,5 +43,29 @@ public interface PublicSettings {
      * @param onSuccess to be called on success
      * @param onFailure to be called when an error occured
      */
-    void getDeviceID(Consumer<String> onSuccess, Consumer<Throwable> onFailure);
+    void getDeviceID(Consumer<DeviceId> onSuccess, Consumer<Throwable> onFailure);
+
+    /**
+     * Send Virtual key event
+     * @param keyPressed the key pressed
+     * @param onSuccess to be called on success
+     * @param onFailure to be called when an error occured
+     */
+    void sendKeyPressed(KeyPressed keyPressed, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
+    /**
+     * Send Virtual mouse click & movement event
+     * @param mouseEvent the mouse event
+     * @param onSuccess to be called on success
+     * @param onFailure to be called when an error occured
+     */
+    void sendMouseEvent(MouseEvent mouseEvent, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
+
+    /**
+     * Send Virtual gamepad event
+     * @param gamepadEvent the gamepad event
+     * @param onSuccess to be called on success
+     * @param onFailure to be called when an error occured
+     */
+    void sendGamepadEvent(GamepadEvent gamepadEvent, Consumer<Integer> onSuccess, Consumer<Throwable> onFailure);
 }

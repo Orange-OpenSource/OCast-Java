@@ -71,7 +71,7 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
         @Override
         public void onDeviceAdded(DiscoveredDevice dd) {
             MediaRouteDescriptor routeDescriptor = createMediaRouteDescriptor(dd);
-            mRoutes.put(dd.getFriendlyName(), routeDescriptor);
+            mRoutes.put(dd.getUuid(), routeDescriptor);
             publishRoutes();
         }
 
@@ -79,8 +79,8 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
         public void onDeviceRemoved(DiscoveredDevice dd) {
             for (Iterator<Map.Entry<String, MediaRouteDescriptor>> iterator = mRoutes.entrySet().iterator(); iterator.hasNext(); ) {
                 Map.Entry<String, MediaRouteDescriptor> entry = iterator.next();
-                String friendlyName = entry.getKey();
-                if (friendlyName.equals(dd.getFriendlyName())) {
+                String uuid = entry.getKey();
+                if (uuid.equals(dd.getUuid())) {
                     iterator.remove();
                 }
             }
@@ -132,22 +132,29 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
 
     @Override
     public void onDiscoveryRequestChanged(@Nullable MediaRouteDiscoveryRequest request) {
-        if(request != null) {
-            if(mCurrentRequest == null) {
-                mContext.registerReceiver(mWifiMonitorReceiver, mWifiMonitorIntentFilter);
+        if (request != null) {
+            if (mCurrentRequest == null) {
+                try {
+                    mContext.registerReceiver(mWifiMonitorReceiver, mWifiMonitorIntentFilter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 mRoutes.clear();
                 publishRoutes();
             }
             Log.d(TAG, "onDiscoveryRequest "+request.toString());
             NetworkInfo activeNetwork = mConnectivityManager.getActiveNetworkInfo();
-            boolean isConnected = activeNetwork != null &&
-                    activeNetwork.isConnectedOrConnecting();
+            boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
             boolean isWiFi = isConnected && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
-            if(isWiFi || isEmulator()) {
+            if (isWiFi || isEmulator()) {
                 startDiscovery(request);
             }
         } else {
-            mContext.unregisterReceiver(mWifiMonitorReceiver);
+            try {
+                mContext.unregisterReceiver(mWifiMonitorReceiver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             stopDiscovery();
         }
         mCurrentRequest = request;
@@ -165,10 +172,12 @@ public class OCastMediaRouteProvider extends MediaRouteProvider implements WifiM
     @Override
     public void onConnectionStateChanged(boolean isConnected) {
         if(isConnected) {
+            // onConnectionStateChanged(false) is not necessarily called when changing WiFi network
+            // This is why stopDiscovery is called here
+            // Otherwise the list of devices is not cleared
+            stopDiscovery();
             startDiscovery(mCurrentRequest);
-            publishRoutes();
         } else {
-            setDescriptor(null);
             stopDiscovery();
         }
     }

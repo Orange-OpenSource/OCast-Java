@@ -126,6 +126,7 @@ public class ReferenceLink implements Link {
             return sent;
         } catch (JSONException e) {
             callbacks.get(sequenceNumber).failure.accept(e);
+            callbacks.remove(sequenceNumber);
         }
         return false;
     }
@@ -157,6 +158,7 @@ public class ReferenceLink implements Link {
                     onDisconnected.run();
                 }
             }
+            callbacks.clear();
         }
 
         @Override
@@ -180,6 +182,7 @@ public class ReferenceLink implements Link {
                 Logger.getLogger(TAG).log(Level.SEVERE, "failure: ", t);
                 linkListener.onFailure(t);
             }
+            callbacks.clear();
         }
 
         private void handleReply(Payload payload) {
@@ -202,12 +205,14 @@ public class ReferenceLink implements Link {
             } else {
                 record.failure.accept(new DriverException("error "));
             }
+
+            callbacks.remove(payload.getId());
         }
 
         private void handleEvent(Payload payload) {
             DriverEvent driverEvent = new EventPayload(payload.getSrc(), payload.getMessage());
             if (payload.getDst().equals(Payload.DST_BROADCAST) || payload.getSrc().equals("settings")) {
-                linkListener.onEvent(driverEvent);
+                linkListener.onEvent(ReferenceLink.this, driverEvent);
             }
         }
     }

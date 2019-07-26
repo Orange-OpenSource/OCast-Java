@@ -1,7 +1,7 @@
 /*
  * Software Name : OCast SDK
  *
- *  Copyright (C) 2018 Orange
+ *  Copyright (C) 2017 Orange
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,26 +19,20 @@
 
 package org.ocast.core.setting;
 
-import org.json.JSONObject;
-import org.ocast.core.DataStream;
+public class CheckStickReply {
+    private final int code;
+    private final int reason;
 
-public class DeviceSecureSettingController extends DataStream {
-
-    protected final DeviceSecureSettingControllerListener listener;
-
-    public DeviceSecureSettingController(String serviceName, DeviceSecureSettingController.DeviceSecureSettingControllerListener listener) {
-        super(serviceName);
-        this.listener = listener;
+    public CheckStickReply(int code, int reason) {
+        this.code = code;
+        this.reason = reason;
     }
 
-    public interface DeviceSecureSettingControllerListener {
-
-        void powerAlert();
-
-        void nameChanged(String name);
+    public int getCode() {
+        return code;
     }
 
-    @Override
-    public void onMessage(JSONObject message) {
+    public int getReason() {
+        return reason;
     }
 }

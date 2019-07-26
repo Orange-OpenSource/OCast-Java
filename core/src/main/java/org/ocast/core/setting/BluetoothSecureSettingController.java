@@ -43,6 +43,8 @@ public class BluetoothSecureSettingController extends DataStream {
         void onMouseMoved(int x, int y);
 
         void onMouseClicked(String key);
+
+        void onBtAgent(String mac, String type, String value);
     }
 
     @Override

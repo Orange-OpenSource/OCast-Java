@@ -36,10 +36,8 @@ import org.json.JSONObject;
 import org.ocast.core.setting.BluetoothSecureSettingController;
 import org.ocast.core.setting.DeviceSecureSettingController;
 import org.ocast.core.setting.DeviceSettingController;
-import org.ocast.core.setting.InputSettingController;
 import org.ocast.core.setting.NetworkSecureSettingController;
 import org.ocast.referencedriver.controller.DeviceSettingControllerImpl;
-import org.ocast.referencedriver.controller.InputSettingControllerImpl;
 import org.ocast.referencedriver.setting.PublicSettingsImpl;
 
 import java.util.EnumMap;
@@ -49,6 +47,9 @@ import java.util.Map;
  * Defines a driver implementing communications layers with a remote device
  */
 public class ReferenceDriver implements Driver, Link.LinkListener {
+
+    public static final String DOMAIN_BROWSER = "browser";
+    public static final String DOMAIN_SETTINGS = "settings";
 
     public static final String SEARCH_TARGET = "urn:cast-ocast-org:service:cast:1";
     private final Device device;
@@ -64,8 +65,8 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     }
 
     @Override
-    public void onEvent(DriverEvent driverEvent) {
-        if ("browser".equals(driverEvent.getDomain()) || "settings".equals(driverEvent.getDomain())) {
+    public void onEvent(Link link, DriverEvent driverEvent) {
+        if (DOMAIN_BROWSER.equals(driverEvent.getDomain()) || DOMAIN_SETTINGS.equals(driverEvent.getDomain())) {
             browserListener.onData(driverEvent.getData());
         }
     }
@@ -102,9 +103,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
             case PUBLIC_SETTINGS:
             case PRIVATE_SETTINGS:
                 LinkProfile.Builder builder = new LinkProfile.Builder().setApp2AppUrl(
-                        String.format("wss://%s:4433/%s",
-                                device.getDialURI().getHost(),
-                                "/ocast")
+                        String.format("wss://%s:4433/%s", device.getDialURI().getHost(), "/ocast")
                 );
                 if(sslConfig != null) {
                     builder.setSslConfig(sslConfig);
@@ -135,7 +134,7 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     }
 
     private void connect(Module module, LinkProfile profile, Runnable onSuccess, Consumer<Throwable> onFailure) {
-        final Link refLink = getLink(profile);
+        final Link refLink = new ReferenceLink(profile, this);
         refLink.connect(() -> {
             links.put(module, refLink);
             onSuccess.run();
@@ -145,8 +144,8 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     @Override
     public void disconnect(Module module, Runnable onSuccess) {
         final Link link = links.get(module);
-        if(isLinkRemovable(module)) {
-            link.disconnect( () -> {
+        if (link != null && isLinkRemovable(module)) {
+            link.disconnect(() -> {
                 links.remove(module);
                 onSuccess.run();
             });
@@ -155,9 +154,12 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
 
     @Override
     public void sendBrowserData(JSONObject data, Consumer<JSONObject> onSuccess, Consumer<Throwable> onFailure) {
-        links.get(Module.APPLICATION).sendPayload("browser", data,
-                ThrowingConsumer.checked(j -> onSuccess.accept(j.getReply()), onFailure),
-                onFailure);
+        final Link link = links.get(Module.APPLICATION);
+        if (link != null) {
+            link.sendPayload(DOMAIN_BROWSER, data,
+                    ThrowingConsumer.checked(j -> onSuccess.accept(j.getReply()), onFailure),
+                    onFailure);
+        }
     }
 
     @Override
@@ -181,11 +183,6 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
     }
 
     @Override
-    public InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listener) {
-        return new InputSettingControllerImpl(listener);
-    }
-
-    @Override
     public BluetoothSecureSettingController getBluetoothSecureSettingController(BluetoothSecureSettingController.BluetoothSecureSettingControllerListener listener) {
         throw new RuntimeException("not implemented");
     }
@@ -204,14 +201,5 @@ public class ReferenceDriver implements Driver, Link.LinkListener {
         Map<Module, Link> map = new EnumMap<>(links);
         Link link = map.remove(module);
         return !map.containsValue(link);
-    }
-
-    private Link getLink(LinkProfile profile) {
-        for(Link l: links.values()) {
-            if (l.getUrl().equals(profile.getApp2AppUrl())) {
-                return l;
-            }
-        }
-        return new ReferenceLink(profile, this);
     }
 }

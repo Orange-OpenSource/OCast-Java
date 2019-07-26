@@ -26,7 +26,6 @@ import org.json.JSONObject;
 import org.ocast.core.setting.BluetoothSecureSettingController;
 import org.ocast.core.setting.DeviceSecureSettingController;
 import org.ocast.core.setting.DeviceSettingController;
-import org.ocast.core.setting.InputSettingController;
 import org.ocast.core.setting.NetworkSecureSettingController;
 
 /**
@@ -97,8 +96,6 @@ public interface Driver {
     PublicSettings getPublicSettings();
 
     DeviceSettingController getDeviceSettingController(DeviceSettingController.DeviceSettingControllerListener listener);
-
-    InputSettingController getInputSettingController(InputSettingController.InputSettingControllerListener listener);
 
     PrivateSettings getPrivateSettings();
 
